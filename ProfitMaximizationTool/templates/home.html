@@ -1,13 +1,16 @@
 {% extends 'base.html' %}
 
-{% block title %}Home{% endblock %}
+{% block title %}Dashboard{% endblock %}
 
 {% block content %}
 {% if user.is_authenticated %}
-  Hi {{ user.username }}!
+  <p>Hi {{ user.username }}!</p>
+  <IMG SRC="https://c.tenor.com/JsoKzCftdHUAAAAd/jam-cat.gif">
   <p><a href="{% url 'logout' %}">Log Out</a></p>
 {% else %}
   <p>You are not logged in</p>
+  <p><IMG src="https://c.tenor.com/wQ6pV2gq5N8AAAAC/sad-cat.gif"></p>
   <a href="{% url 'login' %}">Log In</a>
 {% endif %}
 {% endblock %}
+
