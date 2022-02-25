@@ -1,10 +1,11 @@
+from distutils import core
 from django.shortcuts import render, redirect
 from django.http import HttpResponse, HttpResponseRedirect
 from django.contrib.auth import login, logout, authenticate
 from django.contrib.auth.decorators import login_required
 from profitmaximizer.models import BusinessOwner
 
-
+from django.core.exceptions import ObjectDoesNotExist
 def index(request):
 	if request.method == "POST":
 		# sign up
@@ -14,10 +15,16 @@ def index(request):
 				password = request.POST['psw']
 				business_name = request.POST['businessname']
 
-				business_owner = BusinessOwner.objects.create_user(username=username, email=None, password=password)
-				business_owner.business_name = business_name
-				business_owner.save()
-				login(request, business_owner)
+				try:
+					business_owner = BusinessOwner.objects.get(username = username)
+					return render(request, "index.html")
+
+				except ObjectDoesNotExist:
+					business_owner = BusinessOwner.objects.create_user(username=username, email=None, password=password)
+					business_owner.business_name = business_name
+					business_owner.save()
+					login(request, business_owner)
+				
 			else:
 				return render(request, "index.html")
 
