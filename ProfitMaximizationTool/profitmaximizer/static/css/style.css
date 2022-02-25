@@ -1,0 +1,15 @@
+body {
+    background-color: #222629;
+    color: #ffffff;
+}
+
+#title {
+    color: #86c232;
+    font-family: 'Merriweather', serif;
+    text-align: center;
+}
+
+#p1 {
+    font-family: 'Open Sans', sans-serif;
+    text-align: center;
+}
