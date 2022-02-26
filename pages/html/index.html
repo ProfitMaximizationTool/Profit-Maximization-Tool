@@ -16,63 +16,63 @@
 
     <!-- sign up form overlaid -->
     <div id="signupoverlay" class="overlay">
+        <button id="close" onclick="closesignup()"><b>&#10005</b></button>
         <form method="POST">
-            <button id="close" onclick="closesignup()"><b>&#10005</b></button>
             <h2 class="ostitle"> CREATE ACCOUNT </h2>
             <div class="form">
             <ion-icon name="person"></ion-icon>
-            <input type="text" placeholder="Full Name" name="fullname" required>
+            <input type="text" placeholder="FULL NAME" name="fullname" required>
             </div>
             <div class="form">
             <ion-icon name="at"></ion-icon>
-            <input type="text" placeholder="Username" name="username" required>
+            <input type="text" placeholder="USERNAME" name="username" required>
             </div>
             <div class="form">
             <ion-icon name="business"></ion-icon>
-            <input type="text" placeholder="Business Name" name="bizname" required>
+            <input type="text" placeholder="BUSINESS NAME" name="bizname" required>
             </div>
             <div class="form">
             <ion-icon name="lock-closed"></ion-icon>
-            <input type="password" placeholder="Password" name="psw" required>
+            <input type="password" placeholder="PASSWORD" name="psw" required>
             </div>
             <div class="form">
             <ion-icon name="lock-closed"></ion-icon>
-            <input type="password" placeholder="Confirm Password" name="confirmpsw" required>
+            <input type="password" placeholder="CONFIRM PASSWORD" name="confirmpsw" required>
             </div>
-            <input type="submit" value="Sign up">
-            <p class="small"> Already have an account? <button><b>Sign in.</b></button> </p>
+            <input id="signup" class="btn" type="submit" value="SIGN UP">
         </form>
+        <p class="small"> Already have an account? <a class="link" href="javascript:void(0)" onclick="gotosignin()"> Sign in. </a> </p>
     </div>
 
     <!-- sign in form overlaid -->
     <div id="signinoverlay" class="overlay">
+        <button id="close" onclick="closesignin()"><b>&#10005</b></button>
         <form method="POST">
-            <button id="close" onclick="closesignin()"><b>&#10005</b></button>
             <h2 class="ostitle"> SIGN IN </h2>
             <div class="form">
             <ion-icon name="at"></ion-icon>
-            <input type="text" placeholder="Username" name="username" required>
+            <input type="text" placeholder="USERNAME" name="username" required>
             </div>
             <div class="form">
             <ion-icon name="lock-closed"></ion-icon>
-            <input type="password" placeholder="Password" name="psw" required>
+            <input type="password" placeholder="PASSWORD" name="psw" required>
             </div>
-            <input type="submit" value="Sign in">
-            <p class="small"> Don't have an account? <button><b>Sign up.</b></button> </p>
+            <input id="signup" class="btn" type="submit" value="SIGN IN">
         </form>
+        <p class="small"> Don't have an account? <a class="link" href="javascript:void(0)" onclick="gotosignup()"> Sign up. </a> </p>
     </div>
 
     <div id="mainbox">
-    <h1 id="maintitle"> Profitify </h1>
-    <p id="p1"> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris consectetur mi vitae condimentum pulvinar. Sed tristique augue ut ex placerat, quis venenatis orci vehicula. In hac habitasse platea dictumst. Quisque iaculis lorem turpis, a tempus diam dictum sit amet. Nunc felis purus, scelerisque sit amet neque a, bibendum tempus lacus. </p>
+        <h1 id="maintitle"> Profitify </h1>
+        <p id="p1"> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris consectetur mi vitae condimentum pulvinar. Sed tristique augue ut ex placerat, quis venenatis orci vehicula. In hac habitasse platea dictumst. Quisque iaculis lorem turpis, a tempus diam dictum sit amet. Nunc felis purus, scelerisque sit amet neque a, bibendum tempus lacus. </p>
 
-    <br>
-    <!-- sign up and sign in buttons -->
-    <div id="buttons">
-        <button id="signup" class="btn" onclick="opensignup()"> SIGN UP </button>
         <br>
-        <button id="signin" class="btn" onclick="opensignin()"> SIGN IN </button>
-    </div>
+        <!-- sign up and sign in buttons -->
+        <div id="buttons">
+            <button id="signup" class="btn" onclick="opensignup()"> SIGN UP </button>
+            <br>
+            <button id="signin" class="btn" onclick="opensignin()"> SIGN IN </button>
+        </div>
     </div>
 
 
