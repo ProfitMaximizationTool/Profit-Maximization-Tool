@@ -1,0 +1,104 @@
+body {
+    background-color: #222629;
+    margin: 100px;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    padding-left: 55px;
+    padding-right: 55px;
+    border: 10px;
+    border-color: white;
+    color: #222629;
+}
+
+#box {
+    padding-top: 50px;
+    padding-bottom: 50px;
+    padding-left: 100px;
+    padding-right: 100px;
+    background-color: white;
+}
+
+#title {
+    color: #222629;
+    font-size: 65px;
+    font-family: 'Merriweather', serif;
+    text-align: center;
+}
+
+#p1 {
+    font-family: 'Open Sans', sans-serif;
+    text-align: center;
+}
+
+#buttons {
+    text-align: center;
+}
+
+.btn {
+    margin: 5px;
+    width: 150px;
+    height: 40px;
+    font-size: 18px;
+    font-family: 'Open Sans', sans-serif;
+    font-weight: 800;
+    border-radius: 20px;
+    display: inline-block;
+    box-shadow: none;
+    border: 2px solid;
+}
+
+#signup {
+    background-color: #86c232;
+    border-color: #86c232;
+    color: white;
+}
+
+#signin {
+    background-color: white;
+    border-color: #222629;
+    color: #222629;
+}
+
+.overlay {
+    width: 360px;
+    height: 460px;
+    border-radius: 18px;
+    background-color: white;
+    padding: 20px;
+}
+
+.ostitle {
+    font-family: 'Open Sans', sans-serif;
+    font-weight: 800;
+    font-size: 24px;
+    color: #222629;
+}
+
+input[type="text"], input[type="password"] {
+    border: 0px;
+    font-family: 'Open Sans', sans-serif;
+    width: 320px;
+    height: 25px;
+}
+
+input[type="text"]:focus {
+    background-color: #6b6e7050;
+}
+
+.form {
+    border-bottom: 0.5px solid #86c232;
+    height: 30px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    text-align: center;
+    position: relative;
+}
+
+.small {
+    font-size: 12px;
+    font-family: 'Open Sans', sans-serif;
+}
+
+ion-icon {
+    color: #86c232
+}
