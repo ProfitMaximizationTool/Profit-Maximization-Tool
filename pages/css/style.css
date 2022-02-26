@@ -65,6 +65,12 @@ body {
     border-radius: 18px;
     background-color: white;
     padding: 20px;
+    position: fixed;
+    display: none;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
 }
 
 .ostitle {
@@ -79,10 +85,6 @@ input[type="text"], input[type="password"] {
     font-family: 'Open Sans', sans-serif;
     width: 320px;
     height: 25px;
-}
-
-input[type="text"]:focus {
-    background-color: #6b6e7050;
 }
 
 .form {
