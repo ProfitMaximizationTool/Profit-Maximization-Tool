@@ -13,22 +13,11 @@
 </head>
 
 <body>
-    <div id="box">
-    <h1 id="title"> Profitify </h1>
-    <p id="p1"> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris consectetur mi vitae condimentum pulvinar. Sed tristique augue ut ex placerat, quis venenatis orci vehicula. In hac habitasse platea dictumst. Quisque iaculis lorem turpis, a tempus diam dictum sit amet. Nunc felis purus, scelerisque sit amet neque a, bibendum tempus lacus. </p>
 
-    <br>
-    <!-- sign up and sign in buttons -->
-    <div id="buttons">
-        <button id="signup" class="btn"> SIGN UP </button>
-        <br>
-        <button id="signin" class="btn"> SIGN IN </button>
-    </div>
-    </div>
-
-    <!-- sign up form overlayed -->
+    <!-- sign up form overlaid -->
     <div id="signupoverlay" class="overlay">
         <form method="POST">
+            <button id="close" onclick="closesignup()"><b>&#10005</b></button>
             <h2 class="ostitle"> CREATE ACCOUNT </h2>
             <div class="form">
             <ion-icon name="person"></ion-icon>
@@ -55,9 +44,10 @@
         </form>
     </div>
 
-    <!-- sign in form overlayed -->
+    <!-- sign in form overlaid -->
     <div id="signinoverlay" class="overlay">
         <form method="POST">
+            <button id="close" onclick="closesignin()"><b>&#10005</b></button>
             <h2 class="ostitle"> SIGN IN </h2>
             <div class="form">
             <ion-icon name="at"></ion-icon>
@@ -70,6 +60,19 @@
             <input type="submit" value="Sign in">
             <p class="small"> Don't have an account? <button><b>Sign up.</b></button> </p>
         </form>
+    </div>
+
+    <div id="mainbox">
+    <h1 id="maintitle"> Profitify </h1>
+    <p id="p1"> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris consectetur mi vitae condimentum pulvinar. Sed tristique augue ut ex placerat, quis venenatis orci vehicula. In hac habitasse platea dictumst. Quisque iaculis lorem turpis, a tempus diam dictum sit amet. Nunc felis purus, scelerisque sit amet neque a, bibendum tempus lacus. </p>
+
+    <br>
+    <!-- sign up and sign in buttons -->
+    <div id="buttons">
+        <button id="signup" class="btn" onclick="opensignup()"> SIGN UP </button>
+        <br>
+        <button id="signin" class="btn" onclick="opensignin()"> SIGN IN </button>
+    </div>
     </div>
 
 
