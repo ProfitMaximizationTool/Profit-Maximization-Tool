@@ -8,7 +8,7 @@ body {
 /* Main box that contains title, app description, etc. */
 #mainbox {
     height: 60%;
-    width: 65%;
+    width: 40%;
     padding-top: 50px;
     padding-bottom: 50px;
     padding-left: 100px;
@@ -23,8 +23,10 @@ body {
 /* Profitify */
 #maintitle {
     color: #222629;
-    font-size: 65px;
-    font-family: 'Merriweather', serif;
+    font-size: 80px;
+    line-height: 70%;
+    font-family: 'Oswald', sans-serif;
+    font-weight: 700;
     text-align: center;
 }
 
@@ -95,12 +97,24 @@ body {
     color: #86c232;
 }
 
+form {
+    top: 50%;
+}
+
 input[type="text"], input[type="password"] {
-    border: 0px;
+    border: none;
     font-family: 'Open Sans', sans-serif;
     width: 92%;
     height: 25px;
-    color: #86c232;
+    color: #222629;
+}
+
+input[type="text"], input[type="password"]: {
+    border: none;
+    font-family: 'Open Sans', sans-serif;
+    width: 92%;
+    height: 25px;
+    color: #222629;
 }
 
 .form {
@@ -120,6 +134,8 @@ input[type="text"], input[type="password"] {
     color: #222629;
     text-align: center;
     position: absolute;
+    left: 50%;
+    transform: translate(-50%, -50%);
     bottom: 20px;
 }
 
@@ -132,6 +148,12 @@ ion-icon {
     right: 20px;
 }
 
+a {
+    text-align: center;
+}
+
+/* Animations */
+
 a:link {
     text-decoration: none;
     color: #86c232;
@@ -141,3 +163,4 @@ a:hover {
     text-decoration: underline;
     color: #61892f;
 }
+
