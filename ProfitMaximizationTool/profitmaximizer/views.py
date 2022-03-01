@@ -4,9 +4,9 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.contrib.auth import login, logout, authenticate
 from django.contrib.auth.decorators import login_required
 from profitmaximizer.models import BusinessOwner
-
 from django.core.exceptions import ObjectDoesNotExist
-def index(request):
+
+def index_view(request):
 	if request.method == "POST":
 		# sign up
 		if "signup-btn" in request.POST:
@@ -16,9 +16,9 @@ def index(request):
 				password = request.POST['psw']
 				business_name = request.POST['bizname']
 
-				try:
+				try: # username already taken
 					business_owner = BusinessOwner.objects.get(username=username)
-					return render(request, "index.html")
+					return render(request, "index.html", context={"auth_error": "username taken"})
 
 				except ObjectDoesNotExist:
 					business_owner = BusinessOwner.objects.create_user(username=username, email=None, password=password)
@@ -28,26 +28,26 @@ def index(request):
 					login(request, business_owner)
 				
 			else:
-				return render(request, "index.html")
+				return render(request, "index.html", context={"auth_error": "none"})
 
 		# sign in
 		if "signin-btn" in request.POST:
 			username = request.POST['username']
 			password = request.POST['psw']
 			business_owner = authenticate(request, username=username, password=password)
+			
 			if business_owner is not None:
 				login(request, business_owner)
-			else:
-				return render(request, "index.html")
+			else: # invalid username/password
+				return render(request, "index.html", context={"auth_error": "login fail"})
 
 		return redirect('/home/')
 
-	return render(request, "index.html")
-
+	return render(request, "index.html",  context={"auth_error": "none"})
 
 
 @login_required
-def home(request):
+def home_view(request):
 	business_owner = BusinessOwner.objects.get(username=request.user.username)
 
 	# log out
@@ -57,7 +57,8 @@ def home(request):
 			return redirect('/')
 			
 	return render(request, "home.html", 
-		{"username": business_owner.username, "business_name": business_owner.business_name})
+		{"username": business_owner.username, "business_name": business_owner.business_name,
+		"full_name": business_owner.full_name})
 
 
 

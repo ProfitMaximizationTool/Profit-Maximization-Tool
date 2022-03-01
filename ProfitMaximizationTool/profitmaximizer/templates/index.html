@@ -19,56 +19,58 @@
     <!-- sign up form overlaid -->
     <div id="signupoverlay" class="overlay">
         <button id="close" onclick="closesignup()"><b>&#10005</b></button>
-        <form method="POST">
+        <form autocomplete="off" method="POST">
             {% csrf_token %}
             <h2 class="ostitle"> CREATE ACCOUNT </h2>
             <div class="form">
-            <ion-icon name="person"></ion-icon>
-            <input type="text" placeholder="FULL NAME" name="fullname" required>
+                <ion-icon name="person"></ion-icon>
+                <input type="text" placeholder="FULL NAME" name="fullname" required>
             </div>
             <div class="form">
-            <ion-icon name="at"></ion-icon>
-            <input type="text" placeholder="USERNAME" name="username" required>
+                <ion-icon name="at"></ion-icon>
+                <input type="text" placeholder="USERNAME" name="username" required>
             </div>
             <div class="form">
-            <ion-icon name="business"></ion-icon>
-            <input type="text" placeholder="BUSINESS NAME" name="bizname" required>
+                <ion-icon name="business"></ion-icon>
+                <input type="text" placeholder="BUSINESS NAME" name="bizname" required>
             </div>
             <div class="form">
-            <ion-icon name="lock-closed"></ion-icon>
-            <input type="password" placeholder="PASSWORD" name="psw" required>
+                <ion-icon name="lock-closed"></ion-icon>
+                <input type="password" placeholder="PASSWORD" name="psw" required>
             </div>
             <div class="form">
-            <ion-icon name="lock-closed"></ion-icon>
-            <input type="password" placeholder="CONFIRM PASSWORD" name="confirmpsw" required>
+                <ion-icon name="lock-closed"></ion-icon>
+                <input type="password" placeholder="CONFIRM PASSWORD" name="confirmpsw" required>
             </div>
             <input id="signup" class="btn" type="submit" name="signup-btn" value="SIGN UP">
         </form>
+        <!-- <div class="error-cont" id="username-taken-cont">Username already taken.</div> -->
         <p class="small"> Already have an account? <a class="link" href="javascript:void(0)" onclick="gotosignin()"> Sign in. </a> </p>
     </div>
 
     <!-- sign in form overlaid -->
     <div id="signinoverlay" class="overlay">
         <button id="close" onclick="closesignin()"><b>&#10005</b></button>
-        <form method="POST">
+        <form autocomplete="off" method="POST">
             {% csrf_token %}
             <h2 class="ostitle"> SIGN IN </h2>
             <div class="form">
-            <ion-icon name="at"></ion-icon>
-            <input type="text" placeholder="USERNAME" name="username" required>
+                <ion-icon name="at"></ion-icon>
+                <input type="text" placeholder="USERNAME" name="username" required>
             </div>
             <div class="form">
-            <ion-icon name="lock-closed"></ion-icon>
-            <input type="password" placeholder="PASSWORD" name="psw" required>
+                <ion-icon name="lock-closed"></ion-icon>
+                <input type="password" placeholder="PASSWORD" name="psw" required>
             </div>
-            <input id="signup" class="btn" type="submit" name="signin-btn" value="SIGN IN">
+            <input id="signin" class="btn" type="submit" name="signin-btn" value="SIGN IN">
         </form>
+        <!-- <div class="error-cont" id="login-fail-cont">Invalid username or password.</div> -->
         <p class="small"> Don't have an account? <a class="link" href="javascript:void(0)" onclick="gotosignup()"> Sign up. </a> </p>
     </div>
 
     <div id="mainbox">
         <h1 id="maintitle"> Profitify </h1>
-        <p id="p1"> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris consectetur mi vitae condimentum pulvinar. Sed tristique augue ut ex placerat, quis venenatis orci vehicula. In hac habitasse platea dictumst. Quisque iaculis lorem turpis, a tempus diam dictum sit amet. Nunc felis purus, scelerisque sit amet neque a, bibendum tempus lacus. </p>
+        <p id="p1"> A profit maximization tool that helps business owners maximize their profits and track their business performance. </p>
 
         <br>
         <!-- sign up and sign in buttons -->
@@ -85,7 +87,11 @@
     <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
 
     <!-- javascript -->
+    <script> 
+        var authError = "{{ auth_error|safe }}";
+    </script>
     <script src="{% static 'js/index.js' %}"></script>
+
 </body>
 
 </html>

@@ -147,6 +147,7 @@ ion-icon {
 #close {
     position: absolute;
     right: 20px;
+    cursor: pointer;
 }
 
 a {

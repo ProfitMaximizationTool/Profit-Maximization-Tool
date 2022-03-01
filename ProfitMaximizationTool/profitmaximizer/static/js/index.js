@@ -23,3 +23,19 @@ function gotosignin() {
     document.getElementById("signupoverlay").style.display = "none";
     document.getElementById("signinoverlay").style.display = "block";
 }
+
+// using AJAX would be better.
+if (authError == "username taken"){
+    // document.getElementById("username-taken-cont").style.display = "block";
+    alert("Username already taken.")
+}
+else if (authError == "login fail"){
+    alert("Invalid username or password.");
+    // document.getElementById("login-fail-cont").style.display = "block";
+}
+// else {
+//     var errorConts = document.getElementsByClassName("error-cont");
+//     for (var i = 0; i < errorConts.length; i++){
+//         errorConts[i].style.display = "none";
+//     }
+// }
