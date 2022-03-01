@@ -1,15 +1,166 @@
+/* Background */
 body {
     background-color: #222629;
-    color: #ffffff;
+    width: 100%;
+    height: 100%;
 }
 
-#title {
-    color: #86c232;
-    font-family: 'Merriweather', serif;
+/* Main box that contains title, app description, etc. */
+#mainbox {
+    height: 60%;
+    width: 40%;
+    padding-top: 50px;
+    padding-bottom: 50px;
+    padding-left: 100px;
+    padding-right: 100px;
+    background-color: white;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+/* Profitify */
+#maintitle {
+    color: #222629;
+    font-size: 80px;
+    line-height: 70%;
+    font-family: 'Oswald', sans-serif;
+    font-weight: 700;
     text-align: center;
 }
 
+/* Description of app */
 #p1 {
     font-family: 'Open Sans', sans-serif;
     text-align: center;
+}
+
+/* Sign up and sign in buttons grouped */
+#buttons {
+    text-align: center;
+}
+
+/* Class btn for sign up and sign in buttons */
+.btn {
+    margin: 5px;
+    width: 150px;
+    height: 40px;
+    font-size: 18px;
+    font-family: 'Open Sans', sans-serif;
+    font-weight: 800;
+    border-radius: 20px;
+    display: inline-block;
+    box-shadow: none;
+    border: 2px solid;
+    cursor: pointer;
+}
+
+#signup {
+    background-color: #86c232;
+    border-color: #86c232;
+    color: white;
+}
+
+#signin {
+    background-color: white;
+    border-color: #222629;
+    color: #222629;
+}
+
+.overlay {
+    width: 360px;
+    height: 460px;
+    border-radius: 18px;
+    background-color: white;
+    padding: 30px;
+    position: fixed;
+    display: none;
+    z-index: 1;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    box-shadow: 0px 0px 10px #6b6e70;
+}
+
+#close {
+    color: #222629;
+    font-family: 'Open Sans', sans-serif;
+    font-weight: 500;
+    border: none;
+    background-color: transparent;
+}
+
+.ostitle {
+    font-family: 'Open Sans', sans-serif;
+    font-weight: 800;
+    font-size: 28px;
+    color: #86c232;
+}
+
+form {
+    top: 50%;
+}
+
+input[type="text"], input[type="password"] {
+    border: none;
+    font-family: 'Open Sans', sans-serif;
+    width: 92%;
+    height: 25px;
+    color: #222629;
+}
+
+input[type="text"], input[type="password"]: {
+    border: none;
+    font-family: 'Open Sans', sans-serif;
+    width: 92%;
+    height: 25px;
+    color: #222629;
+}
+
+.form {
+    border-bottom: 0.5px solid #86c232;
+    height: 30px;
+    width: 100%;
+    margin-top: 10px;
+    margin-bottom: 10px; 
+    text-align: center;
+    position: relative;
+    align-items: baseline;
+}
+
+.small {
+    font-size: 12px;
+    font-family: 'Open Sans', sans-serif;
+    color: #222629;
+    text-align: center;
+    position: absolute;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    bottom: 20px;
+}
+
+ion-icon {
+    color: #6b6e70;
+}
+
+#close {
+    position: absolute;
+    right: 20px;
+}
+
+a {
+    text-align: center;
+}
+
+/* Animations */
+
+a:link {
+    text-decoration: none;
+    color: #86c232;
+}
+
+a:hover {
+    text-decoration: underline;
+    color: #61892f;
 }

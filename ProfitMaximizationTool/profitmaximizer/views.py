@@ -11,17 +11,19 @@ def index(request):
 		# sign up
 		if "signup-btn" in request.POST:
 			if request.POST['psw'] == request.POST['confirmpsw']:
+				full_name = request.POST['fullname']
 				username = request.POST['username']
 				password = request.POST['psw']
-				business_name = request.POST['businessname']
+				business_name = request.POST['bizname']
 
 				try:
-					business_owner = BusinessOwner.objects.get(username = username)
+					business_owner = BusinessOwner.objects.get(username=username)
 					return render(request, "index.html")
 
 				except ObjectDoesNotExist:
 					business_owner = BusinessOwner.objects.create_user(username=username, email=None, password=password)
 					business_owner.business_name = business_name
+					business_owner.full_name = full_name
 					business_owner.save()
 					login(request, business_owner)
 				
@@ -44,7 +46,7 @@ def index(request):
 
 
 
-# @login_required
+@login_required
 def home(request):
 	business_owner = BusinessOwner.objects.get(username=request.user.username)
 

@@ -2,7 +2,9 @@
 <html>
 
 <head>
+    {% load static %}
 
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
 </head>
 
 <body>
@@ -10,7 +12,7 @@
 
     <form method="POST">
         {% csrf_token %}
-        <input type="submit" value="Log out" name="logout-btn" >
+        <input type="submit" class="btn" value="Log out" name="logout-btn" >
     </form>
 
 
