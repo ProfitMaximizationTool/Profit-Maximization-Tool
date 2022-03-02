@@ -1,41 +1,89 @@
-function opensignup() {
+function opensignup(){
     document.getElementById("signupoverlay").style.display = "block";
 }
 
-function closesignup() {
+function closesignup(){
     document.getElementById("signupoverlay").style.display = "none";
 }
 
-function opensignin() {
+function opensignin(){
     document.getElementById("signinoverlay").style.display = "block";
 }
 
-function closesignin() {
+function closesignin(){
     document.getElementById("signinoverlay").style.display = "none";
 }
 
-function gotosignup() {
-    document.getElementById("signinoverlay").style.display = "none";
-    document.getElementById("signupoverlay").style.display = "block";
+function closeErrorConts(){
+    var errorConts = document.getElementsByClassName("error-cont");
+    for (var i = 0; i < errorConts.length; i++){
+        errorConts[i].style.display = "none";
+    }
 }
 
-function gotosignin() {
-    document.getElementById("signupoverlay").style.display = "none";
-    document.getElementById("signinoverlay").style.display = "block";
-}
+// Event handlers
+// open sign up
+document.getElementById("opensignup-btn").addEventListener("click", function(event){
+    event.preventDefault();
+    opensignup();
+    closeErrorConts();
+});
 
-// using AJAX would be better.
+// close sign up
+document.getElementById("closesignup-btn").addEventListener("click", function(event){
+    event.preventDefault();
+    closesignup();
+    closeErrorConts();
+});
+
+
+// open sign in
+document.getElementById("opensignin-btn").addEventListener("click", function(event){
+    event.preventDefault();
+    opensignin();
+    closeErrorConts();
+});
+
+
+// close sign in
+document.getElementById("closesignin-btn").addEventListener("click", function(event){
+    event.preventDefault();
+    closesignin();
+    closeErrorConts();
+});
+
+// go to sign up
+document.getElementById("gotosignup-btn").addEventListener("click", function(event){
+    event.preventDefault();
+    closesignin();
+    opensignup();
+    closeErrorConts();
+});
+
+
+// go to sign in
+document.getElementById("gotosignin-btn").addEventListener("click", function(event){
+    event.preventDefault();
+    closesignup();
+    opensignin();
+    closeErrorConts();
+});
+
+
 if (authError == "username taken"){
-    // document.getElementById("username-taken-cont").style.display = "block";
-    alert("Username already taken.")
+    opensignup();
+    document.getElementById("username-taken-cont").style.display = "block";
+}
+else if (authError == "passwords don't match"){
+    opensignup();
+    document.getElementById("passwords-mismatch-cont").style.display = "block";
 }
 else if (authError == "login fail"){
-    alert("Invalid username or password.");
-    // document.getElementById("login-fail-cont").style.display = "block";
+    opensignin();
+    document.getElementById("login-fail-cont").style.display = "block";
 }
-// else {
-//     var errorConts = document.getElementsByClassName("error-cont");
-//     for (var i = 0; i < errorConts.length; i++){
-//         errorConts[i].style.display = "none";
-//     }
-// }
+else {
+    closesignin();
+    closesignup();
+    closeErrorConts();
+}

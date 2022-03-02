@@ -18,7 +18,7 @@
 
     <!-- sign up form overlaid -->
     <div id="signupoverlay" class="overlay">
-        <button id="close" onclick="closesignup()"><b>&#10005</b></button>
+        <button class="btn-hover close" id="closesignup-btn"><b>&#10005</b></button>
         <form autocomplete="off" method="POST">
             {% csrf_token %}
             <h2 class="ostitle"> CREATE ACCOUNT </h2>
@@ -42,15 +42,17 @@
                 <ion-icon name="lock-closed"></ion-icon>
                 <input type="password" placeholder="CONFIRM PASSWORD" name="confirmpsw" required>
             </div>
-            <input id="signup" class="btn" type="submit" name="signup-btn" value="SIGN UP">
+            <div class="error-cont" id="username-taken-cont">Username already taken.</div>
+            <div class="error-cont" id="passwords-mismatch-cont">Passwords don't match.</div>
+            <input id="signup" class="btn btn-hover" type="submit" name="signup-btn" value="SIGN UP">
         </form>
-        <!-- <div class="error-cont" id="username-taken-cont">Username already taken.</div> -->
-        <p class="small"> Already have an account? <a class="link" href="javascript:void(0)" onclick="gotosignin()"> Sign in. </a> </p>
+
+        <p class="small"> Already have an account? <a class="link" href="javascript:void(0)" id="gotosignin-btn"> Sign in. </a> </p>
     </div>
 
     <!-- sign in form overlaid -->
     <div id="signinoverlay" class="overlay">
-        <button id="close" onclick="closesignin()"><b>&#10005</b></button>
+        <button class="btn-hover close" id="closesignin-btn"><b>&#10005</b></button>
         <form autocomplete="off" method="POST">
             {% csrf_token %}
             <h2 class="ostitle"> SIGN IN </h2>
@@ -62,22 +64,23 @@
                 <ion-icon name="lock-closed"></ion-icon>
                 <input type="password" placeholder="PASSWORD" name="psw" required>
             </div>
-            <input id="signin" class="btn" type="submit" name="signin-btn" value="SIGN IN">
+            <div class="error-cont" id="login-fail-cont">Invalid username or password.</div>
+            <input class="signin btn btn-hover" type="submit" name="signin-btn" value="SIGN IN">
         </form>
-        <!-- <div class="error-cont" id="login-fail-cont">Invalid username or password.</div> -->
-        <p class="small"> Don't have an account? <a class="link" href="javascript:void(0)" onclick="gotosignup()"> Sign up. </a> </p>
+        
+        <p class="small"> Don't have an account? <a class="link" href="javascript:void(0)" id="gotosignup-btn"> Sign up. </a> </p>
     </div>
 
     <div id="mainbox">
         <h1 id="maintitle"> Profitify </h1>
-        <p id="p1"> A profit maximization tool that helps business owners maximize their profits and track their business performance. </p>
+        <p class="p1"> A profit maximization tool that helps business owners maximize their profits and track their business performance. </p>
 
         <br>
         <!-- sign up and sign in buttons -->
         <div id="buttons">
-            <button id="signup" class="btn" onclick="opensignup()"> SIGN UP </button>
+            <button class="signup btn btn-hover" id="opensignup-btn"> SIGN UP </button>
             <br>
-            <button id="signin" class="btn" onclick="opensignin()"> SIGN IN </button>
+            <button class="signin btn btn-hover" id="opensignin-btn"> SIGN IN </button>
         </div>
     </div>
 

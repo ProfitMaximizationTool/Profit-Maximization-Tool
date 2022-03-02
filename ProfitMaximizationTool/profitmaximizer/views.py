@@ -10,7 +10,7 @@ def index_view(request):
 	if request.method == "POST":
 		# sign up
 		if "signup-btn" in request.POST:
-			if request.POST['psw'] == request.POST['confirmpsw']:
+			if request.POST['psw'] == request.POST['confirmpsw']: # confirmed password
 				full_name = request.POST['fullname']
 				username = request.POST['username']
 				password = request.POST['psw']
@@ -20,15 +20,15 @@ def index_view(request):
 					business_owner = BusinessOwner.objects.get(username=username)
 					return render(request, "index.html", context={"auth_error": "username taken"})
 
-				except ObjectDoesNotExist:
+				except ObjectDoesNotExist: # valid username
 					business_owner = BusinessOwner.objects.create_user(username=username, email=None, password=password)
 					business_owner.business_name = business_name
 					business_owner.full_name = full_name
 					business_owner.save()
 					login(request, business_owner)
-				
-			else:
-				return render(request, "index.html", context={"auth_error": "none"})
+			
+			else: # passwords don't match
+				return render(request, "index.html", context={"auth_error": "passwords don't match"})
 
 		# sign in
 		if "signin-btn" in request.POST:
@@ -36,13 +36,15 @@ def index_view(request):
 			password = request.POST['psw']
 			business_owner = authenticate(request, username=username, password=password)
 			
-			if business_owner is not None:
+			if business_owner is not None: # user exists, valid username & password
 				login(request, business_owner)
 			else: # invalid username/password
 				return render(request, "index.html", context={"auth_error": "login fail"})
 
+		# redirect to home or dashboard after successful sign in or sign up
 		return redirect('/home/')
 
+	# default loading of index page
 	return render(request, "index.html",  context={"auth_error": "none"})
 
 

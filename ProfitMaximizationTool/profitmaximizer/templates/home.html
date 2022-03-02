@@ -8,11 +8,12 @@
 </head>
 
 <body>
-    Hi {{ full_name|safe }}. You are logged in as {{ username|safe }}. Business name: {{ business_name|safe }}.
-
+    <div class="p1 white">
+        Hi {{ full_name|safe }}. You are logged in as {{ username|safe }}. Business name: {{ business_name|safe }}.
+    </div>
     <form method="POST">
         {% csrf_token %}
-        <input type="submit" class="btn" value="Log out" name="logout-btn" >
+        <input type="submit" class="btn btn-hover" value="Log out" name="logout-btn" >
     </form>
 
 
