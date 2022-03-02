@@ -1,8 +1,9 @@
 /* Background */
 body {
-    background-color: #222629;
+    background-image: url("../img/bg.jpg");
     width: 100%;
     height: 100%;
+    background-size: 100%;
 }
 
 /* Main box that contains title, app description, etc. */
@@ -97,10 +98,6 @@ body {
     color: #86c232;
 }
 
-form {
-    top: 50%;
-}
-
 input[type="text"], input[type="password"] {
     border: none;
     font-family: 'Open Sans', sans-serif;
@@ -109,12 +106,9 @@ input[type="text"], input[type="password"] {
     color: #222629;
 }
 
-input[type="text"], input[type="password"]: {
-    border: none;
-    font-family: 'Open Sans', sans-serif;
-    width: 92%;
-    height: 25px;
-    color: #222629;
+
+input[type="submit"] {
+    float: right;
 }
 
 .form {
@@ -146,6 +140,8 @@ ion-icon {
 #close {
     position: absolute;
     right: 20px;
+    transition: all ease 0.3s;
+    color: #222629;
 }
 
 a {
@@ -164,3 +160,26 @@ a:hover {
     color: #61892f;
 }
 
+#signup:hover {
+    background-color: #95c758;
+    border-color: #95c758;
+}
+
+#signin:hover {
+    border-color: #6b6e70;
+    color: #6b6e70;
+}
+
+input[type="submit"]:hover {
+    background-color: #95c758;
+    border-color: #95c758;
+}
+
+input[type="text"], input[type="password"]:focus {
+    outline: none;
+}
+
+#close:hover {
+    transform: rotate(180deg);
+    color: #6b6e70;
+}
