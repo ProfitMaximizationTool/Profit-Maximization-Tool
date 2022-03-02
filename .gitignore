@@ -1,2 +1,4 @@
-# Ignore README
-README.md
+__pycache__/
+*.pyc
+db.sqlite3
+secret.json

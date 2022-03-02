@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    {% load static %}
+
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+
+<body>
+    <div class="p1 white">
+        Hi {{ full_name|safe }}. You are logged in as {{ username|safe }}. Business name: {{ business_name|safe }}.
+    </div>
+    <form method="POST">
+        {% csrf_token %}
+        <input type="submit" class="btn btn-hover" value="Log out" name="logout-btn" >
+    </form>
+
+
+</body>
+
+</html>
