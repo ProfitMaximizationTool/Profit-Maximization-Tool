@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    {% block title %}<title></title>{% endblock %}
+
+    {% load static %}
+
+    <link rel="stylesheet" href="{% static 'css/main.css' %}">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@900&family=Open+Sans:wght@300;400;700;800&family=Oswald:wght@500;600;700&display=swap" rel="stylesheet">
+
+
+</head>
+
+<body>
+    <div class="nav-bar">
+        <div class="nav-bar-inner">
+            {% block nav-bar %}
+                <div class="icon-btn left" id="toggle-sidebar-btn">
+                    <ion-icon class="light-font medium-icon" name="menu-outline"></ion-icon>
+                </div>
+                <div class="form-container">
+                    <form method="POST" action="/signout/">
+                        {% csrf_token %}
+                        <input type="submit" class="light-btn btn-font btn right" value="SIGN OUT" name="signout-btn" >
+                    </form>
+                </div>
+            {% endblock %}
+        </div>
+    </div>
+
+        <div class="main-container">
+            <div class="sidebar" id="sidebar-container">
+                <div class="sidebar-inner">
+                    {% block sidebar %}
+                        <div class="icon-btn">
+                            <ion-icon class="center dark-font big-icon" name="person-circle"></ion-icon>
+                        </div>
+                        
+                        <div class="dark-font center bold medium-font default-font">{{ username|safe }}</div>
+                        <div class="dark-font center medium-font default-font">{{ business_name|safe }}</div>
+                        <br><br>
+                        <div class="dark-btn btn-font btn">IMPORT DATA</div>
+                        <br>
+                        <a class="btn-link" href="/dashboard/">
+                            <div class="sidebar-option btn-font" id="go-to-dashboard-btn">
+                                <ion-icon class="dark-font left" name="grid"></ion-icon>DASHBOARD
+                            </div>
+                        </a>
+                        <a class="btn-link" href="/dashboard/products/">
+                            <div class="sidebar-option btn-font" id="go-to-products-btn">
+                                <ion-icon class="dark-font left" name="grid"></ion-icon>PRODUCTS
+                            </div>
+                        </a>
+                        <a class="btn-link" href="/dashboard/inventory/">
+                            <div class="sidebar-option btn-font" id="go-to-inventory-btn">
+                                <ion-icon class="dark-font left" name="grid"></ion-icon>INVENTORY
+                            </div>
+                        </a>
+                        <a class="btn-link" href="/dashboard/sales/">
+                            <div class="sidebar-option btn-font" id="go-to-sales-btn">
+                                <ion-icon class="dark-font left" name="grid"></ion-icon>SALES
+                            </div>
+                        </a>
+                        <a class="btn-link" href="/dashboard/production/">
+                            <div class="sidebar-option btn-font" id="go-to-production-btn">
+                                <ion-icon class="dark-font left" name="grid"></ion-icon>PRODUCTION
+                            </div>
+                        </a>
+                        <a class="btn-link" href="/dashboard/profit-tracker/">
+                            <div class="sidebar-option btn-font" id="go-to-profit-tracker-btn">
+                                <ion-icon class="dark-font left" name="grid"></ion-icon>PROFIT TRACKER
+                            </div>
+                        </a>
+                        <br>
+                        <div class="dark-btn btn-font btn">OPTIMIZE PROFIT</div>
+                    {% endblock %}
+                </div>
+            </div>
+             <div class="page-content" id="page-content-container">
+                {% block page-content %}{% endblock %}
+            </div>
+        </div>
+
+
+
+
+    <script type="text/javascript">var page = "{{ page|safe }}";</script>
+    <script src="{% static 'js/dashboard.js' %}"></script>
+    <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+
+</body>
+
+</html>

@@ -60,7 +60,7 @@ body {
     border: 2px solid;
 }
 
-.btn-hover {
+.btn:hover {
     cursor: pointer;
 }
 
@@ -118,6 +118,7 @@ body {
 .close:hover {
     transform: rotate(180deg);
     color: #6b6e70;
+    cursor: pointer;
 }
 
 
@@ -203,7 +204,7 @@ input[type="text"], input[type="password"]:focus {
     border-color: #86c232;
 }
 
-.error-cont {
+.error-container {
     background-color: pink;
     color: red;
     border: 1px solid red;

@@ -14,10 +14,10 @@ function closesignin(){
     document.getElementById("signinoverlay").style.display = "none";
 }
 
-function closeErrorConts(){
-    var errorConts = document.getElementsByClassName("error-cont");
-    for (var i = 0; i < errorConts.length; i++){
-        errorConts[i].style.display = "none";
+function closeErrorContainers(){
+    var errorContainers = document.getElementsByClassName("error-container");
+    for (var i = 0; i < errorContainers.length; i++){
+        errorContainers[i].style.display = "none";
     }
 }
 
@@ -26,14 +26,14 @@ function closeErrorConts(){
 document.getElementById("opensignup-btn").addEventListener("click", function(event){
     event.preventDefault();
     opensignup();
-    closeErrorConts();
+    closeErrorContainers();
 });
 
 // close sign up
 document.getElementById("closesignup-btn").addEventListener("click", function(event){
     event.preventDefault();
     closesignup();
-    closeErrorConts();
+    closeErrorContainers();
 });
 
 
@@ -41,7 +41,7 @@ document.getElementById("closesignup-btn").addEventListener("click", function(ev
 document.getElementById("opensignin-btn").addEventListener("click", function(event){
     event.preventDefault();
     opensignin();
-    closeErrorConts();
+    closeErrorContainers();
 });
 
 
@@ -49,7 +49,7 @@ document.getElementById("opensignin-btn").addEventListener("click", function(eve
 document.getElementById("closesignin-btn").addEventListener("click", function(event){
     event.preventDefault();
     closesignin();
-    closeErrorConts();
+    closeErrorContainers();
 });
 
 // go to sign up
@@ -57,7 +57,7 @@ document.getElementById("gotosignup-btn").addEventListener("click", function(eve
     event.preventDefault();
     closesignin();
     opensignup();
-    closeErrorConts();
+    closeErrorContainers();
 });
 
 
@@ -66,24 +66,24 @@ document.getElementById("gotosignin-btn").addEventListener("click", function(eve
     event.preventDefault();
     closesignup();
     opensignin();
-    closeErrorConts();
+    closeErrorContainers();
 });
 
 
 if (authError == "username taken"){
     opensignup();
-    document.getElementById("username-taken-cont").style.display = "block";
+    document.getElementById("username-taken-container").style.display = "block";
 }
 else if (authError == "passwords don't match"){
     opensignup();
-    document.getElementById("passwords-mismatch-cont").style.display = "block";
+    document.getElementById("passwords-mismatch-container").style.display = "block";
 }
 else if (authError == "login fail"){
     opensignin();
-    document.getElementById("login-fail-cont").style.display = "block";
+    document.getElementById("login-fail-container").style.display = "block";
 }
 else {
     closesignin();
     closesignup();
-    closeErrorConts();
+    closeErrorContainers();
 }

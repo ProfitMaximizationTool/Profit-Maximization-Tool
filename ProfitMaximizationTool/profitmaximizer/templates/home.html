@@ -2,20 +2,61 @@
 <html>
 
 <head>
+    <title> Home </title>
+
     {% load static %}
 
-    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'css/main.css' %}">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@900&family=Open+Sans:wght@300;400;700;800&family=Oswald:wght@500;600;700&display=swap" rel="stylesheet">
+
+
 </head>
 
 <body>
-    <div class="p1 white">
-        Hi {{ full_name|safe }}. You are logged in as {{ username|safe }}. Business name: {{ business_name|safe }}.
+    <div class="nav-bar">
+        <div class="nav-bar-inner">
+            <div class="icon-btn left" id="toggle-sidebar-btn">
+                <ion-icon class="icon" name="menu-outline"></ion-icon>
+            </div>
+            <div class="form-container">
+                <form method="POST">
+                    {% csrf_token %}
+                    <input type="submit" class="light-btn btn-font btn right" value="SIGN OUT" name="signout-btn" >
+                </form>
+            </div>
+        </div>
     </div>
-    <form method="POST">
-        {% csrf_token %}
-        <input type="submit" class="btn btn-hover" value="Log out" name="logout-btn" >
-    </form>
+    <div class="main-container">
+        <div class="sidebar" id="sidebar-container">
+            <div class="sidebar-inner">
+                <div class="dark-btn btn-font btn">IMPORT DATA</div>
 
+                <div class="sidebar-option btn-font">DASHBOARD</div>
+                <div class="sidebar-option btn-font">PRODUCTS</div>
+                <div class="sidebar-option btn-font">INVENTORY</div>
+                <div class="sidebar-option btn-font">SALES</div>
+                <div class="sidebar-option btn-font">PRODUCTION</div>
+                <div class="sidebar-option btn-font">PROFIT TRACKER</div>
+
+                <div class="dark-btn btn-font btn">OPTIMIZE PROFIT</div>
+            </div>
+        </div>
+        <div class="page-content" id="page-content-container">
+
+        </div>
+
+    </div>
+
+
+
+
+
+    <script src="{% static 'js/dashboard.js' %}"></script>
+    <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
 
 </body>
 
