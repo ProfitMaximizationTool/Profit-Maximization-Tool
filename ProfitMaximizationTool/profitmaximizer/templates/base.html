@@ -22,6 +22,9 @@
                 <div class="icon-btn left" id="toggle-sidebar-btn">
                     <ion-icon class="light-font medium-icon" name="menu-outline"></ion-icon>
                 </div>
+                <div class="center light-font big-font title-font">
+                    PROFITIFY
+                </div>
                 <div class="form-container">
                     <form method="POST" action="/signout/">
                         {% csrf_token %}
@@ -36,13 +39,19 @@
             <div class="sidebar" id="sidebar-container">
                 <div class="sidebar-inner">
                     {% block sidebar %}
-                        <div class="icon-btn">
-                            <ion-icon class="center dark-font big-icon" name="person-circle"></ion-icon>
-                        </div>
-                        
-                        <div class="dark-font center bold medium-font default-font">{{ username|safe }}</div>
-                        <div class="dark-font center medium-font default-font">{{ business_name|safe }}</div>
-                        <br><br>
+                        <br>
+                        <a class="btn-link" href="/dashboard/profile/">
+                            <div class="sidebar-option" id="go-to-profile-btn">
+                                <div class="icon-btn">
+                                    <ion-icon class="center dark-font big-icon" name="person-circle"></ion-icon>
+                                </div>
+                                <div class="dark-font center bold medium-font default-font">{{ full_name|safe|upper }}</div>
+                                <br>
+                                <div class="dark-font center medium-font default-font">{{ username|safe }}</div>
+                                <div class="dark-font center medium-font default-font">{{ business_name|safe }}</div>
+                            </div>
+                        </a>
+                        <br>
                         <div class="dark-btn btn-font btn">IMPORT DATA</div>
                         <br>
                         <a class="btn-link" href="/dashboard/">
@@ -52,27 +61,27 @@
                         </a>
                         <a class="btn-link" href="/dashboard/products/">
                             <div class="sidebar-option btn-font" id="go-to-products-btn">
-                                <ion-icon class="dark-font left" name="grid"></ion-icon>PRODUCTS
+                                <ion-icon class="dark-font left" name="pricetag"></ion-icon></ion-icon>PRODUCTS
                             </div>
                         </a>
                         <a class="btn-link" href="/dashboard/inventory/">
                             <div class="sidebar-option btn-font" id="go-to-inventory-btn">
-                                <ion-icon class="dark-font left" name="grid"></ion-icon>INVENTORY
+                                <ion-icon class="dark-font left" name="briefcase"></ion-icon></ion-icon>INVENTORY
                             </div>
                         </a>
                         <a class="btn-link" href="/dashboard/sales/">
                             <div class="sidebar-option btn-font" id="go-to-sales-btn">
-                                <ion-icon class="dark-font left" name="grid"></ion-icon>SALES
+                                <ion-icon class="dark-font left" name="wallet"></ion-icon>SALES
                             </div>
                         </a>
                         <a class="btn-link" href="/dashboard/production/">
                             <div class="sidebar-option btn-font" id="go-to-production-btn">
-                                <ion-icon class="dark-font left" name="grid"></ion-icon>PRODUCTION
+                                <ion-icon class="dark-font left" name="fast-food"></ion-icon>PRODUCTION
                             </div>
                         </a>
                         <a class="btn-link" href="/dashboard/profit-tracker/">
                             <div class="sidebar-option btn-font" id="go-to-profit-tracker-btn">
-                                <ion-icon class="dark-font left" name="grid"></ion-icon>PROFIT TRACKER
+                                <ion-icon class="dark-font left" name="bar-chart"></ion-icon>PROFIT TRACKER
                             </div>
                         </a>
                         <br>
@@ -88,7 +97,10 @@
 
 
 
-    <script type="text/javascript">var page = "{{ page|safe }}";</script>
+    <script type="text/javascript">
+        var page = "{{ page|safe }}";
+        var prompt = "{{ prompt|safe }}";
+    </script>
     <script src="{% static 'js/dashboard.js' %}"></script>
     <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
     <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>

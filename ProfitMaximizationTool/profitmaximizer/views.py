@@ -61,7 +61,11 @@ def signin_view(request):
 	else: # if the request came from somewhere else, ie. request is not valid
 		return redirect('/')
 
-
+@login_required
+@csrf_protect
+def signout_view(request):
+	logout(request)
+	return redirect('/')
 
 @login_required
 def dashboard_view(request):
@@ -70,12 +74,6 @@ def dashboard_view(request):
 	return render(request, "dashboard.html", 
 		{"username": business_owner.username, "business_name": business_owner.business_name,
 		"full_name": business_owner.full_name, "page": "dashboard"})
-
-@login_required
-@csrf_protect
-def signout_view(request):
-	logout(request)
-	return redirect('/')
 
 
 @login_required
@@ -117,5 +115,25 @@ def profit_tracker_view(request):
 	return render(request, "profit_tracker.html", 
 		{"username": business_owner.username, "business_name": business_owner.business_name,
 		"full_name": business_owner.full_name, "page": "profit-tracker"})
+
+@login_required
+@csrf_protect
+def profile_view(request):
+	business_owner = BusinessOwner.objects.get(username=request.user.username)
+
+	prompt = "none"
+
+	if request.method == "POST" and "save-btn" in request.POST:
+		new_full_name = request.POST["new-full-name"]
+		new_business_name = request.POST["new-business-name"]
+		business_owner.full_name = new_full_name
+		business_owner.business_name = new_business_name
+		business_owner.save()
+		prompt = "saved-profile-changes"
+
+
+	return render(request, "profile.html", 
+		{"username": business_owner.username, "business_name": business_owner.business_name,
+		"full_name": business_owner.full_name, "page": "profile", "prompt": prompt})
 
 

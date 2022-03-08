@@ -15,4 +15,8 @@ document.getElementById("toggle-sidebar-btn").addEventListener("click", function
 	}
 });
 
-document.getElementById("go-to-" + page + "-btn").style.backgroundColor = "#AEFEFF";
+document.getElementById("go-to-" + page + "-btn").style.backgroundColor = "#DFF9FB";
+
+if (prompt == "saved-profile-changes"){
+	document.getElementById("saved-profile-prompt").style.display = "inline-block";
+}
