@@ -22,7 +22,7 @@ body {
 }
 
 /* Profitify */
-#maintitle {
+#main-title {
     color: #222629;
     font-size: 80px;
     line-height: 70%;
@@ -107,13 +107,10 @@ body {
     font-weight: 500;
     border: none;
     background-color: transparent;
-}
-
-.close {
     float: right;
     transition: all ease 0.3s;
-    color: #222629;
 }
+
 
 .close:hover {
     transform: rotate(180deg);

@@ -23,7 +23,7 @@ function closeErrorContainers(){
 
 // Event handlers
 // open sign up
-document.getElementById("opensignup-btn").addEventListener("click", function(event){
+document.getElementById("open-signup-btn").addEventListener("click", function(event){
     event.preventDefault();
     opensignup();
     closeErrorContainers();
@@ -38,7 +38,7 @@ document.getElementById("closesignup-btn").addEventListener("click", function(ev
 
 
 // open sign in
-document.getElementById("opensignin-btn").addEventListener("click", function(event){
+document.getElementById("open-signin-btn").addEventListener("click", function(event){
     event.preventDefault();
     opensignin();
     closeErrorContainers();
