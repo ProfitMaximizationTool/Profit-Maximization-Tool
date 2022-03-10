@@ -7,7 +7,7 @@ body {
 }
 
 /* Main box that contains title, app description, etc. */
-#mainbox {
+#main-box {
     height: 60%;
     width: 40%;
     padding-top: 50px;
@@ -32,7 +32,7 @@ body {
 }
 
 /* Description of app */
-.p1 {
+#app-desc {
     font-family: 'Open Sans', sans-serif;
     text-align: center;
 }
@@ -42,7 +42,7 @@ body {
 }
 
 /* Sign up and sign in buttons grouped */
-#buttons {
+#signin-signup {
     text-align: center;
 }
 
@@ -108,19 +108,17 @@ body {
     border: none;
     background-color: transparent;
     float: right;
-    transition: all ease 0.3s;
 }
 
 
 .close:hover {
-    transform: rotate(180deg);
     color: #6b6e70;
     cursor: pointer;
 }
 
 
 .ostitle {
-    font-family: 'Open Sans', sans-serif;
+    font-family: 'Oswald', sans-serif;
     font-weight: 800;
     font-size: 28px;
     color: #86c232;
@@ -135,13 +133,12 @@ input[type="text"], input[type="password"] {
     color: #222629;
 }
 
-
 input[type="submit"] {
     float: right;
 }
 
 .form {
-    border-bottom: 0.3px solid #86c232;
+    border-bottom: 0.2px solid #86c232;
     height: 35px;
     width: 100%;
     margin-top: 10px;

@@ -44,7 +44,7 @@
             </div>
             <div class="error-container" id="username-taken-container">Username already taken.</div>
             <div class="error-container" id="passwords-mismatch-container">Passwords don't match.</div>
-            <input id="signup" class="btn" type="submit" name="signup-btn" value="SIGN UP">
+            <input class="signin" type="submit" name="signup-btn" value="SIGN UP">
         </form>
 
         <p class="small"> Already have an account? <a class="link" href="javascript:void(0)" id="gotosignin-btn"> Sign in. </a> </p>
@@ -65,19 +65,19 @@
                 <input type="password" placeholder="PASSWORD" name="psw" required>
             </div>
             <div class="error-container" id="login-fail-container">Invalid username or password.</div>
-            <input class="signin btn" type="submit" name="signin-btn" value="SIGN IN">
+            <input class="signin" type="submit" name="signin-btn" value="SIGN IN">
         </form>
         
         <p class="small"> Don't have an account? <a class="link" href="javascript:void(0)" id="gotosignup-btn"> Sign up. </a> </p>
     </div>
 
-    <div id="mainbox">
+    <div id="main-box">
         <h1 id="main-title"> Profitify </h1>
-        <p class="p1"> A profit maximization tool that helps business owners maximize their profits and track their business performance. </p>
+        <p id="app-desc"> A profit maximization tool that helps business owners maximize their profits and track their business performance. </p>
 
         <br>
         <!-- sign up and sign in buttons -->
-        <div id="buttons">
+        <div id="signin-signup">
             <button class="signup btn" id="opensignup-btn"> SIGN UP </button>
             <br>
             <button class="signin btn" id="opensignin-btn"> SIGN IN </button>
