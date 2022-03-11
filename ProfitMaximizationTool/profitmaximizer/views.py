@@ -1,9 +1,10 @@
+from decimal import Decimal
 from distutils import core
 from django.shortcuts import render, redirect
 from django.http import HttpResponse, HttpResponseRedirect
 from django.contrib.auth import login, logout, authenticate
 from django.contrib.auth.decorators import login_required
-from profitmaximizer.models import BusinessOwner
+from profitmaximizer.models import BusinessOwner, IngredientRecord
 from django.core.exceptions import ObjectDoesNotExist
 from django.views.decorators.csrf import csrf_protect
 
@@ -87,10 +88,11 @@ def products_view(request):
 @login_required
 def inventory_view(request):
 	business_owner = BusinessOwner.objects.get(username=request.user.username)
-
+	frgn_key = business_owner.user_ptr_id
+	inventory_data = IngredientRecord.objects.filter(owner_id=frgn_key).order_by("units")
 	return render(request, "inventory.html", 
 		{"username": business_owner.username, "business_name": business_owner.business_name,
-		"full_name": business_owner.full_name, "page": "inventory"})
+		"full_name": business_owner.full_name, "page": "inventory", "inventory_data": inventory_data})
 
 @login_required
 def sales_view(request):
@@ -135,5 +137,37 @@ def profile_view(request):
 	return render(request, "profile.html", 
 		{"username": business_owner.username, "business_name": business_owner.business_name,
 		"full_name": business_owner.full_name, "page": "profile", "prompt": prompt})
+
+@login_required
+def import_data_view(request):
+	business_owner = BusinessOwner.objects.get(username=request.user.username)
+
+	if request.method == "POST":
+		csv_file = request.FILES['csv_file']
+	
+		if not csv_file.name.endswith('.csv'):
+			return render(request, "import_data.html", 
+			{"username": business_owner.username, "business_name": business_owner.business_name,
+			"full_name": business_owner.full_name, "page": "import-data"})
+
+		file_data = csv_file.read().decode("utf-8")
+		lines = file_data.split("\n")
+		for line in lines[1:]:
+			if line == '':
+				pass
+			else:
+				columns = line.split(",")
+				temporary = IngredientRecord(id=columns[0],ingredient_name=columns[1], cost=columns[2],units=columns[3], daily_units=columns[4], owner_id=business_owner.user_ptr_id)
+				temporary.save()
+
+		return render(request, "import_data.html", 
+			{"username": business_owner.username, "business_name": business_owner.business_name,
+			"full_name": business_owner.full_name, "page": "import-data"})
+	elif request.method == "GET":
+		return render(request, "import_data.html")
+	
+
+	
+
 
 
