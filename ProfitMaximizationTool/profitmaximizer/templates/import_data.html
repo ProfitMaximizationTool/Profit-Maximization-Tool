@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+
+{% block title %}<title>Profitify: Import Data</title>{% endblock %}
+
+{% block page-content %}
+    <div class="error-container" id="file-extension-error">File must be .csv</div>
+    <form action="{% url "import-data" %}" method="POST" enctype="multipart/form-data" class="form-horizontal">
+        {% csrf_token %}
+        <div class="form-group">
+        <label for="name" >File: </label>
+        <div>
+        <input type="file" name="csv_file" id="csv_file" required="True" class="form-control">
+        </div>                   
+        </div>
+        <div class="form-group">                   
+        <div>
+        <button> <span></span>Upload </button>
+        </div>
+        </div>
+        </form>
+{% endblock %}
