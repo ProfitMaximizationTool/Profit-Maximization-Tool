@@ -11,7 +11,7 @@
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@900&family=Open+Sans:wght@300;400;700;800&family=Oswald:wght@500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
 </head>
 
 <body>
@@ -21,33 +21,33 @@
         <button class="close" id="closesignup-btn"><b>&#10005</b></button>
         <form autocomplete="off" method="POST" action="/signup/">
             {% csrf_token %}
-            <h2 class="ostitle"> CREATE ACCOUNT </h2>
-            <div class="form">
+            <h2 class="form-title medium-font"> Create account </h2>
+            <div class="input-field">
                 <ion-icon name="person"></ion-icon>
-                <input type="text" placeholder="FULL NAME" name="fullname" required>
+                <input type="text" placeholder="Full Name" name="fullname" required>
             </div>
-            <div class="form">
+            <div class="input-field">
                 <ion-icon name="at"></ion-icon>
-                <input type="text" placeholder="USERNAME" name="username" required>
+                <input type="text" placeholder="Username" name="username" required>
             </div>
-            <div class="form">
+            <div class="input-field">
                 <ion-icon name="business"></ion-icon>
-                <input type="text" placeholder="BUSINESS NAME" name="bizname" required>
+                <input type="text" placeholder="Business Name" name="bizname" required>
             </div>
-            <div class="form">
+            <div class="input-field">
                 <ion-icon name="lock-closed"></ion-icon>
-                <input type="password" placeholder="PASSWORD" name="psw" required>
+                <input type="password" placeholder="Password" name="psw" required>
             </div>
-            <div class="form">
+            <div class="input-field">
                 <ion-icon name="lock-closed"></ion-icon>
-                <input type="password" placeholder="CONFIRM PASSWORD" name="confirmpsw" required>
+                <input type="password" placeholder="Confirm Password" name="confirmpsw" required>
             </div>
             <div class="error-container" id="username-taken-container">Username already taken.</div>
             <div class="error-container" id="passwords-mismatch-container">Passwords don't match.</div>
-            <input class="signin" type="submit" name="signup-btn" value="SIGN UP">
+            <input class="outline btn" type="submit" name="signup-btn" value="SIGN UP">
         </form>
 
-        <p class="small"> Already have an account? <a class="link" href="javascript:void(0)" id="gotosignin-btn"> Sign in. </a> </p>
+        <p class="small-text"> Already have an account? <a class="link" href="javascript:void(0)" id="gotosignin-btn"> Sign in. </a> </p>
     </div>
 
     <!-- sign in form overlaid -->
@@ -55,32 +55,32 @@
         <button class="close" id="closesignin-btn"><b>&#10005</b></button>
         <form autocomplete="off" method="POST" action="/signin/">
             {% csrf_token %}
-            <h2 class="ostitle"> SIGN IN </h2>
-            <div class="form">
+            <h2 class="form-title"> Sign In </h2>
+            <div class="input-field">
                 <ion-icon name="at"></ion-icon>
-                <input type="text" placeholder="USERNAME" name="username" required>
+                <input type="text" placeholder="Username" name="username" required>
             </div>
-            <div class="form">
+            <div class="input-field">
                 <ion-icon name="lock-closed"></ion-icon>
-                <input type="password" placeholder="PASSWORD" name="psw" required>
+                <input type="password" placeholder="Password" name="psw" required>
             </div>
             <div class="error-container" id="login-fail-container">Invalid username or password.</div>
-            <input class="signin" type="submit" name="signin-btn" value="SIGN IN">
+            <input class="outline btn" type="submit" name="signin-btn" value="SIGN IN">
         </form>
         
-        <p class="small"> Don't have an account? <a class="link" href="javascript:void(0)" id="gotosignup-btn"> Sign up. </a> </p>
+        <p class="small-text"> Don't have an account? <a class="link" href="javascript:void(0)" id="gotosignup-btn"> Sign up. </a> </p>
     </div>
 
-    <div id="main-box">
-        <h1 id="main-title"> Profitify </h1>
-        <p id="app-desc"> A profit maximization tool that helps business owners maximize their profits and track their business performance. </p>
+    <div class="main-box">
+        <h1 class="title-font"> Profitify </h1>
+        <p class="medium-text"> A profit maximization tool that helps business owners maximize their profits and track their business performance. </p>
 
         <br>
         <!-- sign up and sign in buttons -->
         <div id="signin-signup">
-            <button class="signup btn" id="opensignup-btn"> SIGN UP </button>
+            <button class="fill btn" id="opensignup-btn"> SIGN UP </button>
             <br>
-            <button class="signin btn" id="opensignin-btn"> SIGN IN </button>
+            <button class="outline btn" id="opensignin-btn"> SIGN IN </button>
         </div>
     </div>
 

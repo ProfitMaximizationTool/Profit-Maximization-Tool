@@ -1,39 +1,55 @@
-/* Background */
+:root {
+    /* color palette */
+    --secondary: #ffc0d3;
+    --primary: #ff5c8d;
+    --light: #fdeff4;
+    --dark: #524a4e;
+
+    /* font sizes */
+    --xsmall: 12px;
+    --small: 16px;
+    --medium: 20px;
+    --large: 24px;
+    --xlarge: 28px;
+}
+
 body {
-    background-image: url("/static/img/bg.jpg");
     width: 100%;
     height: 100%;
     background-size: 100%;
+    background-color: #ffc0d3;
+    background-image: linear-gradient(90deg, #ffc0d3 0%, #ff5c8d 100%);
 }
 
 /* Main box that contains title, app description, etc. */
-#main-box {
+.main-box {
     height: 60%;
     width: 40%;
     padding-top: 50px;
     padding-bottom: 50px;
     padding-left: 100px;
     padding-right: 100px;
-    background-color: white;
+    background-color: var(--light);
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
+    filter: drop-shadow(0px 0px 10px #524a4e3a);
 }
 
 /* Profitify */
-#main-title {
-    color: #222629;
+.title-font {
+    color: var(--primary);
     font-size: 80px;
     line-height: 70%;
-    font-family: 'Oswald', sans-serif;
+    font-family: 'Poppins', sans-serif;
     font-weight: 700;
     text-align: center;
 }
 
-/* Description of app */
-#app-desc {
-    font-family: 'Open Sans', sans-serif;
+.medium-text {
+    font-family: 'Inter', sans-serif;
+    font-size: var(--small);
     text-align: center;
 }
 
@@ -51,46 +67,50 @@ body {
     margin: 5px;
     width: 150px;
     height: 40px;
-    font-size: 18px;
-    font-family: 'Open Sans', sans-serif;
-    font-weight: 800;
+    font-size: var(--medium);
+    font-family: 'Inter', sans-serif;
+    font-weight: 700;
+    letter-spacing: 0.5pt;
     border-radius: 20px;
     display: inline-block;
     box-shadow: none;
-    border: 2px solid;
+    border: 1px solid;
 }
 
 .btn:hover {
     cursor: pointer;
 }
 
-.signup {
-    background-color: #86c232;
-    border-color: #86c232;
-    color: white;
+.fill {
+    background-color: var(--primary);
+    border-color: var(--primary);
+    color: var(--light);
 }
 
-.signin {
+.outline {
+    background-color: var(--light);
+    border-color: var(--dark);
+    color: var(--dark);
+}
+
+.fill:hover {
+    border-color: #ff5c8d;
+    color: #ff5c8d;
     background-color: white;
-    border-color: #222629;
-    color: #222629;
+    
 }
 
-.signup:hover {
-    background-color: #95c758;
-    border-color: #95c758;
-}
-
-.signin:hover {
-    border-color: #6b6e70;
-    color: #6b6e70;
+.outline:hover {
+    background-color: #524A4E;
+    color: white;
+    border-color: #524A4E;
 }
 
 .overlay {
     width: 350px;
     height: 460px;
     border-radius: 18px;
-    background-color: white;
+    background-color: #ffc0d3;
     padding: 40px;
     position: fixed;
     display: none;
@@ -102,55 +122,46 @@ body {
 }
 
 .close {
-    color: #222629;
-    font-family: 'Open Sans', sans-serif;
+    color: var(--dark);
+    font-family: 'Poppins', sans-serif;
     font-weight: 500;
     border: none;
+    border-radius: 3px;
     background-color: transparent;
     float: right;
 }
 
-
 .close:hover {
-    color: #6b6e70;
+    background-color: var(--light);
     cursor: pointer;
 }
 
-
-.ostitle {
-    font-family: 'Oswald', sans-serif;
+.form-title {
+    font-family: 'Poppins', sans-serif;
     font-weight: 800;
-    font-size: 28px;
-    color: #86c232;
+    font-size: var(--xlarge);
+    color: var(--primary);
 }
 
 input[type="text"], input[type="password"] {
     float: right;
     border: none;
-    font-family: 'Open Sans', sans-serif;
+    font-family: 'Poppins', sans-serif;
     width: 92%;
     height: 20px;
     color: #222629;
 }
 
-input[type="submit"] {
-    float: right;
-}
-
-.form {
-    border-bottom: 0.2px solid #86c232;
+.input-field {
+    border: 0.2px solid #524A4E;
+    border-radius: 2px;
     height: 35px;
-    width: 100%;
-    margin-top: 10px;
-    margin-bottom: 10px; 
     text-align: center;
-    position: relative;
-    align-items: baseline;
 }
 
-.small {
-    font-size: 12px;
-    font-family: 'Open Sans', sans-serif;
+.small-text {
+    font-size: var(--xsmall);
+    font-family: 'Inter', sans-serif;
     color: #222629;
     text-align: center;
     position: absolute;
@@ -165,37 +176,23 @@ ion-icon {
     size: 105%;
 }
 
-
-
 a {
     text-align: center;
 }
 
 /* Animations */
-
 a:link {
     text-decoration: none;
-    color: #86c232;
+    color: #ff5c8d;
 }
 
 a:hover {
     text-decoration: underline;
-    color: #61892f;
-}
-
-
-input[type="submit"]:hover {
-    background-color: #95c758;
-    border-color: #95c758;
+    color: #524A4E;
 }
 
 input[type="text"], input[type="password"]:focus {
     outline: none;
-}
-
-
-.form:active {
-    border-color: #86c232;
 }
 
 .error-container {
