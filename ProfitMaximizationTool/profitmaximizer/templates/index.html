@@ -8,6 +8,7 @@
     {% load static %}
 
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link rel = "icon" href = "{% static 'img/logo-01.png' %}">
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -21,30 +22,30 @@
         <button class="close" id="closesignup-btn"><b>&#10005</b></button>
         <form autocomplete="off" method="POST" action="/signup/">
             {% csrf_token %}
-            <h2 class="form-title medium-font"> Create account </h2>
-            <div class="input-field">
+            <h2 class="form-title"> Create account </h2>
+            <div class="input-box">
                 <ion-icon name="person"></ion-icon>
-                <input type="text" placeholder="Full Name" name="fullname" required>
+                <input class="user-info" type="text" placeholder="Full Name" name="fullname" required>
             </div>
-            <div class="input-field">
+            <div class="input-box">
                 <ion-icon name="at"></ion-icon>
-                <input type="text" placeholder="Username" name="username" required>
+                <input class="user-info" type="text" placeholder="Username" name="username" required>
             </div>
-            <div class="input-field">
+            <div class="input-box">
                 <ion-icon name="business"></ion-icon>
-                <input type="text" placeholder="Business Name" name="bizname" required>
+                <input class="user-info" type="text" placeholder="Business Name" name="bizname" required>
             </div>
-            <div class="input-field">
+            <div class="input-box">
                 <ion-icon name="lock-closed"></ion-icon>
-                <input type="password" placeholder="Password" name="psw" required>
+                <input class="user-info" type="password" placeholder="Password" name="psw" required>
             </div>
-            <div class="input-field">
+            <div class="input-box">
                 <ion-icon name="lock-closed"></ion-icon>
-                <input type="password" placeholder="Confirm Password" name="confirmpsw" required>
+                <input class="user-info" type="password" placeholder="Confirm Password" name="confirmpsw" required>
             </div>
             <div class="error-container" id="username-taken-container">Username already taken.</div>
             <div class="error-container" id="passwords-mismatch-container">Passwords don't match.</div>
-            <input class="outline btn" type="submit" name="signup-btn" value="SIGN UP">
+            <input class="submit btn" type="submit" name="signup-btn" value="Sign Up">
         </form>
 
         <p class="small-text"> Already have an account? <a class="link" href="javascript:void(0)" id="gotosignin-btn"> Sign in. </a> </p>
@@ -55,17 +56,17 @@
         <button class="close" id="closesignin-btn"><b>&#10005</b></button>
         <form autocomplete="off" method="POST" action="/signin/">
             {% csrf_token %}
-            <h2 class="form-title"> Sign In </h2>
-            <div class="input-field">
+            <h2 class="form-title"> Sign in </h2>
+            <div class="input-box">
                 <ion-icon name="at"></ion-icon>
-                <input type="text" placeholder="Username" name="username" required>
+                <input class="user-info" type="text" placeholder="Username" name="username" required>
             </div>
-            <div class="input-field">
+            <div class="input-box">
                 <ion-icon name="lock-closed"></ion-icon>
-                <input type="password" placeholder="Password" name="psw" required>
+                <input class="user-info" type="password" placeholder="Password" name="psw" required>
             </div>
             <div class="error-container" id="login-fail-container">Invalid username or password.</div>
-            <input class="outline btn" type="submit" name="signin-btn" value="SIGN IN">
+            <input class="submit btn" type="submit" name="signin-btn" value="Sign In">
         </form>
         
         <p class="small-text"> Don't have an account? <a class="link" href="javascript:void(0)" id="gotosignup-btn"> Sign up. </a> </p>
@@ -73,14 +74,14 @@
 
     <div class="main-box">
         <h1 class="title-font"> Profitify </h1>
-        <p class="medium-text"> A profit maximization tool that helps business owners maximize their profits and track their business performance. </p>
+        <p class="description"> A profit maximization tool that helps business owners maximize their profits and track their business performance. </p>
 
         <br>
         <!-- sign up and sign in buttons -->
         <div id="signin-signup">
-            <button class="fill btn" id="opensignup-btn"> SIGN UP </button>
+            <button class="fill btn" id="opensignup-btn"> Sign Up </button>
             <br>
-            <button class="outline btn" id="opensignin-btn"> SIGN IN </button>
+            <button class="outline btn" id="opensignin-btn"> Sign In </button>
         </div>
     </div>
 

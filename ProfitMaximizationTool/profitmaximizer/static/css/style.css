@@ -19,22 +19,25 @@ body {
     background-size: 100%;
     background-color: #ffc0d3;
     background-image: linear-gradient(90deg, #ffc0d3 0%, #ff5c8d 100%);
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 /* Main box that contains title, app description, etc. */
 .main-box {
+    background-color: var(--light);
     height: 60%;
     width: 40%;
     padding-top: 50px;
     padding-bottom: 50px;
     padding-left: 100px;
     padding-right: 100px;
-    background-color: var(--light);
+    filter: drop-shadow(0px 0px 10px #524a4e3a);
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    filter: drop-shadow(0px 0px 10px #524a4e3a);
 }
 
 /* Profitify */
@@ -47,7 +50,7 @@ body {
     text-align: center;
 }
 
-.medium-text {
+.description {
     font-family: 'Inter', sans-serif;
     font-size: var(--small);
     text-align: center;
@@ -64,7 +67,8 @@ body {
 
 /* Class btn for sign up and sign in buttons */
 .btn {
-    margin: 5px;
+    margin-top: 5px;
+    margin-bottom: 5px;
     width: 150px;
     height: 40px;
     font-size: var(--medium);
@@ -96,13 +100,12 @@ body {
 .fill:hover {
     border-color: #ff5c8d;
     color: #ff5c8d;
-    background-color: white;
-    
+    background-color: var(--light);
 }
 
 .outline:hover {
     background-color: #524A4E;
-    color: white;
+    color: var(--light);
     border-color: #524A4E;
 }
 
@@ -110,9 +113,9 @@ body {
     width: 350px;
     height: 460px;
     border-radius: 18px;
-    background-color: #ffc0d3;
+    background-color: white;
     padding: 40px;
-    position: fixed;
+    position: absolute;
     display: none;
     z-index: 1;
     top: 50%;
@@ -124,7 +127,8 @@ body {
 .close {
     color: var(--dark);
     font-family: 'Poppins', sans-serif;
-    font-weight: 500;
+    font-weight: 800;
+    font-size: var(--small);
     border: none;
     border-radius: 3px;
     background-color: transparent;
@@ -137,26 +141,59 @@ body {
 }
 
 .form-title {
-    font-family: 'Poppins', sans-serif;
+    font-family: 'Inter', sans-serif;
     font-weight: 800;
+    line-height: 80%;
     font-size: var(--xlarge);
     color: var(--primary);
+    margin-top: 40px;
 }
 
-input[type="text"], input[type="password"] {
+.input-box {
+    border: 0.05px solid #524a4e63;
+    border-radius: 4px;
+    width: 100%;
+    height: 35px;
+    margin-top: 8px;
+    margin-bottom: 8px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.user-info {
     float: right;
     border: none;
-    font-family: 'Poppins', sans-serif;
+    font-family: 'Inter', sans-serif;
     width: 92%;
-    height: 20px;
+    font-size: var(--small);
+    height: 80%;
     color: #222629;
+    transition: ease-out 0.1s;
 }
 
-.input-field {
-    border: 0.2px solid #524A4E;
-    border-radius: 2px;
+.user-info:focus {
+    outline: none;
+    transform: translate(-2px)
+}
+
+.submit {
+    border: 0.1px solid var(--primary);
+    color: var(--primary);
+    background-color: transparent;
+    border-radius: 4px;
+    width: 100%;
     height: 35px;
-    text-align: center;
+    font-size: var(--small);
+    font-family: 'Inter', sans-serif;
+    font-weight: 700;
+    letter-spacing: 0.5pt;
+}
+
+.submit:hover {
+    background-color: var(--primary);
+    color: white;
+    border-color: var(--primary);
 }
 
 .small-text {
@@ -171,9 +208,11 @@ input[type="text"], input[type="password"] {
 }
 
 ion-icon {
-    color: #6b6e70;
+    color: var(--dark);
     float: left;
-    size: 105%;
+    size: 110%;
+    margin-right: 10px;
+    margin-left: 8px;
 }
 
 a {
@@ -183,16 +222,12 @@ a {
 /* Animations */
 a:link {
     text-decoration: none;
-    color: #ff5c8d;
+    color: var(--primary);
 }
 
 a:hover {
     text-decoration: underline;
     color: #524A4E;
-}
-
-input[type="text"], input[type="password"]:focus {
-    outline: none;
 }
 
 .error-container {
