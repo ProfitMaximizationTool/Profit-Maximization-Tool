@@ -161,6 +161,10 @@ body {
     align-items: center;
 }
 
+.input-box:focus-within {
+    border: 0.05px solid var(--primary);
+}
+
 .user-info {
     float: right;
     border: none;
@@ -210,7 +214,7 @@ body {
 ion-icon {
     color: var(--dark);
     float: left;
-    size: 110%;
+    font-size: 18px;
     margin-right: 10px;
     margin-left: 8px;
 }
@@ -219,7 +223,6 @@ a {
     text-align: center;
 }
 
-/* Animations */
 a:link {
     text-decoration: none;
     color: var(--primary);
@@ -239,3 +242,4 @@ a:hover {
     font-size: var(--xsmall);
     display:  none;
 }
+
