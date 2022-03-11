@@ -9,9 +9,9 @@ class BusinessOwner(User):
 	def __str__(self):
 		return self.username
 
-class inventory_db(models.Model):
+class IngredientRecord(models.Model):
 	owner = models.ForeignKey(BusinessOwner, on_delete=models.CASCADE)
-	item_name = models.CharField( max_length=255)
+	ingredient_name = models.CharField(max_length=255)
 	cost = models.DecimalField(max_digits=10, decimal_places=2)
 	units = models.IntegerField()
 	daily_units = models.IntegerField()

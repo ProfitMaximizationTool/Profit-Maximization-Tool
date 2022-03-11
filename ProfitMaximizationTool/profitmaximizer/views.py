@@ -4,7 +4,7 @@ from django.shortcuts import render, redirect
 from django.http import HttpResponse, HttpResponseRedirect
 from django.contrib.auth import login, logout, authenticate
 from django.contrib.auth.decorators import login_required
-from profitmaximizer.models import BusinessOwner, inventory_db
+from profitmaximizer.models import BusinessOwner, IngredientRecord
 from django.core.exceptions import ObjectDoesNotExist
 from django.views.decorators.csrf import csrf_protect
 
@@ -89,7 +89,7 @@ def products_view(request):
 def inventory_view(request):
 	business_owner = BusinessOwner.objects.get(username=request.user.username)
 	frgn_key = business_owner.user_ptr_id
-	inventory_data = inventory_db.objects.filter(owner_id=frgn_key).order_by("units")
+	inventory_data = IngredientRecord.objects.filter(owner_id=frgn_key).order_by("units")
 	return render(request, "inventory.html", 
 		{"username": business_owner.username, "business_name": business_owner.business_name,
 		"full_name": business_owner.full_name, "page": "inventory", "inventory_data": inventory_data})
@@ -157,7 +157,7 @@ def import_data_view(request):
 				pass
 			else:
 				columns = line.split(",")
-				temporary = inventory_db(id=columns[0],item_name=columns[1], cost=columns[2],units=columns[3], daily_units=columns[4], owner_id=business_owner.user_ptr_id)
+				temporary = IngredientRecord(id=columns[0],ingredient_name=columns[1], cost=columns[2],units=columns[3], daily_units=columns[4], owner_id=business_owner.user_ptr_id)
 				temporary.save()
 
 		return render(request, "import_data.html", 
