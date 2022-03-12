@@ -6,28 +6,69 @@
 
     {% load static %}
 
-    <link rel="stylesheet" href="{% static 'css/main.css' %}">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link rel="icon" href ="{% static 'img/logo-01.png' %}">
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
-
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
 </head>
 
-<body>
+<body id="base">
+
+    <div class="import overlay" id="import-overlay">
+        {% block import %}
+        <button class="close" id="close-import"><b>&#10005</b></button>
+        <div class="error-container" id="file-extension-error">Inventory database in csv file format</div>
+        <form action=/import/ method="POST" enctype="multipart/form-data" class="form-horizontal">
+            {% csrf_token %}
+            <div class="form-group">
+            <label for="name" >File: </label>
+            <div>
+            <input type="file" name="csv_file" id="csv_file" required="True" class="form-control">
+            </div>                   
+            </div>
+            <div class="form-group">                   
+            <div>
+            <button> <span></span>Upload </button>
+            </div>
+            </div>
+        </form>    
+        <div class="error-container" id="file-extension-error1">Products database must be in csv format</div>
+        <form action=/import/ method="POST" enctype="multipart/form-data" class="form-horizontal">
+            {% csrf_token %}
+            <div class="form-group">
+            <label for="name" >File: </label>
+            <div>
+            <input type="file" name="products_file" id="products_file" required="True" class="form-control">
+            </div>                   
+            </div>
+            <div class="form-group">                   
+            <div>
+            <button> <span></span>Upload </button>
+            </div>
+            </div>
+            </form>
+        {% endblock %}
+    </div>
+
     <div class="nav-bar">
         <div class="nav-bar-inner">
             {% block nav-bar %}
-                <div class="icon-btn left" id="toggle-sidebar-btn">
-                    <ion-icon class="light-font medium-icon" name="menu-outline"></ion-icon>
+                <ion-icon class="nav-icon btn" id="toggle-sidebar-btn" name="menu"></ion-icon>
+                <img class="logo" src="{% static 'img/logo-01.png' %}">
+                <div class="nav-app-name">
+                    Profitify
                 </div>
-                <div class="center light-font big-font title-font">
-                    PROFITIFY
+                <div class="form-container">
+                <button class="fill dynamic-btn btn" id="open-import">
+                    Import Data
+                </button>
                 </div>
                 <div class="form-container">
                     <form method="POST" action="/signout/">
                         {% csrf_token %}
-                        <input type="submit" class="light-btn btn-font btn right" value="SIGN OUT" name="signout-btn" >
+                        <input type="submit" class="fill dynamic-btn btn" value="Sign out" name="signout-btn" >
                     </form>
                 </div>
             {% endblock %}
@@ -39,54 +80,51 @@
                 <div class="sidebar-inner">
                     {% block sidebar %}
                         <br>
-                        <a class="btn-link" href="/dashboard/profile/">
-                            <div class="sidebar-option" id="go-to-profile-btn">
-                                <div class="icon-btn">
-                                    <ion-icon class="center dark-font big-icon" name="person-circle"></ion-icon>
-                                </div>
-                                <div class="dark-font center bold medium-font default-font">{{ full_name|safe|upper }}</div>
-                                <br>
-                                <div class="dark-font center medium-font default-font">{{ username|safe }}</div>
-                                <div class="dark-font center medium-font default-font">{{ business_name|safe }}</div>
+                        <a class="page-link" href="/dashboard/profile/">
+                            <div class="profile" id="go-to-profile-btn">
+                                <img class="profile-photo" src="{% static 'img/pic.jpg' %}">
+                                <div class="account-info">
+                                    <div class="small-font bold">{{ full_name|safe }}</div>
+                                    <div class="xsmall-font regular">{{ username|safe }} &#8226 {{ business_name|safe }}</div>                                </div>
                             </div>
                         </a>
-                        <a class="dark-btn btn-fnt btn" href="/dashboard/import-data">
-                            <div class="sidebar-option btn-font" id="go-to-import-btn">
-                                 IMPORT DATA
+                        <a class="page-link btn" href="/dashboard/">
+                            <div class="sidebar-tab" id="go-to-dashboard-btn">
+                                <ion-icon class="sidebar-icon" name="grid"></ion-icon>
+                                <div class="page-name small-font">Dashboard</div>
                             </div>
                         </a>
-                        <a class="btn-link" href="/dashboard/">
-                            <div class="sidebar-option btn-font" id="go-to-dashboard-btn">
-                                <ion-icon class="dark-font left" name="grid"></ion-icon>DASHBOARD
+                        <a class="page-link btn" href="/dashboard/products/">
+                            <div class="sidebar-tab" id="go-to-products-btn">
+                                <ion-icon class="sidebar-icon" name="pricetag"></ion-icon>
+                                <div class="page-name small-font">Products</div>
                             </div>
                         </a>
-                        <a class="btn-link" href="/dashboard/products/">
-                            <div class="sidebar-option btn-font" id="go-to-products-btn">
-                                <ion-icon class="dark-font left" name="pricetag"></ion-icon></ion-icon>PRODUCTS
+                        <a class="page-link btn" href="/dashboard/inventory/">
+                            <div class="sidebar-tab" id="go-to-inventory-btn">
+                                <ion-icon class="sidebar-icon" name="briefcase"></ion-icon>
+                                <div class="page-name small-font">Inventory</div>
                             </div>
                         </a>
-                        <a class="btn-link" href="/dashboard/inventory/">
-                            <div class="sidebar-option btn-font" id="go-to-inventory-btn">
-                                <ion-icon class="dark-font left" name="briefcase"></ion-icon></ion-icon>INVENTORY
+                        <a class="page-link btn" href="/dashboard/sales/">
+                            <div class="sidebar-tab" id="go-to-sales-btn">
+                                <ion-icon class="sidebar-icon" name="wallet"></ion-icon>
+                                <div class="page-name small-font">Sales</div>
                             </div>
                         </a>
-                        <a class="btn-link" href="/dashboard/sales/">
-                            <div class="sidebar-option btn-font" id="go-to-sales-btn">
-                                <ion-icon class="dark-font left" name="wallet"></ion-icon>SALES
+                        <a class="page-link btn" href="/dashboard/production/">
+                            <div class="sidebar-tab" id="go-to-production-btn">
+                                <ion-icon class="sidebar-icon" name="fast-food"></ion-icon> 
+                                <div class="page-name small-font">Production</div>
                             </div>
                         </a>
-                        <a class="btn-link" href="/dashboard/production/">
-                            <div class="sidebar-option btn-font" id="go-to-production-btn">
-                                <ion-icon class="dark-font left" name="fast-food"></ion-icon>PRODUCTION
+                        <a class="page-link btn" href="/dashboard/profit-tracker/">
+                            <div class="sidebar-tab" id="go-to-profit-tracker-btn">
+                                <ion-icon class="sidebar-icon" name="bar-chart"></ion-icon>
+                                <div class="page-name small-font">Profit Tracker</div>
                             </div>
                         </a>
-                        <a class="btn-link" href="/dashboard/profit-tracker/">
-                            <div class="sidebar-option btn-font" id="go-to-profit-tracker-btn">
-                                <ion-icon class="dark-font left" name="bar-chart"></ion-icon>PROFIT TRACKER
-                            </div>
-                        </a>
-                        <br>
-                        <div class="dark-btn btn-font btn">OPTIMIZE PROFIT</div>
+                        <button class="fill dynamic-btn btn">Optimize Profit</button>
                     {% endblock %}
                 </div>
             </div>
@@ -96,7 +134,7 @@
         </div>
 
 
-
+    
 
     <script type="text/javascript">
         var page = "{{ page|safe }}";
@@ -105,7 +143,6 @@
     <script src="{% static 'js/dashboard.js' %}"></script>
     <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
     <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
-
 </body>
 
 </html>
