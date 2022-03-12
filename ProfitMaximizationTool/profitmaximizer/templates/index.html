@@ -15,61 +15,65 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
 </head>
 
-<body>
+<body id="index">
 
     <!-- sign up form overlaid -->
-    <div id="signupoverlay" class="overlay">
+    <div id="signupoverlay" class="form overlay">
+        {% block sign-up %}
         <button class="close" id="closesignup-btn"><b>&#10005</b></button>
         <form autocomplete="off" method="POST" action="/signup/">
             {% csrf_token %}
             <h2 class="form-title"> Create account </h2>
             <div class="input-box">
-                <ion-icon name="person"></ion-icon>
+                <ion-icon class="form-icon" name="person"></ion-icon>
                 <input class="user-info" type="text" placeholder="Full Name" name="fullname" required>
             </div>
             <div class="input-box">
-                <ion-icon name="at"></ion-icon>
+                <ion-icon class="form-icon" name="at"></ion-icon>
                 <input class="user-info" type="text" placeholder="Username" name="username" required>
             </div>
             <div class="input-box">
-                <ion-icon name="business"></ion-icon>
+                <ion-icon class="form-icon" name="business"></ion-icon>
                 <input class="user-info" type="text" placeholder="Business Name" name="bizname" required>
             </div>
             <div class="input-box">
-                <ion-icon name="lock-closed"></ion-icon>
+                <ion-icon class="form-icon" name="lock-closed"></ion-icon>
                 <input class="user-info" type="password" placeholder="Password" name="psw" required>
             </div>
             <div class="input-box">
-                <ion-icon name="lock-closed"></ion-icon>
+                <ion-icon class="form-icon" name="lock-closed"></ion-icon>
                 <input class="user-info" type="password" placeholder="Confirm Password" name="confirmpsw" required>
             </div>
             <div class="error-container" id="username-taken-container">Username already taken.</div>
             <div class="error-container" id="passwords-mismatch-container">Passwords don't match.</div>
-            <input class="submit btn" type="submit" name="signup-btn" value="Sign Up">
+            <input class="submit dynamic-btn btn" type="submit" name="signup-btn" value="Sign Up">
         </form>
 
-        <p class="small-text"> Already have an account? <a class="link" href="javascript:void(0)" id="gotosignin-btn"> Sign in. </a> </p>
+        <p class="small-text bottom"> Already have an account? <a class="link" href="javascript:void(0)" id="gotosignin-btn"> Sign in. </a> </p>
+        {% endblock %}
     </div>
 
     <!-- sign in form overlaid -->
-    <div id="signinoverlay" class="overlay">
+    <div id="signinoverlay" class="form overlay">
+        {% block sign-in %}
         <button class="close" id="closesignin-btn"><b>&#10005</b></button>
         <form autocomplete="off" method="POST" action="/signin/">
             {% csrf_token %}
             <h2 class="form-title"> Sign in </h2>
             <div class="input-box">
-                <ion-icon name="at"></ion-icon>
+                <ion-icon class="form-icon" name="at"></ion-icon>
                 <input class="user-info" type="text" placeholder="Username" name="username" required>
             </div>
             <div class="input-box">
-                <ion-icon name="lock-closed"></ion-icon>
+                <ion-icon class="form-icon" name="lock-closed"></ion-icon>
                 <input class="user-info" type="password" placeholder="Password" name="psw" required>
             </div>
             <div class="error-container" id="login-fail-container">Invalid username or password.</div>
-            <input class="submit btn" type="submit" name="signin-btn" value="Sign In">
+            <input class="submit dynamic-btn btn" type="submit" name="signin-btn" value="Sign In">
         </form>
         
-        <p class="small-text"> Don't have an account? <a class="link" href="javascript:void(0)" id="gotosignup-btn"> Sign up. </a> </p>
+        <p class="small-text bottom"> Don't have an account? <a class="link" href="javascript:void(0)" id="gotosignup-btn"> Sign up. </a> </p>
+        {% endblock %}
     </div>
 
     <div class="main-box">
@@ -79,9 +83,9 @@
         <br>
         <!-- sign up and sign in buttons -->
         <div id="signin-signup">
-            <button class="fill btn" id="opensignup-btn"> Sign Up </button>
+            <button class="fill medium-btn btn" id="opensignup-btn"> Sign Up </button>
             <br>
-            <button class="outline btn" id="opensignin-btn"> Sign In </button>
+            <button class="outline medium-btn btn" id="opensignin-btn"> Sign In </button>
         </div>
     </div>
 
