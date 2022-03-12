@@ -20,6 +20,6 @@ class IngredientRecord(models.Model):
 class ProductRecord(models.Model):
 	owner = models.ForeignKey(BusinessOwner,on_delete=models.CASCADE)
 	productName = models.CharField(max_length=255)
-	ingredients = models.JSONField(default=dict())
+	ingredients = models.JSONField(default=dict)
 	cost = models.DecimalField(max_digits=10,decimal_places=2)
 	price = models.DecimalField(max_digits=10,decimal_places=2)
