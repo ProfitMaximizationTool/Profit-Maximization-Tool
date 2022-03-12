@@ -6,4 +6,11 @@
     <div class="left dark-font bold default-font big-font text">
         PRODUCTS
     </div>
+    {% for stuff in products_data %}
+    {{ stuff.id}}
+    {{ stuff.productName}}
+    {{ stuff.ingredients}}
+    {{ stuff.cost }}
+    {{ stuff.price }}<br/>
+    {% endfor %}
 {% endblock %}

@@ -3,7 +3,7 @@
 {% block title %}<title>Profitify: Import Data</title>{% endblock %}
 
 {% block page-content %}
-    <div class="error-container" id="file-extension-error">File must be .csv</div>
+    <div class="error-container" id="file-extension-error">Inventory database in csv file format</div>
     <form action="{% url "import-data" %}" method="POST" enctype="multipart/form-data" class="form-horizontal">
         {% csrf_token %}
         <div class="form-group">
@@ -17,5 +17,20 @@
         <button> <span></span>Upload </button>
         </div>
         </div>
-        </form>
+    </form>    
+    <div class="error-container" id="file-extension-error1">Products database must be in csv format</div>
+    <form action="{% url "import-data" %}" method="POST" enctype="multipart/form-data" class="form-horizontal">
+        {% csrf_token %}
+        <div class="form-group">
+        <label for="name" >File: </label>
+        <div>
+        <input type="file" name="products_file" id="products_file" required="True" class="form-control">
+        </div>                   
+        </div>
+        <div class="form-group">                   
+        <div>
+        <button> <span></span>Upload </button>
+        </div>
+        </div>
+        </form>   
 {% endblock %}
