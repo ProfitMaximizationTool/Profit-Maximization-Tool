@@ -14,5 +14,4 @@ urlpatterns = [
 	path('dashboard/sales/', views.sales_view, name='sales'),
 	path('dashboard/production/', views.production_view, name='production'),
 	path('dashboard/profit-tracker/', views.profit_tracker_view, name='profit-tracker'),
-	path('dashboard/import-data/', views.import_data_view, name="import-data"),
 ]

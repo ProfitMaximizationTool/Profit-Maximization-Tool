@@ -73,6 +73,44 @@ def signout_view(request):
 def dashboard_view(request):
 	business_owner = BusinessOwner.objects.get(username=request.user.username)
 			
+	if request.method == "POST" and "import-inv-btn" in request.POST:
+		if 'csv_file' in request.FILES:
+			csv_file = request.FILES['csv_file']
+			if not csv_file.name.endswith('.csv'):
+				return render(request, "dashboard.html", 
+				{"username": business_owner.username, "business_name": business_owner.business_name,
+				"full_name": business_owner.full_name, "page": "dashboard"})
+			file_data = csv_file.read().decode("utf-8")
+			lines = file_data.split("\n")
+			for line in lines[1:]:
+				if line == '':
+					pass
+				else:
+					columns = line.split(",")
+					temporary = IngredientRecord(id=columns[0],ingredient_name=columns[1], cost=columns[2],units=columns[3], daily_units=columns[4], owner_id=business_owner.user_ptr_id)
+					temporary.save()
+					
+	elif request.method == "POST" and "import-prod-btn" in request.POST:
+		if 'products_file' in request.FILES:
+			products_file = request.FILES['products_file']
+			if not products_file.name.endswith('.csv'):
+				return render(request, "dashboard.html", 
+				{"username": business_owner.username, "business_name": business_owner.business_name,
+				"full_name": business_owner.full_name, "page": "dashboard"})
+			products_data = products_data.split("\n")
+			last_ingr_index = len(products_data[0])
+			first_ingr_index = 4
+			products_data[0] = products_data[0].split(",")
+			products_data[0][-1] = products_data[0][-1].replace("\r","")
+			for i in range(1,len(products_data)-1):
+				products_data[i] = products_data[i].split(",")
+				products_data[i][0] = int(products_data[i][0])
+				products_data[i][2] = float(products_data[i][2]); products_data[i][3] = float(products_data[i][3])
+				products_data[i][4:] = [int(x) for x in products_data[i][4:]]
+				ingr = {products_data[0][j]: products_data[i][j] for j in range(4,len(products_data[i]))}
+				temp_product = ProductRecord(id=products_data[i][0],productName=products_data[i][1],cost=products_data[i][2],price=products_data[i][3],ingredients=ingr,owner_id=business_owner.user_ptr_id)
+				temp_product.save()
+
 	return render(request, "dashboard.html", 
 		{"username": business_owner.username, "business_name": business_owner.business_name,
 		"full_name": business_owner.full_name, "page": "dashboard"})
@@ -140,50 +178,3 @@ def profile_view(request):
 		{"username": business_owner.username, "business_name": business_owner.business_name,
 		"full_name": business_owner.full_name, "page": "profile", "prompt": prompt})
 
-@login_required
-def import_data_view(request):
-	business_owner = BusinessOwner.objects.get(username=request.user.username)
-	if request.method == "POST":
-		if 'csv_file' in request.FILES:
-			csv_file = request.FILES['csv_file']
-			if not csv_file.name.endswith('.csv'):
-				return render(request, "import_data.html", 
-				{"username": business_owner.username, "business_name": business_owner.business_name,
-				"full_name": business_owner.full_name, "page": "import-data"})
-
-			file_data = csv_file.read().decode("utf-8")
-			lines = file_data.split("\n")
-			for line in lines[1:]:
-				if line == '':
-					pass
-				else:
-					columns = line.split(",")
-					temporary = IngredientRecord(id=columns[0],ingredient_name=columns[1], cost=columns[2],units=columns[3], daily_units=columns[4], owner_id=business_owner.user_ptr_id)
-					temporary.save()
-
-		elif 'products_file' in request.FILES:
-			products_file = request.FILES['products_file']
-			if not products_file.name.endswith('.csv'):
-				return render(request, "import_data.html", 
-				{"username": business_owner.username, "business_name": business_owner.business_name,
-				"full_name": business_owner.full_name, "page": "import-data"})
-			products_data = products_file.read().decode("utf-8")
-			products_data = products_data.split("\n")
-			last_ingr_index = len(products_data[0])
-			first_ingr_index = 4
-			products_data[0] = products_data[0].split(",")
-			products_data[0][-1] = products_data[0][-1].replace("\r","")
-			for i in range(1,len(products_data)-1):
-				products_data[i] = products_data[i].split(",")
-				products_data[i][0] = int(products_data[i][0])
-				products_data[i][2] = float(products_data[i][2]); products_data[i][3] = float(products_data[i][3])
-				products_data[i][4:] = [int(x) for x in products_data[i][4:]]
-				ingr = {products_data[0][j]: products_data[i][j] for j in range(4,len(products_data[i]))}
-				temp_product = ProductRecord(id=products_data[i][0],productName=products_data[i][1],cost=products_data[i][2],price=products_data[i][3],ingredients=ingr,owner_id=business_owner.user_ptr_id)
-				temp_product.save()
-
-		return render(request, "import_data.html", 
-			{"username": business_owner.username, "business_name": business_owner.business_name,
-			"full_name": business_owner.full_name, "page": "import-data"})
-	elif request.method == "GET":
-		return render(request, "import_data.html")

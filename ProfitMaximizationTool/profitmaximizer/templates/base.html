@@ -20,7 +20,7 @@
         {% block import %}
         <button class="close" id="close-import"><b>&#10005</b></button>
         <div class="error-container" id="file-extension-error">Inventory database in csv file format</div>
-        <form action=/import/ method="POST" enctype="multipart/form-data" class="form-horizontal">
+        <form action=/dashboard/ method="POST" enctype="multipart/form-data" class="form-horizontal">
             {% csrf_token %}
             <div class="form-group">
             <label for="name" >File: </label>
@@ -30,12 +30,11 @@
             </div>
             <div class="form-group">                   
             <div>
-            <button> <span></span>Upload </button>
-            </div>
+            <input type="submit" class="dark-btn btn-font btn left" value="Upload" name="import-inv-btn" ></div>
             </div>
         </form>    
         <div class="error-container" id="file-extension-error1">Products database must be in csv format</div>
-        <form action=/import/ method="POST" enctype="multipart/form-data" class="form-horizontal">
+        <form action=/dashboard/ method="POST" enctype="multipart/form-data" class="form-horizontal">
             {% csrf_token %}
             <div class="form-group">
             <label for="name" >File: </label>
@@ -45,7 +44,7 @@
             </div>
             <div class="form-group">                   
             <div>
-            <button> <span></span>Upload </button>
+            <input type="submit" class="dark-btn btn-font btn left" value="Upload" name="import-prod-btn" ></div>
             </div>
             </div>
             </form>
