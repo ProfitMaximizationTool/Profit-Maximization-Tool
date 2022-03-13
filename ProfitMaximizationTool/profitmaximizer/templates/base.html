@@ -16,55 +16,89 @@
 
 <body id="base">
 
-    <div class="import overlay" id="import-overlay">
+<!--     <div class="import overlay half-width half-height" id="import-overlay">
         {% block import %}
         <button class="close" id="close-import"><b>&#10005</b></button>
-        <div class="error-container" id="file-extension-error">Inventory database in csv file format</div>
+        <div class="error prompt" id="file-extension-error">Inventory database in csv file format</div>
         <form action=/dashboard/ method="POST" enctype="multipart/form-data" class="form-horizontal">
             {% csrf_token %}
             <div class="form-group">
-            <label for="name" >File: </label>
-            <div>
-            <input type="file" name="csv_file" id="csv_file" required="True" class="form-control">
-            </div>                   
+                <label for="name" >File: </label>
+                <div>
+                    <input type="file" name="csv_file" id="csv_file" required="True" class="form-control">
+                </div>                   
             </div>
             <div class="form-group">                   
-            <div>
-            <input type="submit" class="dark-btn btn-font btn left" value="Upload" name="import-inv-btn" ></div>
+                <div>
+                    <input type="submit" class="dark-btn btn-font btn left" value="Upload" name="import-inv-btn" >
+                </div>
             </div>
         </form>    
-        <div class="error-container" id="file-extension-error1">Products database must be in csv format</div>
+        <div class="error prompt" id="file-extension-error1">Products database must be in csv format</div>
         <form action=/dashboard/ method="POST" enctype="multipart/form-data" class="form-horizontal">
             {% csrf_token %}
             <div class="form-group">
-            <label for="name" >File: </label>
-            <div>
-            <input type="file" name="products_file" id="products_file" required="True" class="form-control">
-            </div>                   
+                <label for="name" >File: </label>
+                <div>
+                    <input type="file" name="products_file" id="products_file" required="True" class="form-control">
+                </div>                   
             </div>
             <div class="form-group">                   
-            <div>
-            <input type="submit" class="dark-btn btn-font btn left" value="Upload" name="import-prod-btn" ></div>
-            </div>
+                <div>
+                    <input type="submit" class="dark-btn btn-font btn left" value="Upload" name="import-prod-btn" ></div>
+                </div>
             </div>
             </form>
         {% endblock %}
+    </div> -->
+
+    <div class="import overlay half-width half-height" id="import-overlay">
+        <div class="centered-text dark-font xlarge-font bold text">
+            IMPORT DATA
+        </div>
+        <button class="close" id="close-import"><b>&#10005</b></button>
+
+        <table>
+            <form action=/dashboard/ method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+                <input type="file" name="products-table" class="file-upload" id="products-file-container">
+                <input type="file" name="inventory-table" class="file-upload" id="inventory-file-container">
+                <input type="file" name="sales-table" class="file-upload" id="sales-file-container">
+                <input type="file" name="production-data" class="file-upload" id="production-file-container">
+                <tr>
+                    <td class="table-btn" id="products-file">
+                        IMPORT PRODUCTS TABLE
+                    </td>
+                    <td class="table-btn" id="inventory-file">
+                        IMPORT INVENTORY TABLE
+                    </td>
+                </tr>
+                <tr>
+                    <td class="table-btn" id="sales-file">
+                        IMPORT SALES TABLE
+                    </td>
+                    <td class="table-btn" id="production-file">
+                        
+                        IMPORT PRODUCTION TABLE
+                    </td>
+                </tr>
+                <input type="submit" class="fill dynamic-btn btn bottom btn-size" value="UPLOAD" name="import-data" >
+            </form>
+        </table>
+        
     </div>
 
     <div class="nav-bar">
         <div class="nav-bar-inner">
             {% block nav-bar %}
                 <ion-icon class="nav-icon btn" id="toggle-sidebar-btn" name="menu"></ion-icon>
+
                 <img class="logo" src="{% static 'img/logo-01.png' %}">
                 <div class="nav-app-name">
                     Profitify
                 </div>
-                <div class="form-container">
-                <button class="fill dynamic-btn btn" id="open-import">
-                    Import Data
-                </button>
-                </div>
-                <div class="form-container">
+
+                <div class="btn-width right">
                     <form method="POST" action="/signout/">
                         {% csrf_token %}
                         <input type="submit" class="fill dynamic-btn btn" value="Sign out" name="signout-btn" >
@@ -72,65 +106,73 @@
                 </div>
             {% endblock %}
         </div>
+        <div></div>
     </div>
 
-        <div class="main-container">
-            <div class="sidebar" id="sidebar-container">
-                <div class="sidebar-inner">
-                    {% block sidebar %}
-                        <br>
-                        <a class="page-link" href="/dashboard/profile/">
-                            <div class="profile" id="go-to-profile-btn">
-                                <img class="profile-photo" src="{% static 'img/pic.jpg' %}">
-                                <div class="account-info">
-                                    <div class="small-font bold">{{ full_name|safe }}</div>
-                                    <div class="xsmall-font regular">{{ username|safe }} &#8226 {{ business_name|safe }}</div>                                </div>
+    <div class="main-container">
+        <div class="sidebar" id="sidebar-container">
+            <div class="sidebar-inner">
+                {% block sidebar %}
+                    <br>
+                    <a class="page-link" href="/dashboard/profile/">
+                        <div class="profile" id="go-to-profile-btn">
+                            <img class="profile-photo" src="{% static 'img/pic.jpg' %}">
+                            <div class="account-info">
+                                <div class="small-font bold">{{ full_name|safe }}</div>    <!-- &#8226 -->
+                                <div class="xsmall-font regular">{{ username|safe }}</div>  
+                                <div class="xsmall-font regular">{{ business_name|safe }}</div>
                             </div>
-                        </a>
-                        <a class="page-link btn" href="/dashboard/">
-                            <div class="sidebar-tab" id="go-to-dashboard-btn">
-                                <ion-icon class="sidebar-icon" name="grid"></ion-icon>
-                                <div class="page-name small-font">Dashboard</div>
-                            </div>
-                        </a>
-                        <a class="page-link btn" href="/dashboard/products/">
-                            <div class="sidebar-tab" id="go-to-products-btn">
-                                <ion-icon class="sidebar-icon" name="pricetag"></ion-icon>
-                                <div class="page-name small-font">Products</div>
-                            </div>
-                        </a>
-                        <a class="page-link btn" href="/dashboard/inventory/">
-                            <div class="sidebar-tab" id="go-to-inventory-btn">
-                                <ion-icon class="sidebar-icon" name="briefcase"></ion-icon>
-                                <div class="page-name small-font">Inventory</div>
-                            </div>
-                        </a>
-                        <a class="page-link btn" href="/dashboard/sales/">
-                            <div class="sidebar-tab" id="go-to-sales-btn">
-                                <ion-icon class="sidebar-icon" name="wallet"></ion-icon>
-                                <div class="page-name small-font">Sales</div>
-                            </div>
-                        </a>
-                        <a class="page-link btn" href="/dashboard/production/">
-                            <div class="sidebar-tab" id="go-to-production-btn">
-                                <ion-icon class="sidebar-icon" name="fast-food"></ion-icon> 
-                                <div class="page-name small-font">Production</div>
-                            </div>
-                        </a>
-                        <a class="page-link btn" href="/dashboard/profit-tracker/">
-                            <div class="sidebar-tab" id="go-to-profit-tracker-btn">
-                                <ion-icon class="sidebar-icon" name="bar-chart"></ion-icon>
-                                <div class="page-name small-font">Profit Tracker</div>
-                            </div>
-                        </a>
-                        <button class="fill dynamic-btn btn">Optimize Profit</button>
-                    {% endblock %}
-                </div>
-            </div>
-             <div class="page-content" id="page-content-container">
-                {% block page-content %}{% endblock %}
+                        </div>
+                    </a>
+                    <button class="fill dynamic-btn btn" id="open-import">
+                        Import Data
+                    </button>
+                    <a class="page-link btn" href="/dashboard/">
+                        <div class="sidebar-tab" id="go-to-dashboard-btn">
+                            <ion-icon class="left sidebar-icon" name="grid"></ion-icon>
+                            <div class="page-name small-font">Dashboard</div>
+                        </div>
+                    </a>
+                    <a class="page-link btn" href="/dashboard/products/">
+                        <div class="sidebar-tab" id="go-to-products-btn">
+                            <ion-icon class="left sidebar-icon" name="pricetag"></ion-icon>
+                            <div class="page-name small-font">Products</div>
+                        </div>
+                    </a>
+                    <a class="page-link btn" href="/dashboard/inventory/">
+                        <div class="sidebar-tab" id="go-to-inventory-btn">
+                            <ion-icon class="left sidebar-icon" name="briefcase"></ion-icon>
+                            <div class="page-name small-font">Inventory</div>
+                        </div>
+                    </a>
+                    <a class="page-link btn" href="/dashboard/sales/">
+                        <div class="sidebar-tab" id="go-to-sales-btn">
+                            <ion-icon class="left sidebar-icon" name="wallet"></ion-icon>
+                            <div class="page-name small-font">Sales</div>
+                        </div>
+                    </a>
+                    <a class="page-link btn" href="/dashboard/production/">
+                        <div class="sidebar-tab" id="go-to-production-btn">
+                            <ion-icon class="left sidebar-icon" name="fast-food"></ion-icon> 
+                            <div class="page-name small-font">Production</div>
+                        </div>
+                    </a>
+                    <a class="page-link btn" href="/dashboard/profit-tracker/">
+                        <div class="sidebar-tab" id="go-to-profit-tracker-btn">
+                            <ion-icon class="left sidebar-icon" name="bar-chart"></ion-icon>
+                            <div class="page-name small-font">Profit Tracker</div>
+                        </div>
+                    </a>
+                    <button class="fill dynamic-btn btn">Optimize Profit</button>
+                {% endblock %}
             </div>
         </div>
+         <div class="page-content" id="page-content-container">
+            <br>
+            <br>
+            {% block page-content %}{% endblock %}
+        </div>
+    </div>
 
 
     

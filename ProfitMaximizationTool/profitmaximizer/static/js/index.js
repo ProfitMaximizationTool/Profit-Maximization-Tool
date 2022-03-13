@@ -15,7 +15,7 @@ function closesignin(){
 }
 
 function closeErrorContainers(){
-    var errorContainers = document.getElementsByClassName("error-container");
+    var errorContainers = document.getElementsByClassName("error");
     for (var i = 0; i < errorContainers.length; i++){
         errorContainers[i].style.display = "none";
     }

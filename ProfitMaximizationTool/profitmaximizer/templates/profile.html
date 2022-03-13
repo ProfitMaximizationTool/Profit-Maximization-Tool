@@ -3,34 +3,37 @@
 {% block title %}<title>Profitify: Profile</title>{% endblock %}
 
 {% block page-content %}
-    <div class="left dark-font bold default-font big-font text">
+    <div class="left-text dark-font xlarge-font bold text">
         EDIT PROFILE
     </div>
     <br>
-    <div class="success prompt small-font dark-font default-font" id="saved-profile-prompt">
-        SAVED!
-    </div>
+
     <div>
         <div>
+            <div class="success prompt input-width text" id="saved-profile-prompt">
+                Saved!
+            </div>
             <form autocomplete="off" method="POST">
                 {% csrf_token %}
-                <div class="left dark-font bold default-font medium-font text">
+                <div class="left-text dark-font large-font bold text">
                     ACCOUNT INFORMATION
                 </div>
-                <div class="left dark-font default-font medium-font text">
+                <div class="left-text dark-font large-font text">
                     Full Name
-                    <div>
-                        <input class="input-text dark-font medium-font default-font" type="text" value="{{ full_name|safe}}" name="new-full-name">
+                    <div class="input-box input-width">
+                        <ion-icon class="form-icon" name="person"></ion-icon>
+                        <input class="user-info" type="text" value="{{ full_name|safe}}" name="new-full-name">
                     </div>
                 </div>
-                <div class="left dark-font default-font medium-font text">
+                <div class="left-text dark-font large-font text">
                     Business Name
-                    <div>
-                        <input class="input-text dark-font medium-font default-font" type="text" value="{{ business_name|safe}}" name="new-business-name">
+                    <div class="input-box input-width">
+                        <ion-icon class="form-icon" name="business"></ion-icon>
+                        <input class="user-info" type="text" value="{{ business_name|safe}}" name="new-business-name">
                     </div>
                 </div>
                 <br>
-                <input type="submit" class="dark-btn btn-font btn left" value="SAVE" name="save-btn" >
+                <input type="submit" class="left fill medium-btn btn" value="SAVE" name="save-btn" >
             </form>
             
 

@@ -11,6 +11,8 @@
     --medium: 20px;
     --large: 24px;
     --xlarge: 28px;
+
+    --default-font: 'Inter', sans-serif;
 }
 
 #index {
@@ -22,6 +24,13 @@
     display: flex;
     justify-content: center;
     align-items: center;
+}
+
+#base {
+    background-color: white;
+    width: 100%;
+    height: 100%;
+    overflow-x: hidden;
 }
 
 /* Main box that contains title, app description, etc. */
@@ -40,6 +49,8 @@
     transform: translate(-50%, -50%);
 }
 
+/* FONTS */
+
 /* Profitify */
 .title-font {
     color: var(--primary);
@@ -49,21 +60,64 @@
     font-weight: 700;
     text-align: center;
 }
-
+/* Profitify */
 .description {
     font-family: 'Inter', sans-serif;
     font-size: var(--small);
     text-align: center;
 }
 
+.default-font {
+    font-family: var(--default-font);
+}
+
+.xsmall-font {
+    font-size: var(--xsmall);
+}
+
+.small-font {
+    font-size: var(--small);
+}
+
+.medium-font {
+    font-size: var(--medium);
+}
+
+.large-font {
+    font-size: var(--large);
+}
+
+.xlarge-font {
+    font-size: var(--xlarge);
+}
+
+.light-font {
+    color: var(--light);
+}
+
+.dark-font {
+    color: var(--dark);
+}
+
 .white {
     color: white;
 }
+
+.bold {
+    font-weight: 700;
+}
+
+.regular {
+    font-weight: 400;
+}
+
 
 /* Sign up and sign in buttons grouped */
 #signin-signup {
     text-align: center;
 }
+
+/* Buttons */
 
 .medium-btn {
     margin-top: 5px;
@@ -96,6 +150,12 @@
     background-color: transparent;
 }
 
+.submit:hover {
+    background-color: var(--primary);
+    color: white;
+    border-color: var(--primary);
+}
+
 .btn:hover {
     cursor: pointer;
 }
@@ -106,16 +166,16 @@
     color: var(--light);
 }
 
-.outline {
-    background-color: var(--light);
-    border-color: var(--dark);
-    color: var(--dark);
-}
-
 .fill:hover {
     border-color: #ff5c8d;
     color: #ff5c8d;
     background-color: var(--light);
+}
+
+.outline {
+    background-color: var(--light);
+    border-color: var(--dark);
+    color: var(--dark);
 }
 
 .outline:hover {
@@ -123,6 +183,9 @@
     color: var(--light);
     border-color: #524A4E;
 }
+
+
+/* Forms and Overlays */
 
 .form {
     width: 350px;
@@ -134,40 +197,6 @@
     box-shadow: 0px 0px 10px #6b6e70;
 }
 
-.import {
-    width: 350px;
-    height: 460px;
-    border-radius: 18px;
-    background-color: white;
-    padding: 40px;
-    z-index: 1;
-    box-shadow: 0px 0px 10px #6b6e70;
-}
-
-.overlay {
-    position: absolute;
-    display: none;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-}
-
-.close {
-    color: var(--dark);
-    font-family: 'Poppins', sans-serif;
-    font-weight: 800;
-    font-size: var(--small);
-    border: none;
-    border-radius: 3px;
-    background-color: transparent;
-    float: right;
-}
-
-.close:hover {
-    background-color: var(--light);
-    cursor: pointer;
-}
-
 .form-title {
     font-family: 'Inter', sans-serif;
     font-weight: 800;
@@ -175,6 +204,14 @@
     font-size: var(--xlarge);
     color: var(--primary);
     margin-top: 40px;
+}
+
+.form-icon {
+    color: var(--dark);
+    float: left;
+    font-size: 18px;
+    margin-right: 10px;
+    margin-left: 8px;
 }
 
 .input-box {
@@ -209,10 +246,62 @@
     transform: translate(-2px)
 }
 
-.submit:hover {
-    background-color: var(--primary);
-    color: white;
-    border-color: var(--primary);
+.import {
+/*    width: 350px;
+    height: 460px;*/
+    border-radius: 18px;
+    background-color: white;
+    padding: 40px;
+    z-index: 1;
+    box-shadow: 0px 0px 10px #6b6e70;
+}
+
+.overlay {
+    position: absolute;
+    display: none;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.close {
+    color: var(--dark);
+    font-family: 'Poppins', sans-serif;
+    font-weight: 800;
+    font-size: var(--small);
+    border: none;
+    border-radius: 3px;
+    background-color: transparent;
+    float: right;
+}
+
+.close:hover {
+    background-color: var(--light);
+    cursor: pointer;
+}
+
+
+/* Texts */
+
+.text {
+    font-size: var(--small);
+    font-family: 'Inter', sans-serif;
+    color: #222629;
+    display: block;
+    position: relative;
+    margin-left: 20px;
+}
+
+.centered-text {
+    text-align: center;
+}
+
+.left-text {
+    text-align: left;
+}
+
+.right-text {
+    text-align: right;
 }
 
 .small-text {
@@ -222,17 +311,7 @@
     text-align: center;
 }
 
-.bottom {
-    bottom: 20px;
-}
-
-.form-icon {
-    color: var(--dark);
-    float: left;
-    font-size: 18px;
-    margin-right: 10px;
-    margin-left: 8px;
-}
+/* General links */
 
 a {
     text-align: center;
@@ -248,19 +327,7 @@ a:hover {
     color: #524A4E;
 }
 
-.error-container {
-    color: red;
-    padding-top: 2px;
-    padding-bottom: 2px;
-    text-align: center;
-    font-family: 'Inter', sans-serif;
-    font-size: var(--xsmall);
-    display:  none;
-}
-
-#base {
-    background-color: white;
-}
+/* Navigation Bar */
 
 .nav-bar {
     background-color: white;
@@ -271,10 +338,18 @@ a:hover {
 	width: 100%;
 	height: 70px;
 	color: var(--primary);
-    position: fixed;
     display: block;
     z-index: 5;
     filter: drop-shadow(0px 0px 5px #524a4e3a);
+}
+
+.nav-bar-inner {
+    display: inline-flex;
+    align-items: center;
+    position: relative;
+    height: 100%;
+    width: 100%;
+    margin-left: 10px;
 }
 
 .logo {
@@ -284,19 +359,11 @@ a:hover {
     object-fit: fill;
 }
 
-.nav-bar-inner {
-    display: inline-flex;
-	align-items: center;
-	position: relative;
-	height: 100%;
-	width: 100%;
-    margin-left: 10px;
-}
-
 .nav-app-name {
     font-family: 'Poppins', sans-serif;
     font-weight: 700;
     font-size: var(--large);
+    user-select: none;
 }
 
 .nav-icon {
@@ -311,22 +378,14 @@ a:hover {
     margin-right: 10px;
     margin-left: 8px;
     display: inline-block;
+    user-select: none;
 }
 
 .nav-icon:hover {
     background-color: var(--light);
 }
 
-.form-container {
-    width: 140px;
-}
-
-.text {
-    font-size: var(--small);
-    font-family: 'Inter', sans-serif;
-    color: #222629;
-    text-align: center;
-}
+/* Main container - contains sidebar and page-content*/
 
 .main-container {
 	left: 0px;
@@ -337,20 +396,46 @@ a:hover {
 	display: block;
 }
 
+/* Sidebar */
+
 .sidebar {
 	left: 0%;
 	position: fixed;
-	width: 290px;
+    width: 20%;
 	height: 100%;
-	transition: all .1s linear;
+	transition: all .2s linear;
 	overflow-y: auto;
     display: flex;
     justify-content: center;
 }
 
 .sidebar-inner {
+    position: relative;
     text-align: center;
-    width: 85%;
+    width: 80%;
+    margin: 0 auto;
+}
+
+.sidebar-tab {
+    width: 100%;
+    height: 40px;
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 8px;
+    margin-bottom: 8px;
+}
+
+.sidebar-tab:hover {
+    background-color: var(--light);
+}
+
+.sidebar-icon {
+    color: var(--dark);
+    font-size: var(--medium);
+    margin-right: 10px;
+    margin-left: 10px;
 }
 
 .account-info {
@@ -372,35 +457,8 @@ a:hover {
     margin-bottom: 8px;
 }
 
-.sidebar-tab {
-    width: 100%;
-    height: 40px;
-    border-radius: 4px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-top: 8px;
-    margin-bottom: 8px;
-}
-
-.page-name {
-    color: var(--dark);
-    font-family: 'Inter', sans-serif;
-    display: inline;
-    width: 90%;
-    text-align: left;
-}
-
 .profile:hover {
     background-color: var(--light);
-}
-
-.sidebar-tab:hover {
-    background-color: var(--light);
-}
-
-.page-link:hover {
-    text-decoration: none;
 }
 
 .profile-photo {
@@ -410,30 +468,113 @@ a:hover {
     margin: 10px;
 }
 
-.sidebar-icon {
+.page-name {
     color: var(--dark);
-    font-size: var(--medium);
-    margin-right: 10px;
-    margin-left: 10px;
+    font-family: 'Inter', sans-serif;
+    display: inline;
+    width: 90%;
 }
 
-.outline {
-    display: hidden;
+.page-link:hover {
+    text-decoration: none;
 }
 
-.small-font {
-    font-size: var(--small);
+
+/* Page content */
+
+.page-content {
+    position: relative;
+    float: right;
+    width: 80%;
+    height: 100%;
+    transition: all .2s linear;
 }
 
-.xsmall-font {
+
+/* Positions (note: parent container's position must be relative)*/
+.top {
+    position: absolute;
+    top: 3%;
+}
+
+.bottom {
+    position: absolute;
+    bottom: 20px;
+}
+
+.left {
+    position: absolute;
+    left: 3%;
+}
+
+.right {
+    position: absolute;
+    right: 3%;
+}
+
+/* Element sizes */
+.full-width {
+    width: 100%;
+}
+
+.wide-width {
+    width: 80%;
+}
+
+.half-width {
+    width: 50%;
+}
+
+.half-height {
+    height: 50%;
+}
+
+
+.input-width {
+    width: 30%;
+}
+
+.btn-width {
+    width: 140px;
+}
+
+/* prompts */
+.prompt {
+    display: none;
+    text-align: center;
+    border-radius: 5px;
+    color: var(--dark);
     font-size: var(--xsmall);
+    font-family: var(--default-font);
 }
 
-.bold {
-    font-weight: 700;
+.success {
+    background-color: #DFF9FB;
 }
 
-.regular {
-    font-weight: 400;
+.error {
+    background-color: var(--light);
 }
 
+/* Improve these: */
+
+table {
+    border: 1px solid red;
+    width: 100%;
+    height: 80%;
+}
+
+.table-btn {
+    border: 1px solid red;
+    cursor: pointer;
+    text-align: center;
+}
+
+.table-btn:hover {
+    background-color: var(--light);
+}
+
+.file-upload {
+    display: none;
+    z-index: 100;
+}

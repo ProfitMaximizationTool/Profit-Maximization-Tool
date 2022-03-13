@@ -1,5 +1,4 @@
 /*Color Palette:
-#dff9fb
 #072227, #35858B, #4FBDBA, #DFF9FB, #FFFFFF
 */
 
@@ -194,7 +193,7 @@ body {
 
 
 .page-content {
-	position: relative;
+	/*position: relative;*/
 	float: right;
 	width: 80%;
 	height: 100%;
@@ -210,6 +209,7 @@ body {
 	position: relative;
 	padding-top: 20px;
 }
+
 
 .box-with-shadow {
 	display: inline-block;
