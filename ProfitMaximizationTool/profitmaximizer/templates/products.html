@@ -9,7 +9,9 @@
     {% for stuff in products_data %}
     {{ stuff.id}}
     {{ stuff.productName}}
-    {{ stuff.ingredients}}
+    {% for ingr in stuff.ingredients %}
+    {{ ingr }},
+    {% endfor %}
     {{ stuff.cost }}
     {{ stuff.price }}<br/>
     {% endfor %}
