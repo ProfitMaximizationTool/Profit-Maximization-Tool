@@ -21,26 +21,67 @@
                 IMPORT DATA
             </div>
             <button class="close" id="close-import"><b>&#10005</b></button>
-            <div class="table-container">
-                <table class="table-btn-container">
-                        <tr>
-                            <td class="table-btn" id="products-file">
-                                IMPORT PRODUCTS TABLE
-                            </td>
-                            <td class="table-btn" id="inventory-file">
-                                IMPORT INVENTORY TABLE
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="table-btn" id="sales-file">
-                                IMPORT SALES TABLE
-                            </td>
-                            <td class="table-btn" id="production-file">
-                                
-                                IMPORT PRODUCTION TABLE
-                            </td>
-                        </tr>
-                </table>
+            <div class="card-container">
+
+                <div class="card">
+                    <div class="face front">
+                        <div class="card-content">
+                            <ion-icon class="card-icon" name="pricetag"></ion-icon>
+                            <div>Products</div>
+                        </div>
+                    </div>
+                    <div class="face back">
+                        <div class="card-content">
+                            <p>The Products table should have the following eme eme. </p>
+                            <button class="upload-btn" id="products-file">Choose file</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="face front">
+                        <div class="card-content">
+                            <ion-icon class="card-icon" name="briefcase"></ion-icon>
+                            <div>Inventory</div>
+                        </div>
+                    </div>
+                    <div class="face back">
+                        <div class="card-content">
+                            <p>The Inventory table should have the following eme eme. </p>
+                            <button class="upload-btn" id="inventory-file">Choose file</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="face front">
+                        <div class="card-content">
+                            <ion-icon class="card-icon" name="pricetag"></ion-icon>
+                            <div>Sales</div>
+                        </div>
+                    </div>
+                    <div class="face back">
+                        <div class="card-content">
+                            <p>The Sales table should have the following eme eme. </p>
+                            <button class="upload-btn" id="sales-file">Choose file</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="face front">
+                        <div class="card-content">
+                            <ion-icon class="card-icon" name="pricetag"></ion-icon>
+                            <div>Production</div>
+                        </div>
+                    </div>
+                    <div class="face back">
+                        <div class="card-content">
+                            <p>The Production table should have the following eme eme. </p>
+                            <button class="upload-btn" id="production-file">Choose file</button>
+                        </div>
+                    </div>
+                </div>
             </div>
             <div class="full-width bottom">
                 <form action=/dashboard/ method="POST" enctype="multipart/form-data">
