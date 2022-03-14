@@ -87,7 +87,7 @@ def dashboard_view(request):
 					pass
 				else:
 					columns = line.split(",")
-					temporary = IngredientRecord(id=columns[0],ingredient_name=columns[1], cost=columns[2],units=columns[3], daily_units=columns[4], owner_id=business_owner.user_ptr_id)
+					temporary = IngredientRecord(ingredient_name=columns[0], cost=columns[1],units=columns[2], daily_units=columns[3], owner_id=business_owner.user_ptr_id)
 					temporary.save()
 					
 		if 'products-table' in request.FILES:
@@ -104,15 +104,15 @@ def dashboard_view(request):
 			products_data[0][-1] = products_data[0][-1].replace("\r","")
 			for i in range(1,len(products_data)-1):
 				products_data[i] = products_data[i].split(",")
-				products_data[i][0] = int(products_data[i][0])
-				products_data[i][2] = float(products_data[i][2]); products_data[i][3] = float(products_data[i][3])
-				products_data[i][4:] = [int(x) for x in products_data[i][4:]]
+				products_data[i][1] = float(products_data[i][1]); 
+				products_data[i][2] = float(products_data[i][2])
+				products_data[i][3:] = [int(x) for x in products_data[i][3:]]
 				ingr = {}
-				for j in range(4,len(products_data[i])):
+				for j in range(3,len(products_data[i])):
 					quantity = products_data[i][j]
 					if quantity != 0:
 						ingr[products_data[0][j]] = quantity
-				temp_product = ProductRecord(id=products_data[i][0],productName=products_data[i][1],cost=products_data[i][2],price=products_data[i][3],ingredients=ingr,owner_id=business_owner.user_ptr_id)
+				temp_product = ProductRecord(productName=products_data[i][0],cost=products_data[i][1],price=products_data[i][2],ingredients=ingr,owner_id=business_owner.user_ptr_id)
 				temp_product.save()
 
 	return render(request, "dashboard.html", 
@@ -133,7 +133,7 @@ def products_view(request):
 def inventory_view(request):
 	business_owner = BusinessOwner.objects.get(username=request.user.username)
 	frgn_key = business_owner.user_ptr_id
-	inventory_data = IngredientRecord.objects.filter(owner_id=frgn_key).order_by("units")
+	inventory_data = IngredientRecord.objects.filter(owner_id=frgn_key).order_by("id")
 	return render(request, "inventory.html", 
 		{"username": business_owner.username, "business_name": business_owner.business_name,
 		"full_name": business_owner.full_name, "page": "inventory", "inventory_data": inventory_data})
@@ -187,27 +187,63 @@ def profile_view(request):
 @csrf_protect
 def add_ingredient_view(request):
 	# redirect to inventory page
+	business_owner = BusinessOwner.objects.get(username=request.user.username)
+	frgn_key = business_owner.user_ptr_id
+	inventory_data = IngredientRecord.objects.filter(owner_id=frgn_key).order_by("units")
 	if request.method == "POST" and "add-ingredient-btn" in request.POST:
 		print("-------------------")
 		print(request.POST)
-	pass
+		new_ingredient_name = request.POST['new-ingredient-name']
+		new_ingredient_cost = request.POST['new-ingredient-cost']
+		new_total_units = request.POST['new-total-units']
+		new_daily_units = request.POST['new-daily-units']
+		temporary = IngredientRecord(ingredient_name=new_ingredient_name, cost=new_ingredient_cost, units=new_total_units, daily_units=new_daily_units, owner_id=business_owner.user_ptr_id)
+		temporary.save()
+	
+	return render(request, "inventory.html", 
+	{"username": business_owner.username, "business_name": business_owner.business_name,
+	"full_name": business_owner.full_name, "page": "inventory", "inventory_data": inventory_data})
 
 
 @login_required
 @csrf_protect
 def edit_ingredient_view(request):
 	# redirect to inventory page
+	business_owner = BusinessOwner.objects.get(username=request.user.username)
+	frgn_key = business_owner.user_ptr_id
+	inventory_data = IngredientRecord.objects.filter(owner_id=frgn_key).order_by("units")
 	if request.method == "POST" and "edit-ingredient-btn" in request.POST:
-		print("-------------------")
-		print(request.POST)
-	pass
+		edit_id = request.POST['edit-ingredient-record-id']
+		edit_ingredient_name = request.POST['edit-ingredient-name']
+		edit_ingredient_cost = request.POST['edit-ingredient-cost']
+		edit_total_units = request.POST['edit-ingredient-total-units']
+		edit_daily_units = request.POST['edit-ingredient-daily-units']
+		record = IngredientRecord.objects.get(id=edit_id)
+		record.ingredient_name = edit_ingredient_name
+		record.cost = edit_ingredient_cost
+		record.units = edit_total_units
+		record.daily_units = edit_daily_units
+		record.save()
+	
+	return render(request, "inventory.html", 
+	{"username": business_owner.username, "business_name": business_owner.business_name,
+	"full_name": business_owner.full_name, "page": "inventory", "inventory_data": inventory_data})
 
 
 @login_required
 @csrf_protect
 def delete_ingredient_view(request):
 	# redirect to inventory page
+	business_owner = BusinessOwner.objects.get(username=request.user.username)
+	frgn_key = business_owner.user_ptr_id
+	inventory_data = IngredientRecord.objects.filter(owner_id=frgn_key).order_by("units")
+
 	if request.method == "POST" and "delete-ingredient-btn" in request.POST:
-		print("-------------------")
-		print(request.POST)
-	pass
+		delete_id = request.POST['delete-ingredient-record-id']
+		delete_record = IngredientRecord.objects.get(id=delete_id)
+		delete_record.delete()
+
+	return render(request, "inventory.html", 
+	{"username": business_owner.username, "business_name": business_owner.business_name,
+	"full_name": business_owner.full_name, "page": "inventory", "inventory_data": inventory_data})
+
