@@ -441,8 +441,8 @@ a:hover {
 .sidebar-icon {
     color: var(--dark);
     font-size: var(--medium);
-    margin-right: 10px;
-    margin-left: 10px;
+    margin-right: 15px;
+    margin-left: 15px;
 }
 
 .account-info {
@@ -480,6 +480,7 @@ a:hover {
     font-family: 'Inter', sans-serif;
     display: inline;
     width: 90%;
+    text-align: left;
 }
 
 .page-link:hover {
