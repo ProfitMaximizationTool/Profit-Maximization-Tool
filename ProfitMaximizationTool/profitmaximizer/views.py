@@ -73,15 +73,15 @@ def signout_view(request):
 def dashboard_view(request):
 	business_owner = BusinessOwner.objects.get(username=request.user.username)
 			
-	if request.method == "POST" and "import-inv-btn" in request.POST:
-		if 'csv_file' in request.FILES:
-			csv_file = request.FILES['csv_file']
-			if not csv_file.name.endswith('.csv'):
+	if request.method == "POST" and "import-data" in request.POST:
+		if 'inventory-table' in request.FILES:
+			inventory_file = request.FILES['inventory-table']
+			if not inventory_file.name.endswith('.csv'):
 				return render(request, "dashboard.html", 
 				{"username": business_owner.username, "business_name": business_owner.business_name,
 				"full_name": business_owner.full_name, "page": "dashboard"})
-			file_data = csv_file.read().decode("utf-8")
-			lines = file_data.split("\n")
+			inventory_lines = inventory_file.read().decode("utf-8")
+			lines = inventory_lines.split("\n")
 			for line in lines[1:]:
 				if line == '':
 					pass
@@ -90,14 +90,14 @@ def dashboard_view(request):
 					temporary = IngredientRecord(id=columns[0],ingredient_name=columns[1], cost=columns[2],units=columns[3], daily_units=columns[4], owner_id=business_owner.user_ptr_id)
 					temporary.save()
 					
-	elif request.method == "POST" and "import-prod-btn" in request.POST:
-		if 'products_file' in request.FILES:
-			products_file = request.FILES['products_file']
+		if 'products-table' in request.FILES:
+			products_file = request.FILES['products-table']
 			if not products_file.name.endswith('.csv'):
 				return render(request, "dashboard.html", 
 				{"username": business_owner.username, "business_name": business_owner.business_name,
 				"full_name": business_owner.full_name, "page": "dashboard"})
-			products_data = products_data.split("\n")
+			products_lines = products_file.read().decode("utf-8")
+			products_data = products_lines.split("\n")
 			last_ingr_index = len(products_data[0])
 			first_ingr_index = 4
 			products_data[0] = products_data[0].split(",")

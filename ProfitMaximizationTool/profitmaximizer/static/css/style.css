@@ -568,6 +568,7 @@ table {
     border: 1px solid red;
     cursor: pointer;
     text-align: center;
+    font-family: 'Inter', sans-serif; /* di ko sure HAHA tama bang font to */
 }
 
 .table-btn:hover {
@@ -577,4 +578,5 @@ table {
 .file-upload {
     display: none;
     z-index: 100;
+    
 }
