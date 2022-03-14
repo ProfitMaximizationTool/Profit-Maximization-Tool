@@ -107,7 +107,11 @@ def dashboard_view(request):
 				products_data[i][0] = int(products_data[i][0])
 				products_data[i][2] = float(products_data[i][2]); products_data[i][3] = float(products_data[i][3])
 				products_data[i][4:] = [int(x) for x in products_data[i][4:]]
-				ingr = {products_data[0][j]: products_data[i][j] for j in range(4,len(products_data[i]))}
+				ingr = {}
+				for j in range(4,len(products_data[i])):
+					quantity = products_data[i][j]
+					if quantity != 0:
+						ingr[products_data[0][j]] = quantity
 				temp_product = ProductRecord(id=products_data[i][0],productName=products_data[i][1],cost=products_data[i][2],price=products_data[i][3],ingredients=ingr,owner_id=business_owner.user_ptr_id)
 				temp_product.save()
 
