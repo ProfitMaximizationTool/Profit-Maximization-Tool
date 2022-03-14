@@ -6,13 +6,46 @@
     <div class="left-text dark-font xlarge-font bold text">
         PRODUCTS
     </div>
-    {% for stuff in products_data %}
-    {{ stuff.id}}
-    {{ stuff.productName}}
-    {% for ingr in stuff.ingredients %}
-    {{ ingr }},
-    {% endfor %}
-    {{ stuff.cost }}
-    {{ stuff.price }}<br/>
-    {% endfor %}
+    <div class="table-container">
+        <table class="data-table dark-font large-font centered-text text">
+            <tr>
+                <th>
+                    ID
+                </th>
+                <th>
+                    NAME
+                </th>
+                <th>
+                    INGREDIENTS/MATERIALS
+                </th>
+                <th>
+                    COST
+                </th>
+                <th>
+                    PRICE
+                </th>
+            </tr>
+            {% for product in products_data %}
+            <tr>
+                <td>
+                    {{ product.id}}
+                </td>
+                <td>
+                    {{ product.productName }}
+                </td>
+                <td>
+                {% for ingr in product.ingredients %}
+                    {{ ingr }},
+                {% endfor %}
+                </td>
+                
+                <td>
+                    {{ product.cost }}
+                </td>
+                <td>
+                    {{ product.price }}
+                </td>
+            </tr>
+            {% endfor %}
+        </table>
 {% endblock %}

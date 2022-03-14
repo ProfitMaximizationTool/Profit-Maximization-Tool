@@ -178,3 +178,32 @@ def profile_view(request):
 		{"username": business_owner.username, "business_name": business_owner.business_name,
 		"full_name": business_owner.full_name, "page": "profile", "prompt": prompt})
 
+
+@login_required
+@csrf_protect
+def add_ingredient_view(request):
+	# redirect to inventory page
+	if request.method == "POST" and "add-ingredient-btn" in request.POST:
+		print("-------------------")
+		print(request.POST)
+	pass
+
+
+@login_required
+@csrf_protect
+def edit_ingredient_view(request):
+	# redirect to inventory page
+	if request.method == "POST" and "edit-ingredient-btn" in request.POST:
+		print("-------------------")
+		print(request.POST)
+	pass
+
+
+@login_required
+@csrf_protect
+def delete_ingredient_view(request):
+	# redirect to inventory page
+	if request.method == "POST" and "delete-ingredient-btn" in request.POST:
+		print("-------------------")
+		print(request.POST)
+	pass

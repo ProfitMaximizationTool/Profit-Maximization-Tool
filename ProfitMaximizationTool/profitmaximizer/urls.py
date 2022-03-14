@@ -14,4 +14,7 @@ urlpatterns = [
 	path('dashboard/sales/', views.sales_view, name='sales'),
 	path('dashboard/production/', views.production_view, name='production'),
 	path('dashboard/profit-tracker/', views.profit_tracker_view, name='profit-tracker'),
+	path('add-ingredient/', views.add_ingredient_view, name='add-ingredient'),
+	path('edit-ingredient/', views.edit_ingredient_view, name='edit-ingredient'),
+	path('delete-ingredient/', views.delete_ingredient_view, name='delete-ingredient'),
 ]

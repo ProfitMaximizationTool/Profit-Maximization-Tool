@@ -246,6 +246,8 @@
     transform: translate(-2px)
 }
 
+/* Please generalize .import (by changing name). I used this class in other overlays as well*/
+
 .import {
 /*    width: 350px;
     height: 460px;*/
@@ -256,6 +258,10 @@
     box-shadow: 0px 0px 10px #6b6e70;
 }
 
+.import-inner {
+    position: relative;
+}
+
 .overlay {
     position: absolute;
     display: none;
@@ -263,6 +269,8 @@
     left: 50%;
     transform: translate(-50%, -50%);
 }
+
+
 
 .close {
     color: var(--dark);
@@ -284,12 +292,11 @@
 /* Texts */
 
 .text {
-    font-size: var(--small);
     font-family: 'Inter', sans-serif;
-    color: #222629;
     display: block;
     position: relative;
     margin-left: 20px;
+    margin-right: 20px;
 }
 
 .centered-text {
@@ -499,7 +506,7 @@ a:hover {
 
 .bottom {
     position: absolute;
-    bottom: 20px;
+    bottom: 0px;
 }
 
 .left {
@@ -515,6 +522,10 @@ a:hover {
 /* Element sizes */
 .full-width {
     width: 100%;
+}
+
+.full-height {
+    height: 100%;
 }
 
 .wide-width {
@@ -556,27 +567,47 @@ a:hover {
     background-color: var(--light);
 }
 
-/* Improve these: */
 
-table {
-    border: 1px solid red;
+
+/* Import data overlay and tables */
+
+.table-container {
+    display: block;
     width: 100%;
     height: 80%;
 }
 
+
+.table-btn-container {
+    width: 100%;
+    height: 100%;
+}
+
 .table-btn {
-    border: 1px solid red;
     cursor: pointer;
     text-align: center;
-    font-family: 'Inter', sans-serif; /* di ko sure HAHA tama bang font to */
+    font-family: var(--default-font);
+    color: var(--dark);
+    margin: 50px;
+    border: 1px solid var(--primary);
+    border-radius: 10px;
 }
 
 .table-btn:hover {
     background-color: var(--light);
 }
 
-.file-upload {
+/* Page content table */
+
+.data-table {
+    border: 1px solid var(--primary);
+    border-collapse:collapse;
+}
+
+.data-table-row {
+    /*border: 1px solid var(--primary);*/
+}
+
+.hidden {
     display: none;
-    z-index: 100;
-    
 }
