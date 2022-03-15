@@ -34,8 +34,8 @@
                     {{ product.productName }}
                 </td>
                 <td>
-                {% for ingr in product.ingredients %}
-                    {{ ingr }},
+                {% for ingr, quantity in product.ingredients.items %}
+                    {{ ingr }} ({{ quantity }} units),
                 {% endfor %}
                 </td>
                 

@@ -16,40 +16,62 @@
 
 <body id="base">
     <div class="import overlay half-width half-height" id="import-overlay">
-        <div class="import-inner full-width full-height">
+        <div class="import-inner full-width full-height centered-text">
             <div class="centered-text dark-font xlarge-font bold text">
-                IMPORT DATA
+                Import Data
             </div>
             <button class="close" id="close-import"><b>&#10005</b></button>
-            <div class="table-container">
-                <table class="table-btn-container">
-                        <tr>
-                            <td class="table-btn" id="products-file">
-                                IMPORT PRODUCTS TABLE
-                            </td>
-                            <td class="table-btn" id="inventory-file">
-                                IMPORT INVENTORY TABLE
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="table-btn" id="sales-file">
-                                IMPORT SALES TABLE
-                            </td>
-                            <td class="table-btn" id="production-file">
-                                
-                                IMPORT PRODUCTION TABLE
-                            </td>
-                        </tr>
-                </table>
+            <div class="card-container">
+
+                <div class="card" id="products-file">
+                    <div class="face">
+                        <div class="card-content">
+                            <ion-icon class="card-icon" name="pricetag"></ion-icon>
+                            <div class="extra-bold">Products</div>
+                            <p class="xsmall-font regular">The Products table [insert file description here]. </p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card" id="inventory-file">
+                    <div class="face">
+                        <div class="card-content">
+                            <ion-icon class="card-icon" name="briefcase"></ion-icon>
+                            <div class="extra-bold">Inventory</div>
+                            <p class="xsmall-font regular">The Inventory table [insert file description here]. </p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card" id="sales-file">
+                    <div class="face">
+                        <div class="card-content">
+                            <ion-icon class="card-icon" name="wallet"></ion-icon>
+                            <div class="extra-bold">Sales</div>
+                            <p class="xsmall-font regular">The Sales table [insert file description here]. </p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card" id="production-file">
+                    <div class="face">
+                        <div class="card-content">
+                            <ion-icon class="card-icon" name="fast-food"></ion-icon>
+                            <div class="extra-bold">Production</div>
+                            <p class="xsmall-font regular">The Production table [insert file description here]. </p>
+                        </div>
+                    </div>
+                </div>
+
             </div>
-            <div class="full-width bottom">
+            <div>
                 <form action=/dashboard/ method="POST" enctype="multipart/form-data">
                     {% csrf_token %}
                     <input type="file" name="products-table" class="hidden" id="products-file-container">
                     <input type="file" name="inventory-table" class="hidden" id="inventory-file-container">
                     <input type="file" name="sales-table" class="hidden" id="sales-file-container">
                     <input type="file" name="production-data" class="hidden" id="production-file-container">
-                    <input type="submit" class="fill dynamic-btn btn" value="UPLOAD" name="import-data">
+                    <input type="submit" class="btn-width fill dynamic-btn btn" value="Upload File" name="import-data">
                 </form>
             </div>
         </div>
@@ -96,38 +118,38 @@
                     </button>
                     <a class="page-link btn" href="/dashboard/">
                         <div class="sidebar-tab" id="go-to-dashboard-btn">
-                            <ion-icon class="left sidebar-icon" name="grid"></ion-icon>
+                            <ion-icon class="sidebar-icon" name="grid"></ion-icon>
                             <div class="page-name small-font">Dashboard</div>
                         </div>
                     </a>
                     <a class="page-link btn" href="/dashboard/products/">
                         <div class="sidebar-tab" id="go-to-products-btn">
-                            <ion-icon class="left sidebar-icon" name="pricetag"></ion-icon>
+                            <ion-icon class="sidebar-icon" name="pricetag"></ion-icon>
                             <div class="page-name small-font">Products</div>
                         </div>
                     </a>
                     <a class="page-link btn" href="/dashboard/inventory/">
                         <div class="sidebar-tab" id="go-to-inventory-btn">
-                            <ion-icon class="left sidebar-icon" name="briefcase"></ion-icon>
+                            <ion-icon class="sidebar-icon" name="briefcase"></ion-icon>
                             <div class="page-name small-font">Inventory</div>
                         </div>
                     </a>
                     <a class="page-link btn" href="/dashboard/sales/">
                         <div class="sidebar-tab" id="go-to-sales-btn">
-                            <ion-icon class="left sidebar-icon" name="wallet"></ion-icon>
+                            <ion-icon class="sidebar-icon" name="wallet"></ion-icon>
                             <div class="page-name small-font">Sales</div>
                         </div>
                     </a>
                     <a class="page-link btn" href="/dashboard/production/">
                         <div class="sidebar-tab" id="go-to-production-btn">
-                            <ion-icon class="left sidebar-icon" name="fast-food"></ion-icon> 
+                            <ion-icon class="sidebar-icon" name="fast-food"></ion-icon> 
                             <div class="page-name small-font">Production</div>
                         </div>
                     </a>
                     <a class="page-link btn" href="/dashboard/profit-tracker/">
                         <div class="sidebar-tab" id="go-to-profit-tracker-btn">
-                            <ion-icon class="left sidebar-icon" name="bar-chart"></ion-icon>
-                            <div class="page-name small-font">Profit Tracker</div>
+                            <ion-icon class="sidebar-icon" name="bar-chart"></ion-icon>
+                            <div class="page-name small-font" id="profit-tracker">Profit Tracker</div>
                         </div>
                     </a>
                     <button class="fill dynamic-btn btn">Optimize Profit</button>

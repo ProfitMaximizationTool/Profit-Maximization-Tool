@@ -21,5 +21,15 @@ class ProductRecord(models.Model):
 	owner = models.ForeignKey(BusinessOwner,on_delete=models.CASCADE)
 	productName = models.CharField(max_length=255)
 	ingredients = models.JSONField(default=dict)
-	cost = models.DecimalField(max_digits=10,decimal_places=2)
+	cost = models.DecimalField(max_digits=10,decimal_places=2,default=0)
 	price = models.DecimalField(max_digits=10,decimal_places=2)
+
+	def update_cost(self):
+		new_cost = 0
+		for ingr in self.ingredients.keys():
+			for irecord in IngredientRecord.objects.all():
+				if irecord.owner == self.owner and ingr == irecord.ingredient_name:
+					new_cost += (irecord.cost)*(self.ingredients[ingr])
+		self.cost = new_cost
+		self.save()
+		

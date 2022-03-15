@@ -105,22 +105,23 @@ def dashboard_view(request):
 				"full_name": business_owner.full_name, "page": "dashboard"})
 			products_lines = products_file.read().decode("utf-8")
 			products_data = products_lines.split("\n")
-			last_ingr_index = len(products_data[0])
-			first_ingr_index = 4
 			products_data[0] = products_data[0].split(",")
 			products_data[0][-1] = products_data[0][-1].replace("\r","")
+			last_ingr_index = len(products_data[0])
+			first_ingr_index = products_data[0].index("price")+1
+			# print(f'first_ingr_index = {first_ingr_index}')
 			for i in range(1,len(products_data)-1):
 				products_data[i] = products_data[i].split(",")
-				products_data[i][1] = float(products_data[i][1]); 
-				products_data[i][2] = float(products_data[i][2])
-				products_data[i][3:] = [int(x) for x in products_data[i][3:]]
+				products_data[i][1] = float(products_data[i][1]);  # price
+				products_data[i][first_ingr_index:] = [int(x) for x in products_data[i][first_ingr_index:]] # convert ingredients quantity to integer
 				ingr = {}
-				for j in range(3,len(products_data[i])):
+				for j in range(first_ingr_index,last_ingr_index):
 					quantity = products_data[i][j]
 					if quantity != 0:
 						ingr[products_data[0][j]] = quantity
-				temp_product = ProductRecord(productName=products_data[i][0],cost=products_data[i][1],price=products_data[i][2],ingredients=ingr,owner_id=business_owner.user_ptr_id)
+				temp_product = ProductRecord(productName=products_data[i][0],price=products_data[i][1],ingredients=ingr,owner_id=business_owner.user_ptr_id)
 				temp_product.save()
+				temp_product.update_cost()
 
 	return render(request, "dashboard.html", 
 		{"username": business_owner.username, "business_name": business_owner.business_name,

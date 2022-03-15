@@ -64,7 +64,7 @@ Array.prototype.slice.call(document.getElementsByClassName("close")).forEach(fun
 
 // Handlers for the import data buttons
 
-Array.prototype.slice.call(document.getElementsByClassName("table-btn")).forEach(function(element){
+Array.prototype.slice.call(document.getElementsByClassName("card")).forEach(function(element){
 	element.addEventListener("click", function(event){
 		event.preventDefault();
 		element.style.backgroundColor = "#fdeff4";
