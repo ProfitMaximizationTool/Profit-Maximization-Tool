@@ -16,81 +16,62 @@
 
 <body id="base">
     <div class="import overlay half-width half-height" id="import-overlay">
-        <div class="import-inner full-width full-height">
+        <div class="import-inner full-width full-height centered-text">
             <div class="centered-text dark-font xlarge-font bold text">
-                IMPORT DATA
+                Import Data
             </div>
             <button class="close" id="close-import"><b>&#10005</b></button>
             <div class="card-container">
 
-                <div class="card">
-                    <div class="face front">
+                <div class="card" id="products-file">
+                    <div class="face">
                         <div class="card-content">
                             <ion-icon class="card-icon" name="pricetag"></ion-icon>
-                            <div>Products</div>
-                        </div>
-                    </div>
-                    <div class="face back">
-                        <div class="card-content">
-                            <p>The Products table should have the following eme eme. </p>
-                            <button class="upload-btn" id="products-file">Choose file</button>
+                            <div class="extra-bold">Products</div>
+                            <p class="xsmall-font regular">The Products table [insert file description here]. </p>
                         </div>
                     </div>
                 </div>
 
-                <div class="card">
-                    <div class="face front">
+                <div class="card" id="inventory-file">
+                    <div class="face">
                         <div class="card-content">
                             <ion-icon class="card-icon" name="briefcase"></ion-icon>
-                            <div>Inventory</div>
-                        </div>
-                    </div>
-                    <div class="face back">
-                        <div class="card-content">
-                            <p>The Inventory table should have the following eme eme. </p>
-                            <button class="upload-btn" id="inventory-file">Choose file</button>
+                            <div class="extra-bold">Inventory</div>
+                            <p class="xsmall-font regular">The Inventory table [insert file description here]. </p>
                         </div>
                     </div>
                 </div>
 
-                <div class="card">
-                    <div class="face front">
+                <div class="card" id="sales-file">
+                    <div class="face">
                         <div class="card-content">
-                            <ion-icon class="card-icon" name="pricetag"></ion-icon>
-                            <div>Sales</div>
-                        </div>
-                    </div>
-                    <div class="face back">
-                        <div class="card-content">
-                            <p>The Sales table should have the following eme eme. </p>
-                            <button class="upload-btn" id="sales-file">Choose file</button>
+                            <ion-icon class="card-icon" name="wallet"></ion-icon>
+                            <div class="extra-bold">Sales</div>
+                            <p class="xsmall-font regular">The Sales table [insert file description here]. </p>
                         </div>
                     </div>
                 </div>
 
-                <div class="card">
-                    <div class="face front">
+                <div class="card" id="production-file">
+                    <div class="face">
                         <div class="card-content">
-                            <ion-icon class="card-icon" name="pricetag"></ion-icon>
-                            <div>Production</div>
-                        </div>
-                    </div>
-                    <div class="face back">
-                        <div class="card-content">
-                            <p>The Production table should have the following eme eme. </p>
-                            <button class="upload-btn" id="production-file">Choose file</button>
+                            <ion-icon class="card-icon" name="fast-food"></ion-icon>
+                            <div class="extra-bold">Production</div>
+                            <p class="xsmall-font regular">The Production table [insert file description here]. </p>
                         </div>
                     </div>
                 </div>
+
             </div>
-            <div class="full-width bottom">
+            <div>
                 <form action=/dashboard/ method="POST" enctype="multipart/form-data">
                     {% csrf_token %}
                     <input type="file" name="products-table" class="hidden" id="products-file-container">
                     <input type="file" name="inventory-table" class="hidden" id="inventory-file-container">
                     <input type="file" name="sales-table" class="hidden" id="sales-file-container">
                     <input type="file" name="production-data" class="hidden" id="production-file-container">
-                    <input type="submit" class="fill dynamic-btn btn" value="UPLOAD" name="import-data">
+                    <input type="submit" class="btn-width fill dynamic-btn btn" value="Upload File" name="import-data">
                 </form>
             </div>
         </div>
