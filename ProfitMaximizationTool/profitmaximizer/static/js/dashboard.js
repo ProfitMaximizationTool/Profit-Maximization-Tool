@@ -111,3 +111,39 @@ Array.prototype.slice.call(document.getElementsByClassName("delete-ingredient"))
 		document.getElementById("delete-ingredient-record-id").value = recordID;
 	});
 });
+
+// Adding new product record
+document.getElementById("product-overlay-btn").addEventListener("click", function(event){
+	event.preventDefault();
+	document.getElementById("add-product-overlay").style.display = "block";
+})
+
+
+// Edit product record
+Array.prototype.slice.call(document.getElementsByClassName("edit-product")).forEach(function(element){
+	element.addEventListener("click", function(event){
+		event.preventDefault();
+		document.getElementById("edit-product-overlay").style.display = "block";
+		var recordID = event.target.parentElement.parentElement.children[0].innerText;
+		var recordName = event.target.parentElement.parentElement.children[1].innerText;;
+		var recordIngredients = event.target.parentElement.parentElement.children[2].innerText;;
+		var recordPrice = event.target.parentElement.parentElement.children[3].innerText;;
+		document.getElementById("edit-product-text").innerText = "Edit ProductRecord " + recordID;
+		document.getElementById("edit-product-record-id").value = recordID;
+		document.getElementById("edit-product-name").value = recordName;
+		document.getElementById("edit-product-ingredients").value = recordIngredients;
+		document.getElementById("edit-product-price").value = recordPrice;
+
+	});
+});
+
+// Delete ingredient record
+Array.prototype.slice.call(document.getElementsByClassName("delete-product")).forEach(function(element){
+	element.addEventListener("click", function(event){
+		event.preventDefault();
+		document.getElementById("delete-product-overlay").style.display = "block";
+		var recordID = event.target.parentElement.parentElement.children[0].innerText;
+		document.getElementById("delete-product-text").innerText = "Are you sure you want to delete ProductRecord " + recordID + " ?";
+		document.getElementById("delete-product-record-id").value = recordID;
+	});
+});

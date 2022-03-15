@@ -287,7 +287,7 @@ def edit_product_view(request):
 		edit_id = request.POST['edit-product-record-id']
 		edit_product_name = request.POST['edit-product-name']
 		edit_product_price = request.POST['edit-product-price']
-		edit_product_ingredients = request.POST['edit-product-ingredinets']
+		edit_product_ingredients = request.POST['edit-product-ingredients']
 		record = ProductRecord.objects.get(id=edit_id)
 		record.productName = edit_product_name
 		record.price = edit_product_price
