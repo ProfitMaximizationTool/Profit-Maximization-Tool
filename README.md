@@ -1,6 +1,6 @@
 # Profit Maximization Tool
 
-This is a course requirements for CS191/192 Software Engineering Courses of the Department of Computer Science, College of Engineering, University of the Philippines, Diliman under the guidance of Ma. Rowena C. Solamo for AY 2020-2021.
+This is a course requirements for CS191/192 Software Engineering Courses of the Department of Computer Science, College of Engineering, University of the Philippines, Diliman under the guidance of Ma. Rowena C. Solamo for AY 2021-2022.
 
 ## Members
 
@@ -18,28 +18,26 @@ This is a course requirements for CS191/192 Software Engineering Courses of the 
 ### Use cases accomplished:
 
 - UC-1.0-S1: Business owner successfully signs up for an account
-  
+
 - UC-1.0-S2: Business owner successfully logs into account
-  
+
 - UC-1.0-S3: Invalid Username
-  
+
 - UC-1.0-S4: Invalid password
-  
+
 - UC-1.0-S5: Username not available
-  
 
 ## Features so far
 
 1. Users can sign up for an account and fill in asked information
-  
+
 2. Users can login using registered account
-  
+
 3. Upon successful sign up or login, users are redirected towards home page with logged in status
-  
+
 4. Users are prompted with an error if the password they used for logging in is incorrect
-  
+
 5. Users are prompted with an error if the username they input during sign up is already taken
-  
 
 # How to run this build
 
@@ -163,3 +161,7 @@ Starting development server at http://127.0.0.1:8000/
 ```
 
 Paste the url into your browser and then you should be seeing the home page of the application now
+
+# References
+
+no author. [Django documentation]([Django documentation | Django documentation | Django (djangoproject.com)](https://docs.djangoproject.com/en/4.0/?fbclid=IwAR2dqnYI2Q_iRjttWoAFagmqd_ke_HnjRE7PHrCd-nApRYyxHAKQjhqGDks)). Last accessed: March 15, 2022
