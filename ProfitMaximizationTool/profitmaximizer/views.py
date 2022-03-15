@@ -87,8 +87,15 @@ def dashboard_view(request):
 					pass
 				else:
 					columns = line.split(",")
-					temporary = IngredientRecord(ingredient_name=columns[0], cost=columns[1],units=columns[2], daily_units=columns[3], owner_id=business_owner.user_ptr_id)
-					temporary.save()
+					try:
+						temporary = IngredientRecord.objects.get(ingredient_name=columns[0], owner_id=business_owner.user_ptr_id)
+						temporary.cost = columns[1]
+						temporary.units = columns[2]
+						temporary.daily_units = columns[3]
+						temporary.save()
+					except ObjectDoesNotExist:
+						temporary = IngredientRecord(ingredient_name=columns[0], cost=columns[1],units=columns[2], daily_units=columns[3], owner_id=business_owner.user_ptr_id)
+						temporary.save()
 					
 		if 'products-table' in request.FILES:
 			products_file = request.FILES['products-table']
