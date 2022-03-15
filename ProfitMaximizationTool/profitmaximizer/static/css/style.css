@@ -138,6 +138,19 @@
     font-size: var(--medium);
 }
 
+.small-btn {
+    width: fit-content;
+    height: fit-content;
+    font-family: 'Inter', sans-serif;
+    font-weight: 700;
+    font-size: var(--xsmall);
+    border: 0.1px solid;
+    border-radius: 4px;
+    border: 0.1px solid;
+    padding: 4px;
+    text-transform: uppercase;
+}
+
 .dynamic-btn {
     border: 0.1px solid;
     border-radius: 4px;
@@ -195,14 +208,10 @@
 
 /* Forms and Overlays */
 
-.form {
+.form-size {
     width: 350px;
     height: 460px;
-    border-radius: 18px;
     background-color: white;
-    padding: 40px;
-    z-index: 1;
-    box-shadow: 0px 0px 10px #6b6e70;
 }
 
 .form-title {
@@ -256,14 +265,10 @@
 
 /* Please generalize .import (by changing name). I used this class in other overlays as well*/
 
-.import {
-/*    width: 350px;
-    height: 460px;*/
-    border-radius: 18px;
+.import-size {
+    width: 50%;
+    height: 50%;
     background-color: white;
-    padding: 40px;
-    z-index: 1;
-    box-shadow: 0px 0px 10px #6b6e70;
 }
 
 .import-inner {
@@ -276,9 +281,12 @@
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
+    z-index: 1;
+    box-shadow: 0px 0px 10px #6b6e70;
+    border-radius: 18px;
+    box-sizing: border-box;
+    border: 20px solid transparent;
 }
-
-
 
 .close {
     color: var(--dark);
@@ -502,6 +510,15 @@ a:hover {
 
 /* Page content */
 
+.page-title {
+    font-family: 'Poppins', sans-serif;
+    font-size: 34px;
+    font-weight: 700;
+    margin-left: 25px;
+    color: var(--dark);
+}
+
+
 .page-content {
     position: relative;
     float: right;
@@ -645,14 +662,63 @@ a:hover {
 /* Page content table */
 
 .data-table {
-    border: 1px solid var(--primary);
-    border-collapse:collapse;
-}
-
-.data-table-row {
-    /*border: 1px solid var(--primary);*/
+    border-collapse: collapse;
+    font-family: 'Inter', sans-serif;
+    text-align: left;
+    table-layout: fixed;
+    width: 100%;
+    box-sizing: border-box;
+    border-left: 25px solid transparent;
+    border-right: 25px solid transparent;
 }
 
 .hidden {
     display: none;
+}
+
+.record-id {
+    font-weight: 700;
+    width: 50px;
+}
+
+.record-icon {
+    font-size: var(--small);
+    border-radius: 4px;
+    color: var(--dark);
+    margin-right: 5px;
+    margin-left: 5px;
+}
+
+th {
+    color: var(--dark);
+    font-size: var(--small);
+    text-align: left;
+}
+
+tr {
+    height: 40px;
+}
+
+tr:nth-child(even) {
+    background-color: var(--light);
+}
+
+tr:not(th) {
+    font-weight: 400;
+    font-size: var(--xsmall);
+}
+
+td:first-child {
+    border-top-left-radius: 4px;
+    border-bottom-left-radius: 4px;
+}
+
+td:last-child {
+    border-top-right-radius: 4px;
+    border-bottom-right-radius: 4px;
+}
+
+/* Table column widths */
+.product-col1 {
+    width: 50px;
 }
