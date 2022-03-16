@@ -53,6 +53,19 @@ document.getElementById("close-import").addEventListener("click", function(event
     closeErrorContainers();
 });
 
+// upload prompts
+if (prompt == "successful-ingredient-import-prompt"){
+	document.getElementById("successful-ingredient-import-prompt").style.display = "inline-block";
+}
+if (prompt == "successful-product-import-prompt"){
+	document.getElementById("successful-product-import-prompt").style.display = "inline-block";
+}
+if (prompt == "unsuccessful-ingredient-import-prompt"){
+	document.getElementById("unsuccessful-ingredient-import-prompt").style.display = "inline-block";
+}
+if (prompt == "unsuccessful-product-import-prompt"){
+	document.getElementById("unsuccessful-product-import-prompt").style.display = "inline-block";
+}
 
 Array.prototype.slice.call(document.getElementsByClassName("close")).forEach(function(element){
 	element.addEventListener("click", function(event){
@@ -80,6 +93,9 @@ document.getElementById("ingr-overlay-btn").addEventListener("click", function(e
 	document.getElementById("add-ingredient-overlay").style.display = "block";
 })
 
+if (prompt == "successful-ingredient-add-prompt"){
+	document.getElementById("successful-ingredient-add-prompt").style.display = "block";
+}
 
 // Edit ingredient record
 Array.prototype.slice.call(document.getElementsByClassName("edit-ingredient")).forEach(function(element){
@@ -101,6 +117,10 @@ Array.prototype.slice.call(document.getElementsByClassName("edit-ingredient")).f
 	});
 });
 
+if (prompt == "successful-ingredient-edit-prompt"){
+	document.getElementById("successful-ingredient-edit-prompt").style.display = "block";
+}
+
 // Delete ingredient record
 Array.prototype.slice.call(document.getElementsByClassName("delete-ingredient")).forEach(function(element){
 	element.addEventListener("click", function(event){
@@ -112,7 +132,13 @@ Array.prototype.slice.call(document.getElementsByClassName("delete-ingredient"))
 	});
 });
 
+if (prompt == "successful-ingredient-delete-prompt"){
+	document.getElementById("successful-ingredient-delete-prompt").style.display = "block";
 }
+
+}
+
+
 
 if(page == "products")
 {
@@ -122,6 +148,9 @@ document.getElementById("product-overlay-btn").addEventListener("click", functio
 	document.getElementById("add-product-overlay").style.display = "block";
 })
 
+if (prompt == "successful-product-add-prompt"){
+	document.getElementById("successful-product-add-prompt").style.display = "block";
+}
 
 // Edit product record
 Array.prototype.slice.call(document.getElementsByClassName("edit-product")).forEach(function(element){
@@ -141,6 +170,10 @@ Array.prototype.slice.call(document.getElementsByClassName("edit-product")).forE
 	});
 });
 
+if (prompt == "successful-product-edit-prompt"){
+	document.getElementById("successful-product-edit-prompt").style.display = "block";
+}
+
 // Delete ingredient record
 Array.prototype.slice.call(document.getElementsByClassName("delete-product")).forEach(function(element){
 	element.addEventListener("click", function(event){
@@ -151,4 +184,9 @@ Array.prototype.slice.call(document.getElementsByClassName("delete-product")).fo
 		document.getElementById("delete-product-record-id").value = recordID;
 	});
 });
+
+if (prompt == "successful-product-delete-prompt"){
+	document.getElementById("successful-product-delete-prompt").style.display = "block";
+}
+
 }
