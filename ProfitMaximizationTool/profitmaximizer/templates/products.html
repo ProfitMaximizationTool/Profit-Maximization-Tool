@@ -77,8 +77,8 @@
         <form autocomplete="off" action="/delete-product/" method="POST">
             {% csrf_token %}
             <input type="text" class="hidden" name="delete-product-record-id" id="delete-product-record-id">
-            <input type="submit" value="YES" class="fill dynamic-btn btn half-width" name="delete-product-btn">
-            <input type="submit" value="CANCEL" class="outline dynamic-btn btn half-width close">
+            <input type="submit" value="Yes" class="fill dynamic-btn btn half-width" name="delete-product-btn">
+            <input type="submit" value="Cancel" class="outline dynamic-btn btn half-width close">
         </form>
     </div>
 </div>
@@ -87,7 +87,7 @@
 {% block page-content %}
 <div class="page-title">
     Products
-    <input type="button" class="fill small-btn btn" value="+ Add new record" id="product-overlay-btn">
+    <input type="button" class="fill small-btn right btn" value="+ Add new record" id="product-overlay-btn">
 </div>
 
 <br>
@@ -105,18 +105,16 @@
         <tr class="product-record data-table-row" id="product-record-{{ product.id }}">
             <td class="record-id"> {{ product.id }} </td>
             <td> {{ product.productName }} </td>
+            
             <td>
             {% for ingr, quantity in product.ingredients.items %}
-                {{ ingr }} ({{ quantity }} units),
+                {{ ingr }} ({{ quantity }} units) <br>
             {% endfor %}
             </td>
             
-            <td>
-                {{ product.cost }}
-            </td>
-            <td>
-                {{ product.price }}
-            </td>
+            <td> {{ product.cost }} </td>
+            <td> {{ product.price }} </td>
+            
             <td class="record-btns">
                 <ion-icon class="record-icon btn edit-product" name="pencil"></ion-icon>
                 <ion-icon class="record-icon btn delete-product" name="trash"></ion-icon>

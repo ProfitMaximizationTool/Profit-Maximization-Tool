@@ -21,51 +21,32 @@
 {% endblock %}
 
 {% block page-content %}
-    <div class="left-text dark-font xlarge-font bold text">
-        INVENTORY
-        <input type="button" class="fill dynamic-btn btn" value="+ ADD NEW RECORD" id="ingr-overlay-btn">
+    <div class="page-title">
+        Inventory
+        <input type="button" class="fill small-btn right btn" value="+ Add new record" id="ingr-overlay-btn">
     </div>
 
     <br>
     <div class="table-container">
-        <table class="data-table dark-font large-font centered-text text">
+        <table class="data-table">
             <tr>
-                <th>
-                    INGREDIENT ID
-                </th>
-                <th>
-                    INGREDIENT NAME
-                </th>
-                <th>
-                    UNIT COST
-                </th>
-                <th>
-                    TOTAL UNITS
-                </th>
-                <th>
-                    DAILY UNITS
-                </th>
+                <th class="record-id"> ID </th>
+                <th class="record-name"> Ingredient Name </th>
+                <th class="record-price"> Unit Cost </th>
+                <th class="record-price"> Total Units </th>
+                <th class="record-price"> Daily Units </th>
+                <th class="record-btns">  </th>
             </tr>
             {% for ingredient in inventory_data %}
             <tr class="ingredient-record data-table-row" id="ingredient-record-{{ ingredient.id }}">
-                <td>
-                    {{ ingredient.id}}
-                </td>
-                <td>
-                    {{ ingredient.ingredient_name }}
-                </td>
-                <td>
-                    {{ ingredient.cost }}
-                </td>
-                <td>
-                    {{ ingredient.units }}
-                </td>
-                <td>
-                    {{ ingredient.daily_units }}
-                </td>
-                <td>
-                    <ion-icon class="nav-icon btn edit-ingredient" name="pencil"></ion-icon>
-                    <ion-icon class="nav-icon btn delete-ingredient" name="trash"></ion-icon>
+                <td class="record-id"> {{ ingredient.id}} </td>
+                <td> {{ ingredient.ingredient_name }} </td>
+                <td> {{ ingredient.cost }} </td>
+                <td> {{ ingredient.units }} </td>
+                <td> {{ ingredient.daily_units }} </td>
+                <td class="record-btns">
+                    <ion-icon class="record-icon btn edit-ingredient" name="pencil"></ion-icon>
+                    <ion-icon class="record-icon btn delete-ingredient" name="trash"></ion-icon>
                 </td>
             </tr>
             {% endfor %}
