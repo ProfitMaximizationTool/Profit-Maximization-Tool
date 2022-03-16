@@ -72,8 +72,8 @@ Array.prototype.slice.call(document.getElementsByClassName("card")).forEach(func
 	});
 });
 
-
-
+if(page == "inventory")
+{
 // Adding new ingredient record
 document.getElementById("ingr-overlay-btn").addEventListener("click", function(event){
 	event.preventDefault();
@@ -112,6 +112,10 @@ Array.prototype.slice.call(document.getElementsByClassName("delete-ingredient"))
 	});
 });
 
+}
+
+if(page == "products")
+{
 // Adding new product record
 document.getElementById("product-overlay-btn").addEventListener("click", function(event){
 	event.preventDefault();
@@ -147,3 +151,4 @@ Array.prototype.slice.call(document.getElementsByClassName("delete-product")).fo
 		document.getElementById("delete-product-record-id").value = recordID;
 	});
 });
+}
