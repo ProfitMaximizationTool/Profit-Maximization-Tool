@@ -153,9 +153,20 @@
                 {% endblock %}
             </div>
         </div>
-         <div class="page-content" id="page-content-container">
-            <br>
-            <br>
+        
+        <div class="add-record overlay" id="add-record-overlay">
+            {% block add-record %}{% endblock %}
+        </div>
+
+        <div class="edit-record overlay" id="edit-record-overlay">
+            {% block edit-record %}{% endblock %}
+        </div>
+
+        <div class="delete-record overlay" id="delete-record-overlay">
+            {% block delete-record %}{% endblock %}
+        </div>
+
+        <div class="page-content" id="page-content-container">
             {% block page-content %}{% endblock %}
         </div>
     </div>
