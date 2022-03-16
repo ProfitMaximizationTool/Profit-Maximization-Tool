@@ -4,32 +4,32 @@
 
 {% block add-record %}
 <div class="add-record overlay" id="add-product-overlay">
+    <button class="close" id="close-import"><b>&#10005</b></button>
     <div class="import-inner">
-        <button class="close" id="close-import"><b>&#10005</b></button>
         <form autocomplete="off" action="/add-product/" method="POST">
             {% csrf_token %}
-            <div class="centered-text dark-font xlarge-font bold text">
-                ADD NEW PRODUCT RECORD
+            <div class="record-title">
+                Add new product record
             </div>
-            <div class="left-text dark-font large-font text">
+            <div class="record-field">
                 Product Name
-                <div class="input-box">
-                    <input type="text" class="user-info" name="new-product-name">
+                <div class="string-input-size input-box">
+                    <input type="text" class="string-input move" name="new-product-name">
                 </div>
             </div>
-            <div class="left-text dark-font large-font text">
+            <div class="record-field">
                 Ingredients (Json format)
-                <div class="input-box">
-                    <input type="text" class="user-info" name="new-product-ingredients">
+                <div class="string-input-size input-box">
+                    <input type="text" class="string-input move" name="new-product-ingredients">
                 </div>
             </div>
-            <div class="left-text dark-font large-font text">
+            <div class="record-field">
                 Price
-                <div class="input-box input-width">
-                    <input type="number" class="user-info" name="new-product-price">
+                <div class="int-input-size input-box">
+                    <input type="number" class="int-input move" name="new-product-price">
                 </div>
             </div>
-            <input type="submit" value="SUBMIT" class="fill dynamic-btn btn" name="add-product-btn">
+            <input type="submit" value="Save" class="fill small-btn btn" name="add-product-btn">
         </form>
     </div>
 </div>
@@ -37,28 +37,28 @@
 
 {% block edit-record %}
 <div class="edit-record overlay" id="edit-product-overlay">
+    <button class="close" id="close-import"><b>&#10005</b></button>
     <div class="import-inner">
-        <button class="close" id="close-import"><b>&#10005</b></button>
         <form autocomplete="off" action="/edit-product/" method="POST">
             {% csrf_token %}
             <input type="text" class="hidden" name="edit-product-record-id" id="edit-product-record-id">
-            <div class="centered-text dark-font xlarge-font bold text" id="edit-product-text">
+            <div class="record-title" id="edit-product-text">
             </div>
-            <div class="left-text dark-font large-font text">
+            <div class="record-field">
                 Product Name
-                <div class="input-box">
-                    <input type="text" class="user-info" name="edit-product-name" id="edit-product-name">
+                <div class="string-input-size input-box">
+                    <input type="text" class="string-input move" name="edit-product-name" id="edit-product-name">
                 </div>
             </div>
-            <div class="left-text dark-font large-font text">
+            <div class="record-field">
                 Product Ingredients
-                <div class="input-box">
+                <div class="string-input-size input-box">
                     <input type="text" step="any" class="user-info" name="edit-product-ingredients" id="edit-product-ingredients">
                 </div>
             </div>
-            <div class="left-text dark-font large-font text">
+            <div class="record-field">
                 Product Price
-                <div class="input-box input-width">
+                <div class="int-input-size input-box">
                     <input type="number" class="user-info" name="edit-product-price" id="edit-product-price">
                 </div>
             </div>
@@ -112,7 +112,7 @@
         {% for product in products_data %}
         <tr class="product-record data-table-row" id="product-record-{{ product.id }}">
             <td class="record-id"> {{ product.id }} </td>
-            <td> {{ product.productName }} </td>
+            <td class="record-name"> {{ product.productName }} </td>
             
             <td>
             {% for ingr, quantity in product.ingredients.items %}

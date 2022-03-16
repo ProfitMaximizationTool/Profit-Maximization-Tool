@@ -3,20 +3,96 @@
 {% block title %}<title>Profitify: Inventory</title>{% endblock %}
 
 {% block add-record %}
-<div class="add-record overlay" id="add-inventory-record">
-
+<div class="add-record overlay" id="add-ingredient-overlay">
+    <div class="import-inner">
+        <button class="close" id="close-import"><b>&#10005</b></button>
+        <form autocomplete="off" action="/add-ingredient/" method="POST">
+            {% csrf_token %}
+            <div class="centered-text dark-font xlarge-font bold text">
+                ADD NEW INVENTORY RECORD
+            </div>
+            <div class="left-text dark-font large-font text">
+                Ingredient Name
+                <div class="input-box">
+                    <input type="text" class="user-info" name="new-ingredient-name">
+                </div>
+            </div>
+            <div class="left-text dark-font large-font text">
+                Unit Cost
+                <div class="input-box input-width">
+                    <input type="number" step= "any" class="user-info" name="new-ingredient-cost">
+                </div>
+            </div>
+            <div class="left-text dark-font large-font text">
+                Total Units
+                <div class="input-box input-width">
+                    <input type="number" class="user-info" name="new-total-units">
+                </div>
+            </div>
+            <div class="left-text dark-font large-font text">
+                Daily Units
+                <div class="input-box input-width">
+                    <input type="number" class="user-info" name="new-daily-units">
+                </div>
+            </div>
+            <input type="submit" value="SUBMIT" class="fill dynamic-btn btn" name="add-ingredient-btn">
+        </form>
+    </div>
 </div>
 {% endblock %}
 
 {% block edit-record %}
-<div class="edit-record overlay" id="edit-inventory-record">
-    
+<div class="edit-record overlay" id="edit-ingredient-overlay">
+    <div class="import-inner">
+        <button class="close" id="close-import"><b>&#10005</b></button>
+        <form autocomplete="off" action="/edit-ingredient/" method="POST">
+            {% csrf_token %}
+            <input type="text" class="hidden" name="edit-ingredient-record-id" id="edit-ingredient-record-id">
+            <div class="centered-text dark-font xlarge-font bold text" id="edit-ingredient-text">
+            </div>
+            <div class="left-text dark-font large-font text">
+                Ingredient Name
+                <div class="input-box">
+                    <input type="text" class="user-info" name="edit-ingredient-name" id="edit-ingredient-name">
+                </div>
+            </div>
+            <div class="left-text dark-font large-font text">
+                Unit Cost
+                <div class="input-box input-width">
+                    <input type="number" step="any" class="user-info" name="edit-ingredient-cost" id="edit-ingredient-cost">
+                </div>
+            </div>
+            <div class="left-text dark-font large-font text">
+                Total Units
+                <div class="input-box input-width">
+                    <input type="number" class="user-info" name="edit-ingredient-total-units" id="edit-ingredient-total-units">
+                </div>
+            </div>
+            <div class="left-text dark-font large-font text">
+                Daily Units
+                <div class="input-box input-width">
+                    <input type="number" class="user-info" name="edit-ingredient-daily-units" id="edit-ingredient-daily-units">
+                </div>
+            </div>
+            <input type="submit" value="SUBMIT" class=" fill dynamic-btn btn" name="edit-ingredient-btn">
+        </form>
+    </div>
 </div>
 {% endblock %}
 
 {% block delete-record %}
-<div class="delete-record overlay" id="delete-inventory-record">
-    
+<div class="delete-record overlay" id="delete-ingredient-overlay">
+    <div class="import-inner">
+        <button class="close" id="close-import"><b>&#10005</b></button>
+        <div class="centered-text dark-font xlarge-font bold text" id="delete-ingredient-text">
+        </div>
+        <form autocomplete="off" action="/delete-ingredient/" method="POST">
+            {% csrf_token %}
+            <input type="text" class="hidden" name="delete-ingredient-record-id" id="delete-ingredient-record-id">
+            <input type="submit" value="YES" class="fill dynamic-btn btn half-width" name="delete-ingredient-btn">
+            <input type="submit" value="CANCEL" class="outline dynamic-btn btn half-width close">
+        </form>
+    </div>
 </div>
 {% endblock %}
 
@@ -60,94 +136,4 @@
             {% endfor %}
         </table>
     </div>
-
-    <div class="import overlay" id="add-ingredient-overlay">
-        <div class="import-inner">
-            <button class="close" id="close-import"><b>&#10005</b></button>
-            <form autocomplete="off" action="/add-ingredient/" method="POST">
-                {% csrf_token %}
-                <div class="centered-text dark-font xlarge-font bold text">
-                    ADD NEW INVENTORY RECORD
-                </div>
-                <div class="left-text dark-font large-font text">
-                    Ingredient Name
-                    <div class="input-box">
-                        <input type="text" class="user-info" name="new-ingredient-name">
-                    </div>
-                </div>
-                <div class="left-text dark-font large-font text">
-                    Unit Cost
-                    <div class="input-box input-width">
-                        <input type="number" step= "any" class="user-info" name="new-ingredient-cost">
-                    </div>
-                </div>
-                <div class="left-text dark-font large-font text">
-                    Total Units
-                    <div class="input-box input-width">
-                        <input type="number" class="user-info" name="new-total-units">
-                    </div>
-                </div>
-                <div class="left-text dark-font large-font text">
-                    Daily Units
-                    <div class="input-box input-width">
-                        <input type="number" class="user-info" name="new-daily-units">
-                    </div>
-                </div>
-                <input type="submit" value="SUBMIT" class="fill dynamic-btn btn" name="add-ingredient-btn">
-            </form>
-        </div>
-    </div>
-
-    <div class="import overlay" id="edit-ingredient-overlay">
-        <div class="import-inner">
-            <button class="close" id="close-import"><b>&#10005</b></button>
-            <form autocomplete="off" action="/edit-ingredient/" method="POST">
-                {% csrf_token %}
-                <input type="text" class="hidden" name="edit-ingredient-record-id" id="edit-ingredient-record-id">
-                <div class="centered-text dark-font xlarge-font bold text" id="edit-ingredient-text">
-                </div>
-                <div class="left-text dark-font large-font text">
-                    Ingredient Name
-                    <div class="input-box">
-                        <input type="text" class="user-info" name="edit-ingredient-name" id="edit-ingredient-name">
-                    </div>
-                </div>
-                <div class="left-text dark-font large-font text">
-                    Unit Cost
-                    <div class="input-box input-width">
-                        <input type="number" step="any" class="user-info" name="edit-ingredient-cost" id="edit-ingredient-cost">
-                    </div>
-                </div>
-                <div class="left-text dark-font large-font text">
-                    Total Units
-                    <div class="input-box input-width">
-                        <input type="number" class="user-info" name="edit-ingredient-total-units" id="edit-ingredient-total-units">
-                    </div>
-                </div>
-                <div class="left-text dark-font large-font text">
-                    Daily Units
-                    <div class="input-box input-width">
-                        <input type="number" class="user-info" name="edit-ingredient-daily-units" id="edit-ingredient-daily-units">
-                    </div>
-                </div>
-                <input type="submit" value="SUBMIT" class=" fill dynamic-btn btn" name="edit-ingredient-btn">
-            </form>
-        </div>
-    </div>
-
-    <div class="import overlay" id="delete-ingredient-overlay">
-        <div class="import-inner">
-            <button class="close" id="close-import"><b>&#10005</b></button>
-            <div class="centered-text dark-font xlarge-font bold text" id="delete-ingredient-text">
-            </div>
-            <form autocomplete="off" action="/delete-ingredient/" method="POST">
-                {% csrf_token %}
-                <input type="text" class="hidden" name="delete-ingredient-record-id" id="delete-ingredient-record-id">
-                <input type="submit" value="YES" class="fill dynamic-btn btn half-width" name="delete-ingredient-btn">
-                <input type="submit" value="CANCEL" class="outline dynamic-btn btn half-width close">
-            </form>
-        </div>
-    </div>
-
-
 {% endblock %}

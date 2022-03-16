@@ -112,7 +112,6 @@ if(page == "inventory"){
 			document.getElementById("edit-ingredient-cost").value = recordCost;
 			document.getElementById("edit-ingredient-total-units").value = recordTotalUnits;
 			document.getElementById("edit-ingredient-daily-units").value = recordDailyUnits;
-
 		});
 	});
 
