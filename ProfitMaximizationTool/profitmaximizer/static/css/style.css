@@ -285,7 +285,7 @@
     box-shadow: 0px 0px 10px #6b6e70;
     border-radius: 18px;
     box-sizing: border-box;
-    border: 20px solid transparent;
+    border: 30px solid transparent;
 }
 
 .close {
@@ -700,7 +700,7 @@ tr {
 }
 
 tr:nth-child(even) {
-    background-color: var(--light);
+    background-color: #524a4e0c;
 }
 
 tr:not(th) {

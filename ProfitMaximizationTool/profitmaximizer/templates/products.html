@@ -2,123 +2,139 @@
 
 {% block title %}<title>Profitify: Products</title>{% endblock %}
 
+{% block add-record %}
+<div class="add-record overlay" id="add-products-record">
+
+</div>
+{% endblock %}
+
+{% block edit-record %}
+<div class="edit-record overlay" id="edit-products-record">
+    
+</div>
+{% endblock %}
+
+{% block delete-record %}
+<div class="delete-record overlay" id="delete-products-record">
+    
+</div>
+{% endblock %}
+
 {% block page-content %}
-<div class="page">
-    <div class="page-title">
-        Products
-        <input type="button" class="fill small-btn btn" value="+ Add new record" id="product-overlay-btn">
-    </div>
+<div class="page-title">
+    Products
+    <input type="button" class="fill small-btn btn" value="+ Add new record" id="product-overlay-btn">
+</div>
 
-    <br>
-    <div class="table-container">
-        <table class="data-table">
-            <tr>
-                <th> ID </th> 
-                <th> Product Name </th> 
-                <th> Ingredients/Materials </th> 
-                <th> Cost </th>
-                <th> Price </th>
-                <th>   </th>
-            </tr>
-            {% for product in products_data %}
-            <tr class="product-record data-table-row" id="product-record-{{ product.id }}">
-                <td class="record-id"> {{ product.id }} </td>
-                <td> {{ product.productName }} </td>
-                <td>
-                {% for ingr, quantity in product.ingredients.items %}
-                    {{ ingr }} ({{ quantity }} units),
-                {% endfor %}
-                </td>
-                
-                <td>
-                    {{ product.cost }}
-                </td>
-                <td>
-                    {{ product.price }}
-                </td>
-                <td>
-                    <ion-icon class="record-icon btn" name="pencil"></ion-icon>
-                    <ion-icon class="record-icon btn" name="trash"></ion-icon>
-                </td>
-            </tr>
+<br>
+<div class="table-container">
+    <table class="data-table">
+        <tr>
+            <th> ID </th> 
+            <th> Product Name </th> 
+            <th> Ingredients/Materials </th> 
+            <th> Cost </th>
+            <th> Price </th>
+            <th>   </th>
+        </tr>
+        {% for product in products_data %}
+        <tr class="product-record data-table-row" id="product-record-{{ product.id }}">
+            <td class="record-id"> {{ product.id }} </td>
+            <td> {{ product.productName }} </td>
+            <td>
+            {% for ingr, quantity in product.ingredients.items %}
+                {{ ingr }} ({{ quantity }} units),
             {% endfor %}
-        </table>
-    </div>
+            </td>
+            
+            <td>
+                {{ product.cost }}
+            </td>
+            <td>
+                {{ product.price }}
+            </td>
+            <td>
+                <ion-icon class="record-icon btn" name="pencil"></ion-icon>
+                <ion-icon class="record-icon btn" name="trash"></ion-icon>
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+</div>
 
-    <div class="import overlay" id="add-product-overlay">
-        <div class="import-inner">
-            <button class="close" id="close-import"><b>&#10005</b></button>
-            <form autocomplete="off" action="/add-product/" method="POST">
-                {% csrf_token %}
-                <div class="centered-text dark-font xlarge-font bold text">
-                    ADD NEW PRODUCT RECORD
-                </div>
-                <div class="left-text dark-font large-font text">
-                    Product Name
-                    <div class="input-box">
-                        <input type="text" class="user-info" name="new-product-name">
-                    </div>
-                </div>
-                <div class="left-text dark-font large-font text">
-                    Ingredients (Json format)
-                    <div class="input-box input-width">
-                        <input type="text" step= "any" class="user-info" name="new-product-ingredients">
-                    </div>
-                </div>
-                <div class="left-text dark-font large-font text">
-                    Price
-                    <div class="input-box input-width">
-                        <input type="number" class="user-info" name="new-product-price">
-                    </div>
-                </div>
-                <input type="submit" value="SUBMIT" class="fill dynamic-btn btn" name="add-product-btn">
-            </form>
-        </div>
-    </div>
-
-    <div class="import overlay" id="edit-product-overlay">
-        <div class="import-inner">
-            <button class="close" id="close-import"><b>&#10005</b></button>
-            <form autocomplete="off" action="/edit-product/" method="POST">
-                {% csrf_token %}
-                <input type="text" class="hidden" name="edit-product-record-id" id="edit-product-record-id">
-                <div class="centered-text dark-font xlarge-font bold text" id="edit-product-text">
-                </div>
-                <div class="left-text dark-font large-font text">
-                    Product Name
-                    <div class="input-box">
-                        <input type="text" class="user-info" name="edit-product-name" id="edit-product-name">
-                    </div>
-                </div>
-                <div class="left-text dark-font large-font text">
-                    Product Ingredients
-                    <div class="input-box input-width">
-                        <input type="text" step="any" class="user-info" name="edit-product-ingredients" id="edit-product-ingredients">
-                    </div>
-                </div>
-                <div class="left-text dark-font large-font text">
-                    Product Price
-                    <div class="input-box input-width">
-                        <input type="number" class="user-info" name="edit-product-price" id="edit-product-price">
-                    </div>
-                </div>
-                <input type="submit" value="SUBMIT" class=" fill dynamic-btn btn" name="edit-product-btn">
-            </form>
-        </div>
-    </div>
-
-    <div class="import overlay" id="delete-product-overlay">
-        <div class="import-inner">
-            <button class="close" id="close-import"><b>&#10005</b></button>
-            <div class="centered-text dark-font xlarge-font bold text" id="delete-product-text">
+<div class="import overlay" id="add-product-overlay">
+    <div class="import-inner">
+        <button class="close" id="close-import"><b>&#10005</b></button>
+        <form autocomplete="off" action="/add-product/" method="POST">
+            {% csrf_token %}
+            <div class="centered-text dark-font xlarge-font bold text">
+                ADD NEW PRODUCT RECORD
             </div>
-            <form autocomplete="off" action="/delete-product/" method="POST">
-                {% csrf_token %}
-                <input type="text" class="hidden" name="delete-product-record-id" id="delete-product-record-id">
-                <input type="submit" value="YES" class="fill dynamic-btn btn half-width" name="delete-product-btn">
-                <input type="submit" value="CANCEL" class="outline dynamic-btn btn half-width close">
-            </form>
+            <div class="left-text dark-font large-font text">
+                Product Name
+                <div class="input-box">
+                    <input type="text" class="user-info" name="new-product-name">
+                </div>
+            </div>
+            <div class="left-text dark-font large-font text">
+                Ingredients (Json format)
+                <div class="input-box input-width">
+                    <input type="text" step= "any" class="user-info" name="new-product-ingredients">
+                </div>
+            </div>
+            <div class="left-text dark-font large-font text">
+                Price
+                <div class="input-box input-width">
+                    <input type="number" class="user-info" name="new-product-price">
+                </div>
+            </div>
+            <input type="submit" value="SUBMIT" class="fill dynamic-btn btn" name="add-product-btn">
+        </form>
+    </div>
+</div>
+
+<div class="import overlay" id="edit-product-overlay">
+    <div class="import-inner">
+        <button class="close" id="close-import"><b>&#10005</b></button>
+        <form autocomplete="off" action="/edit-product/" method="POST">
+            {% csrf_token %}
+            <input type="text" class="hidden" name="edit-product-record-id" id="edit-product-record-id">
+            <div class="centered-text dark-font xlarge-font bold text" id="edit-product-text">
+            </div>
+            <div class="left-text dark-font large-font text">
+                Product Name
+                <div class="input-box">
+                    <input type="text" class="user-info" name="edit-product-name" id="edit-product-name">
+                </div>
+            </div>
+            <div class="left-text dark-font large-font text">
+                Product Ingredients
+                <div class="input-box input-width">
+                    <input type="text" step="any" class="user-info" name="edit-product-ingredients" id="edit-product-ingredients">
+                </div>
+            </div>
+            <div class="left-text dark-font large-font text">
+                Product Price
+                <div class="input-box input-width">
+                    <input type="number" class="user-info" name="edit-product-price" id="edit-product-price">
+                </div>
+            </div>
+            <input type="submit" value="SUBMIT" class=" fill dynamic-btn btn" name="edit-product-btn">
+        </form>
+    </div>
+</div>
+
+<div class="import overlay" id="delete-product-overlay">
+    <div class="import-inner">
+        <button class="close" id="close-import"><b>&#10005</b></button>
+        <div class="centered-text dark-font xlarge-font bold text" id="delete-product-text">
         </div>
+        <form autocomplete="off" action="/delete-product/" method="POST">
+            {% csrf_token %}
+            <input type="text" class="hidden" name="delete-product-record-id" id="delete-product-record-id">
+            <input type="submit" value="YES" class="fill dynamic-btn btn half-width" name="delete-product-btn">
+            <input type="submit" value="CANCEL" class="outline dynamic-btn btn half-width close">
+        </form>
     </div>
 </div>
 {% endblock %}
