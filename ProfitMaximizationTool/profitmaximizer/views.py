@@ -211,14 +211,11 @@ def profile_view(request):
 @login_required
 @csrf_protect
 def add_ingredient_view(request):
-	# redirect to inventory page
 	prompt = "none"
 	business_owner = BusinessOwner.objects.get(username=request.user.username)
 	frgn_key = business_owner.user_ptr_id
 	inventory_data = IngredientRecord.objects.filter(owner_id=frgn_key).order_by("units")
 	if request.method == "POST" and "add-ingredient-btn" in request.POST:
-		print("-------------------")
-		print(request.POST)
 		new_ingredient_name = request.POST['new-ingredient-name']
 		new_ingredient_cost = request.POST['new-ingredient-cost']
 		new_total_units = request.POST['new-total-units']
@@ -236,7 +233,6 @@ def add_ingredient_view(request):
 @login_required
 @csrf_protect
 def edit_ingredient_view(request):
-	# redirect to inventory page
 	prompt = "none"
 	business_owner = BusinessOwner.objects.get(username=request.user.username)
 	frgn_key = business_owner.user_ptr_id
@@ -264,7 +260,6 @@ def edit_ingredient_view(request):
 @login_required
 @csrf_protect
 def delete_ingredient_view(request):
-	# redirect to inventory page
 	prompt = "none"
 	business_owner = BusinessOwner.objects.get(username=request.user.username)
 	frgn_key = business_owner.user_ptr_id 
@@ -284,14 +279,11 @@ def delete_ingredient_view(request):
 @login_required
 @csrf_protect
 def add_product_view(request):
-	# redirect to product page
 	business_owner = BusinessOwner.objects.get(username=request.user.username)
 	frgn_key = business_owner.user_ptr_id
-	product_data = ProductRecord.objects.filter(owner_id=frgn_key).order_by("id")
+	products_data = ProductRecord.objects.filter(owner_id=frgn_key).order_by("id")
 	prompt = "none"
 	if request.method == "POST" and "add-product-btn" in request.POST:
-		print("-------------------")
-		print(request.POST)
 		new_product_name = request.POST['new-product-name']
 		new_product_price = request.POST['new-product-price']
 		new_product_ingredients = request.POST['new-product-ingredients']
@@ -303,16 +295,15 @@ def add_product_view(request):
 
 	return render(request, "products.html", 
 	{"username": business_owner.username, "business_name": business_owner.business_name,
-	"full_name": business_owner.full_name, "page": "product", "product_data": product_data, "prompt": prompt})
+	"full_name": business_owner.full_name, "page": "products", "products_data": products_data, "prompt": prompt})
 
 
 @login_required
 @csrf_protect
 def edit_product_view(request):
-	# redirect to inventory page
 	business_owner = BusinessOwner.objects.get(username=request.user.username)
 	frgn_key = business_owner.user_ptr_id
-	product_data = ProductRecord.objects.filter(owner_id=frgn_key).order_by("id")
+	products_data = ProductRecord.objects.filter(owner_id=frgn_key).order_by("id")
 	prompt = "none"
 	if request.method == "POST" and "edit-product-btn" in request.POST:
 		edit_id = request.POST['edit-product-record-id']
@@ -330,16 +321,15 @@ def edit_product_view(request):
 	
 	return render(request, "products.html", 
 	{"username": business_owner.username, "business_name": business_owner.business_name,
-	"full_name": business_owner.full_name, "page": "product", "product_data": product_data, "prompt": prompt})
+	"full_name": business_owner.full_name, "page": "products", "products_data": products_data, "prompt": prompt})
 
 
 @login_required
 @csrf_protect
 def delete_product_view(request):
-	# redirect to inventory page
 	business_owner = BusinessOwner.objects.get(username=request.user.username)
 	frgn_key = business_owner.user_ptr_id
-	product_data = ProductRecord.objects.filter(owner_id=frgn_key).order_by("id")
+	products_data = ProductRecord.objects.filter(owner_id=frgn_key).order_by("id")
 	prompt = "none"
 	if request.method == "POST" and "delete-product-btn" in request.POST:
 		delete_id = request.POST['delete-product-record-id']
@@ -349,5 +339,5 @@ def delete_product_view(request):
 
 	return render(request, "products.html", 
 	{"username": business_owner.username, "business_name": business_owner.business_name,
-	"full_name": business_owner.full_name, "page": "product", "product_data": product_data, "prompt": prompt})
+	"full_name": business_owner.full_name, "page": "products", "products_data": products_data, "prompt": prompt})
 
