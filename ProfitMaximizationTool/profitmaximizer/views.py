@@ -11,6 +11,7 @@ from profitmaximizer.models import BusinessOwner, IngredientRecord, ProductRecor
 from django.core.exceptions import ObjectDoesNotExist
 from django.views.decorators.csrf import csrf_protect
 from profitmaximizer.utils import update_all_products
+import json
 
 
 def index_view(request):
@@ -75,14 +76,16 @@ def signout_view(request):
 @login_required
 def dashboard_view(request):
 	business_owner = BusinessOwner.objects.get(username=request.user.username)
-			
+	prompt = "none"
+
 	if request.method == "POST" and "import-data" in request.POST:
 		if 'inventory-table' in request.FILES:
 			inventory_file = request.FILES['inventory-table']
 			if not inventory_file.name.endswith('.csv'):
+				prompt = "unsuccessful-ingredient-import-prompt"
 				return render(request, "dashboard.html", 
 				{"username": business_owner.username, "business_name": business_owner.business_name,
-				"full_name": business_owner.full_name, "page": "dashboard"})
+				"full_name": business_owner.full_name, "page": "dashboard", "prompt": prompt})
 			inventory_lines = inventory_file.read().decode("utf-8")
 			lines = inventory_lines.split("\n")
 			for line in lines[1:]:
@@ -99,13 +102,15 @@ def dashboard_view(request):
 					except ObjectDoesNotExist:
 						temporary = IngredientRecord(ingredient_name=columns[0], cost=columns[1],units=columns[2], daily_units=columns[3], owner_id=business_owner.user_ptr_id)
 						temporary.save()
+			prompt = "successful-ingredient-import-prompt"
 					
 		if 'products-table' in request.FILES:
 			products_file = request.FILES['products-table']
 			if not products_file.name.endswith('.csv'):
+				prompt = "unsuccessful-product-import-prompt"
 				return render(request, "dashboard.html", 
 				{"username": business_owner.username, "business_name": business_owner.business_name,
-				"full_name": business_owner.full_name, "page": "dashboard"})
+				"full_name": business_owner.full_name, "page": "dashboard", "prompt": prompt})
 			products_lines = products_file.read().decode("utf-8")
 			products_data = products_lines.split("\n")
 			products_data[0] = products_data[0].split(",")
@@ -131,10 +136,11 @@ def dashboard_view(request):
 					temp_product = ProductRecord(productName=products_data[i][0],price=products_data[i][1],ingredients=ingr,owner_id=business_owner.user_ptr_id)
 					temp_product.save()
 					temp_product.update_cost()
+			prompt = "successful-product-import-prompt"
 
 	return render(request, "dashboard.html", 
 		{"username": business_owner.username, "business_name": business_owner.business_name,
-		"full_name": business_owner.full_name, "page": "dashboard"})
+		"full_name": business_owner.full_name, "page": "dashboard", "prompt": prompt})
 
 
 @login_required
@@ -205,30 +211,29 @@ def profile_view(request):
 @login_required
 @csrf_protect
 def add_ingredient_view(request):
-	# redirect to inventory page
+	prompt = "none"
 	business_owner = BusinessOwner.objects.get(username=request.user.username)
 	frgn_key = business_owner.user_ptr_id
 	inventory_data = IngredientRecord.objects.filter(owner_id=frgn_key).order_by("units")
 	if request.method == "POST" and "add-ingredient-btn" in request.POST:
-		print("-------------------")
-		print(request.POST)
 		new_ingredient_name = request.POST['new-ingredient-name']
 		new_ingredient_cost = request.POST['new-ingredient-cost']
 		new_total_units = request.POST['new-total-units']
 		new_daily_units = request.POST['new-daily-units']
 		temporary = IngredientRecord(ingredient_name=new_ingredient_name, cost=new_ingredient_cost, units=new_total_units, daily_units=new_daily_units, owner_id=business_owner.user_ptr_id)
 		temporary.save()
+		prompt = "successful-ingredient-add-prompt"
 	
 	update_all_products()
 	return render(request, "inventory.html", 
 	{"username": business_owner.username, "business_name": business_owner.business_name,
-	"full_name": business_owner.full_name, "page": "inventory", "inventory_data": inventory_data})
+	"full_name": business_owner.full_name, "page": "inventory", "inventory_data": inventory_data, "prompt": prompt})
 
 
 @login_required
 @csrf_protect
 def edit_ingredient_view(request):
-	# redirect to inventory page
+	prompt = "none"
 	business_owner = BusinessOwner.objects.get(username=request.user.username)
 	frgn_key = business_owner.user_ptr_id
 	inventory_data = IngredientRecord.objects.filter(owner_id=frgn_key).order_by("units")
@@ -244,91 +249,95 @@ def edit_ingredient_view(request):
 		record.units = edit_total_units
 		record.daily_units = edit_daily_units
 		record.save()
-	
+		prompt = "successful-ingredient-edit-prompt"
+
 	update_all_products()
 	return render(request, "inventory.html", 
 	{"username": business_owner.username, "business_name": business_owner.business_name,
-	"full_name": business_owner.full_name, "page": "inventory", "inventory_data": inventory_data})
+	"full_name": business_owner.full_name, "page": "inventory", "inventory_data": inventory_data, "prompt": prompt})
 
 
 @login_required
 @csrf_protect
 def delete_ingredient_view(request):
-	# redirect to inventory page
+	prompt = "none"
 	business_owner = BusinessOwner.objects.get(username=request.user.username)
-	frgn_key = business_owner.user_ptr_id
+	frgn_key = business_owner.user_ptr_id 
 	inventory_data = IngredientRecord.objects.filter(owner_id=frgn_key).order_by("units")
 
 	if request.method == "POST" and "delete-ingredient-btn" in request.POST:
 		delete_id = request.POST['delete-ingredient-record-id']
 		delete_record = IngredientRecord.objects.get(id=delete_id)
 		delete_record.delete()
+		prompt = "successful-ingredient-delete-prompt"
 
 	update_all_products()
 	return render(request, "inventory.html", 
 	{"username": business_owner.username, "business_name": business_owner.business_name,
-	"full_name": business_owner.full_name, "page": "inventory", "inventory_data": inventory_data})
+	"full_name": business_owner.full_name, "page": "inventory", "inventory_data": inventory_data, "prompt": prompt})
 
 @login_required
 @csrf_protect
 def add_product_view(request):
-	# redirect to product page
 	business_owner = BusinessOwner.objects.get(username=request.user.username)
 	frgn_key = business_owner.user_ptr_id
-	product_data = ProductRecord.objects.filter(owner_id=frgn_key).order_by("id")
+	products_data = ProductRecord.objects.filter(owner_id=frgn_key).order_by("id")
+	prompt = "none"
 	if request.method == "POST" and "add-product-btn" in request.POST:
-		print("-------------------")
-		print(request.POST)
 		new_product_name = request.POST['new-product-name']
 		new_product_price = request.POST['new-product-price']
 		new_product_ingredients = request.POST['new-product-ingredients']
-		temporary = ProductRecord(productName=new_product_name,ingredients=new_product_ingredients, owner_id=business_owner.user_ptr_id)
+		new_ingredients_json = json.loads(new_product_ingredients)
+		temporary = ProductRecord(productName=new_product_name,price=new_product_price,ingredients=new_ingredients_json,owner_id=business_owner.user_ptr_id)
 		temporary.update_cost()
 		temporary.save()
-	
+		prompt = "successful-product-add-prompt"
+
 	return render(request, "products.html", 
 	{"username": business_owner.username, "business_name": business_owner.business_name,
-	"full_name": business_owner.full_name, "page": "product", "product_data": product_data})
+	"full_name": business_owner.full_name, "page": "products", "products_data": products_data, "prompt": prompt})
 
 
 @login_required
 @csrf_protect
 def edit_product_view(request):
-	# redirect to inventory page
 	business_owner = BusinessOwner.objects.get(username=request.user.username)
 	frgn_key = business_owner.user_ptr_id
-	product_data = ProductRecord.objects.filter(owner_id=frgn_key).order_by("id")
+	products_data = ProductRecord.objects.filter(owner_id=frgn_key).order_by("id")
+	prompt = "none"
 	if request.method == "POST" and "edit-product-btn" in request.POST:
 		edit_id = request.POST['edit-product-record-id']
 		edit_product_name = request.POST['edit-product-name']
 		edit_product_price = request.POST['edit-product-price']
 		edit_product_ingredients = request.POST['edit-product-ingredients']
+		edit_ingredients_json = json.loads(edit_product_ingredients)
 		record = ProductRecord.objects.get(id=edit_id)
 		record.productName = edit_product_name
 		record.price = edit_product_price
-		record.ingredients = edit_product_ingredients
-		record.update_cost()
+		record.ingredients = edit_ingredients_json
 		record.save()
+		record.update_cost()
+		prompt = "successful-product-edit-prompt"
 	
 	return render(request, "products.html", 
 	{"username": business_owner.username, "business_name": business_owner.business_name,
-	"full_name": business_owner.full_name, "page": "product", "product_data": product_data})
+	"full_name": business_owner.full_name, "page": "products", "products_data": products_data, "prompt": prompt})
 
 
 @login_required
 @csrf_protect
 def delete_product_view(request):
-	# redirect to inventory page
 	business_owner = BusinessOwner.objects.get(username=request.user.username)
 	frgn_key = business_owner.user_ptr_id
-	product_data = ProductRecord.objects.filter(owner_id=frgn_key).order_by("id")
-
+	products_data = ProductRecord.objects.filter(owner_id=frgn_key).order_by("id")
+	prompt = "none"
 	if request.method == "POST" and "delete-product-btn" in request.POST:
 		delete_id = request.POST['delete-product-record-id']
 		delete_record = ProductRecord.objects.get(id=delete_id)
 		delete_record.delete()
+		prompt = "successful-product-delete-prompt"
 
 	return render(request, "products.html", 
 	{"username": business_owner.username, "business_name": business_owner.business_name,
-	"full_name": business_owner.full_name, "page": "product", "product_data": product_data})
+	"full_name": business_owner.full_name, "page": "products", "products_data": products_data, "prompt": prompt})
 

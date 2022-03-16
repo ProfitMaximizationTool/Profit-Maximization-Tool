@@ -274,6 +274,7 @@
 
 .import-inner {
     position: relative;
+    background-color: white;
 }
 
 .overlay {

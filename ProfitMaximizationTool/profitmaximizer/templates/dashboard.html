@@ -9,4 +9,17 @@
     <div class="left-text dark-font xlarge-font text">
         Hi, {{ full_name|safe }}.
     </div>
+    <div class="success prompt full-width center text" id="successful-ingredient-import-prompt">
+        Inventory file Uploaded!
+    </div>
+    <div class="success prompt full-width center text" id="successful-product-import-prompt">
+        Products file uploaded!
+    </div>
+    <div class="error prompt full-width" id="unsuccessful-ingredient-import-prompt">
+        Inventory file upload unsuccessful.
+    </div>
+    <div class="error prompt full-width" id="unsuccessful-product-import-prompt">
+        Produts file upload unsuccessful.
+    </div>
+
 {% endblock %}
