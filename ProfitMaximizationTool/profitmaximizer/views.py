@@ -1,6 +1,8 @@
 from decimal import Decimal
 from distutils import core
+from multiprocessing import context
 from tkinter.tix import AUTO
+from turtle import update
 from django.shortcuts import render, redirect
 from django.http import HttpResponse, HttpResponseRedirect
 from django.contrib.auth import login, logout, authenticate
@@ -8,6 +10,7 @@ from django.contrib.auth.decorators import login_required
 from profitmaximizer.models import BusinessOwner, IngredientRecord, ProductRecord
 from django.core.exceptions import ObjectDoesNotExist
 from django.views.decorators.csrf import csrf_protect
+from profitmaximizer.utils import update_all_products
 
 
 def index_view(request):
@@ -118,9 +121,16 @@ def dashboard_view(request):
 					quantity = products_data[i][j]
 					if quantity != 0:
 						ingr[products_data[0][j]] = quantity
-				temp_product = ProductRecord(productName=products_data[i][0],price=products_data[i][1],ingredients=ingr,owner_id=business_owner.user_ptr_id)
-				temp_product.save()
-				temp_product.update_cost()
+				try:
+					temp_product = ProductRecord.objects.get(productName=products_data[i][0],owner_id=business_owner.user_ptr_id)
+					temp_product.price = products_data[i][1]
+					temp_product.ingredients = ingr
+					temp_product.update_cost()
+					temp_product.save()
+				except ObjectDoesNotExist:
+					temp_product = ProductRecord(productName=products_data[i][0],price=products_data[i][1],ingredients=ingr,owner_id=business_owner.user_ptr_id)
+					temp_product.save()
+					temp_product.update_cost()
 
 	return render(request, "dashboard.html", 
 		{"username": business_owner.username, "business_name": business_owner.business_name,
@@ -132,6 +142,7 @@ def products_view(request):
 	business_owner = BusinessOwner.objects.get(username=request.user.username)
 	frgn_key = business_owner.user_ptr_id
 	products_data = ProductRecord.objects.filter(owner_id=frgn_key).order_by("id")
+	update_all_products()
 	return render(request, "products.html", 
 		{"username": business_owner.username, "business_name": business_owner.business_name,
 		"full_name": business_owner.full_name, "page": "products", "products_data": products_data})
@@ -141,6 +152,7 @@ def inventory_view(request):
 	business_owner = BusinessOwner.objects.get(username=request.user.username)
 	frgn_key = business_owner.user_ptr_id
 	inventory_data = IngredientRecord.objects.filter(owner_id=frgn_key).order_by("id")
+	# update_all_products()
 	return render(request, "inventory.html", 
 		{"username": business_owner.username, "business_name": business_owner.business_name,
 		"full_name": business_owner.full_name, "page": "inventory", "inventory_data": inventory_data})
@@ -207,6 +219,7 @@ def add_ingredient_view(request):
 		temporary = IngredientRecord(ingredient_name=new_ingredient_name, cost=new_ingredient_cost, units=new_total_units, daily_units=new_daily_units, owner_id=business_owner.user_ptr_id)
 		temporary.save()
 	
+	update_all_products()
 	return render(request, "inventory.html", 
 	{"username": business_owner.username, "business_name": business_owner.business_name,
 	"full_name": business_owner.full_name, "page": "inventory", "inventory_data": inventory_data})
@@ -232,6 +245,7 @@ def edit_ingredient_view(request):
 		record.daily_units = edit_daily_units
 		record.save()
 	
+	update_all_products()
 	return render(request, "inventory.html", 
 	{"username": business_owner.username, "business_name": business_owner.business_name,
 	"full_name": business_owner.full_name, "page": "inventory", "inventory_data": inventory_data})
@@ -250,6 +264,7 @@ def delete_ingredient_view(request):
 		delete_record = IngredientRecord.objects.get(id=delete_id)
 		delete_record.delete()
 
+	update_all_products()
 	return render(request, "inventory.html", 
 	{"username": business_owner.username, "business_name": business_owner.business_name,
 	"full_name": business_owner.full_name, "page": "inventory", "inventory_data": inventory_data})

@@ -2,6 +2,7 @@ from asyncio.windows_events import NULL
 from tkinter import CASCADE
 from django.db import models
 from django.contrib.auth.models import User
+from django.core.exceptions import ObjectDoesNotExist
 
 class BusinessOwner(User):
 	business_name = models.CharField(max_length=100)
@@ -27,9 +28,12 @@ class ProductRecord(models.Model):
 	def update_cost(self):
 		new_cost = 0
 		for ingr in self.ingredients.keys():
-			for irecord in IngredientRecord.objects.all():
-				if irecord.owner == self.owner and ingr == irecord.ingredient_name:
-					new_cost += (irecord.cost)*(self.ingredients[ingr])
+			try:
+				target_ingr = IngredientRecord.objects.get(ingredient_name=ingr,owner=self.owner)
+				new_cost += (target_ingr.cost)*(self.ingredients[ingr])
+			except ObjectDoesNotExist:
+				new_cost += 0
+				
 		self.cost = new_cost
 		self.save()
 		
