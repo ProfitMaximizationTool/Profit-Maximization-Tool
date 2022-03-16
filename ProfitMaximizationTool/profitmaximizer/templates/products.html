@@ -94,12 +94,12 @@
 <div class="table-container">
     <table class="data-table">
         <tr>
-            <th> ID </th> 
-            <th> Product Name </th> 
-            <th> Ingredients/Materials </th> 
-            <th> Cost </th>
-            <th> Price </th>
-            <th>   </th>
+            <th class="record-id"> ID </th> 
+            <th class="record-name"> Product Name </th> 
+            <th class="record-items"> Ingredients/Materials </th> 
+            <th class="record-price"> Cost </th>
+            <th class="record-price"> Price </th>
+            <th class="record-btns">  </th>
         </tr>
         {% for product in products_data %}
         <tr class="product-record data-table-row" id="product-record-{{ product.id }}">
@@ -117,7 +117,7 @@
             <td>
                 {{ product.price }}
             </td>
-            <td>
+            <td class="record-btns">
                 <ion-icon class="record-icon btn edit-product" name="pencil"></ion-icon>
                 <ion-icon class="record-icon btn delete-product" name="trash"></ion-icon>
             </td>

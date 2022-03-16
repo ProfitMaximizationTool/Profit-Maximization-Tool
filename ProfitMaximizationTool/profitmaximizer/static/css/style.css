@@ -211,7 +211,6 @@
 .form-size {
     width: 350px;
     height: 460px;
-    background-color: white;
 }
 
 .form-title {
@@ -268,7 +267,6 @@
 .import-size {
     width: 50%;
     height: 50%;
-    background-color: white;
 }
 
 .import-inner {
@@ -276,7 +274,7 @@
 }
 
 .overlay {
-    position: absolute;
+    position: fixed;
     display: none;
     top: 50%;
     left: 50%;
@@ -286,6 +284,7 @@
     border-radius: 18px;
     box-sizing: border-box;
     border: 30px solid transparent;
+    background-color: white;
 }
 
 .close {
@@ -686,7 +685,7 @@ a:hover {
     border-radius: 4px;
     color: var(--dark);
     margin-right: 5px;
-    margin-left: 5px;
+    margin-left: 10px;
 }
 
 th {
@@ -697,6 +696,7 @@ th {
 
 tr {
     height: 40px;
+    width: 100%;
 }
 
 tr:nth-child(even) {
@@ -719,6 +719,23 @@ td:last-child {
 }
 
 /* Table column widths */
-.product-col1 {
-    width: 50px;
+.record-id {
+    width: 10%;
+}
+
+.record-name {
+    width: 20%;
+}
+
+.record-items {
+    width: 40%;
+}
+
+.record-price {
+    width: 8%;
+}
+
+.record-btns {
+    width: 6%;
+    text-align: right;
 }
