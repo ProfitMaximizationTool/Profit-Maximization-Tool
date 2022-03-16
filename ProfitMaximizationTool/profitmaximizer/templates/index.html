@@ -24,23 +24,23 @@
         <form autocomplete="off" method="POST" action="/signup/">
             {% csrf_token %}
             <div class="form-title"> Create account </div>
-            <div class="input-box">
+            <div class="input-box form-input-size">
                 <ion-icon class="form-icon" name="person"></ion-icon>
                 <input class="user-info" type="text" placeholder="Full Name" name="fullname" required>
             </div>
-            <div class="input-box">
+            <div class="input-box form-input-size">
                 <ion-icon class="form-icon" name="at"></ion-icon>
                 <input class="user-info" type="text" placeholder="Username" name="username" required>
             </div>
-            <div class="input-box">
+            <div class="input-box form-input-size">
                 <ion-icon class="form-icon" name="business"></ion-icon>
                 <input class="user-info" type="text" placeholder="Business Name" name="bizname" required>
             </div>
-            <div class="input-box">
+            <div class="input-box form-input-size">
                 <ion-icon class="form-icon" name="lock-closed"></ion-icon>
                 <input class="user-info" type="password" placeholder="Password" name="psw" required>
             </div>
-            <div class="input-box">
+            <div class="input-box form-input-size">
                 <ion-icon class="form-icon" name="lock-closed"></ion-icon>
                 <input class="user-info" type="password" placeholder="Confirm Password" name="confirmpsw" required>
             </div>
@@ -60,11 +60,11 @@
         <form autocomplete="off" method="POST" action="/signin/">
             {% csrf_token %}
             <div class="form-title"> Sign in </div>
-            <div class="input-box">
+            <div class="input-box form-input-size">
                 <ion-icon class="form-icon" name="at"></ion-icon>
                 <input class="user-info" type="text" placeholder="Username" name="username" required>
             </div>
-            <div class="input-box">
+            <div class="input-box form-input-size">
                 <ion-icon class="form-icon" name="lock-closed"></ion-icon>
                 <input class="user-info" type="password" placeholder="Password" name="psw" required>
             </div>
