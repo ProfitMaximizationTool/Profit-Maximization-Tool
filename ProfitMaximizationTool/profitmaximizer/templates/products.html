@@ -13,12 +13,12 @@
     <div class="table-container">
         <table class="data-table">
             <tr>
-                <th class="product-col1"> ID </th> 
-                <th class="product-col2"> Product Name </th> 
-                <th class="product-col3"> Ingredients/Materials </th> 
-                <th class="product-col4"> Cost </th>
-                <th class="product-col4"> Price </th>
-                <th class="product-col4">   </th>
+                <th> ID </th> 
+                <th> Product Name </th> 
+                <th> Ingredients/Materials </th> 
+                <th> Cost </th>
+                <th> Price </th>
+                <th>   </th>
             </tr>
             {% for product in products_data %}
             <tr class="product-record data-table-row" id="product-record-{{ product.id }}">
