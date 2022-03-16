@@ -11,6 +11,7 @@ from profitmaximizer.models import BusinessOwner, IngredientRecord, ProductRecor
 from django.core.exceptions import ObjectDoesNotExist
 from django.views.decorators.csrf import csrf_protect
 from profitmaximizer.utils import update_all_products
+import json
 
 
 def index_view(request):
@@ -282,7 +283,8 @@ def add_product_view(request):
 		new_product_name = request.POST['new-product-name']
 		new_product_price = request.POST['new-product-price']
 		new_product_ingredients = request.POST['new-product-ingredients']
-		temporary = ProductRecord(productName=new_product_name,ingredients=new_product_ingredients, owner_id=business_owner.user_ptr_id)
+		new_ingredients_json = json.loads(new_product_ingredients)
+		temporary = ProductRecord(productName=new_product_name,price=new_product_price,ingredients=new_ingredients_json,owner_id=business_owner.user_ptr_id)
 		temporary.update_cost()
 		temporary.save()
 	
@@ -303,12 +305,13 @@ def edit_product_view(request):
 		edit_product_name = request.POST['edit-product-name']
 		edit_product_price = request.POST['edit-product-price']
 		edit_product_ingredients = request.POST['edit-product-ingredients']
+		edit_ingredients_json = json.loads(edit_product_ingredients)
 		record = ProductRecord.objects.get(id=edit_id)
 		record.productName = edit_product_name
 		record.price = edit_product_price
-		record.ingredients = edit_product_ingredients
-		record.update_cost()
+		record.ingredients = edit_ingredients_json
 		record.save()
+		record.update_cost()
 	
 	return render(request, "products.html", 
 	{"username": business_owner.username, "business_name": business_owner.business_name,
