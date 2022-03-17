@@ -208,10 +208,22 @@ Starting development server at http://127.0.0.1:8000/
 
 Paste the url into your browser and then you should be seeing the home page of the application now
 
+# Requirements
+
+The dependencies included in requirements.txt are listed below plus other libraries that we used not installed through pip
+
+- Python libraries
+  
+  - Django - https://www.djangoproject.com/
+  
+  - Numpy - https://numpy.org/ 
+  
+  - Scipy - https://scipy.org/
+
+- Chart.js - https://www.chartjs.org/
+
+- Ionicons - https://ionic.io/ionicons
+
 # References
 
-no author. [Django documentation | Django documentation | Django (djangoproject.com)](https://docs.djangoproject.com/en/4.0/?fbclid=IwAR2dqnYI2Q_iRjttWoAFagmqd_ke_HnjRE7PHrCd-nApRYyxHAKQjhqGDks). Last accessed: March 15, 2022
-
-no author. [Chart.js | Open source HTML5 Charts for your website (chartjs.org)](https://www.chartjs.org/). Last accessed: March 17, 2022
-
-no author. [Ionicons: The premium icon pack for Ionic Framework](https://ionic.io/ionicons?fbclid=IwAR06Mi3Gf3W7reZclNyMe_IkwfzIA9IOG8pBuu2sSHtGUGWTaA7Brh9ZOeg). Last accessed: March 17, 2022
+- no author. [Django documentation](https://docs.djangoproject.com/en/4.0/?fbclid=IwAR2dqnYI2Q_iRjttWoAFagmqd_ke_HnjRE7PHrCd-nApRYyxHAKQjhqGDks). Last accessed: March 15, 2022
