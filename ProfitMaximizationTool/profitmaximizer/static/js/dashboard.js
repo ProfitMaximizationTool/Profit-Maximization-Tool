@@ -125,7 +125,7 @@ if(page == "inventory"){
 			event.preventDefault();
 			document.getElementById("delete-ingredient-overlay").style.display = "block";
 			var recordID = event.target.parentElement.parentElement.children[0].innerText;
-			document.getElementById("delete-ingredient-text").innerText = "Are you sure you want to delete IngredientRecord " + recordID + " ?";
+			document.getElementById("delete-ingredient-text").innerText = "Are you sure you want to delete IngredientRecord " + recordID + "?";
 			document.getElementById("delete-ingredient-record-id").value = recordID;
 		});
 	});
@@ -183,7 +183,7 @@ if(page == "products"){
 			event.preventDefault();
 			document.getElementById("delete-product-overlay").style.display = "block";
 			var recordID = event.target.parentElement.parentElement.children[0].innerText;
-			document.getElementById("delete-product-text").innerText = "Are you sure you want to delete ProductRecord " + recordID + " ?";
+			document.getElementById("delete-product-text").innerText = "Are you sure you want to delete ProductRecord " + recordID + "?";
 			document.getElementById("delete-product-record-id").value = recordID;
 		});
 	});

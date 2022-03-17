@@ -147,7 +147,10 @@
     border: 0.1px solid;
     border-radius: 4px;
     border: 0.1px solid;
-    padding: 4px;
+    padding-left: 8px;
+    padding-right: 8px;
+    padding-top: 5px;
+    padding-bottom: 5px;
     text-transform: uppercase;
 }
 
@@ -188,21 +191,21 @@
 }
 
 .fill:hover {
-    border-color: #ff5c8d;
-    color: #ff5c8d;
+    border-color: var(--primary);
+    color: var(--primary);
     background-color: var(--light);
 }
 
 .outline {
     background-color: var(--light);
-    border-color: var(--dark);
-    color: var(--dark);
+    border-color: var(--primary);
+    color: var(--primary);
 }
 
 .outline:hover {
-    background-color: var(--dark);
+    background-color: var(--primary);
     color: var(--light);
-    border-color: var(--dark);
+    border-color: var(--primary);
 }
 
 
@@ -246,14 +249,14 @@
     float: right;
     border: none;
     font-family: 'Inter', sans-serif;
-    width: 92%;
-    height: 90%;
+    width: 320px;
+    height: 25px;
     color: #222629;
     transition: ease-out 0.1s;
 }
 
 .string-input-size {
-    width: 100%;
+    width: 340px;
     height: 30px;
     margin-top: 5px;
     margin-bottom: 5px;
@@ -263,14 +266,14 @@
     float: right;
     border: none;
     font-family: 'Inter', sans-serif;
-    width: 92%;
-    height: 90%;
+    width: 150px;
+    height: 25px;
     color: #222629;
     transition: ease-out 0.1s;
 }
 
 .int-input-size {
-    width: 50%;
+    width: 170px;
     height: 30px;
     margin-top: 5px;
     margin-bottom: 5px;
@@ -329,13 +332,13 @@
 }
 
 .add-record {
-    width: 25%;
-    height: 60%;
+    width: 400px;
+    height: 450px;
 }
 
 .edit-record {
-    width: 25%;
-    height: 60%;
+    width: 400px;
+    height: 450px;
 }
 
 .record-title {
@@ -372,7 +375,7 @@
     background-color: white;
 }
 
-.close {
+.x {
     color: var(--dark);
     font-family: 'Poppins', sans-serif;
     font-weight: 800;
@@ -395,8 +398,6 @@
     font-family: 'Inter', sans-serif;
     display: block;
     position: relative;
-    margin-left: 20px;
-    margin-right: 20px;
 }
 
 .centered-text {
@@ -636,6 +637,11 @@ a:hover {
     right: 3%;
 }
 
+.rightmost {
+    position: absolute;
+    right: 0%;
+}
+
 /* Element sizes */
 .full-width {
     width: 100%;
@@ -670,18 +676,21 @@ a:hover {
 .prompt {
     display: none;
     text-align: center;
-    border-radius: 5px;
+    border-radius: 4px;
     color: var(--dark);
+    padding-top: 4px;
+    padding-bottom: 4px;
+    border-color: var(--primary);
     font-size: var(--xsmall);
     font-family: var(--default-font);
 }
 
 .success {
-    background-color: #DFF9FB;
+    background-color: var(--light);
 }
 
 .error {
-    background-color: var(--light);
+    background-color: var(--secondary);
 }
 
 

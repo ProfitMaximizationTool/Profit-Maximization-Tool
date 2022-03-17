@@ -4,7 +4,7 @@
 
 {% block add-record %}
 <div class="add-record overlay" id="add-product-overlay">
-    <button class="close" id="close-import"><b>&#10005</b></button>
+    <button class="close x" id="close-import"><b>&#10005</b></button>
     <div class="import-inner">
         <form autocomplete="off" action="/add-product/" method="POST">
             {% csrf_token %}
@@ -12,6 +12,7 @@
                 Add new product record
             </div>
             <div class="record-field">
+                <br>
                 Product Name
                 <div class="string-input-size input-box">
                     <input type="text" class="string-input move" name="new-product-name">
@@ -29,7 +30,10 @@
                     <input type="number" class="int-input move" name="new-product-price">
                 </div>
             </div>
+            <br>
+            <div class="centered-text">
             <input type="submit" value="Save" class="fill small-btn btn" name="add-product-btn">
+            </div>
         </form>
     </div>
 </div>
@@ -37,13 +41,14 @@
 
 {% block edit-record %}
 <div class="edit-record overlay" id="edit-product-overlay">
-    <button class="close" id="close-import"><b>&#10005</b></button>
+    <button class="close x" id="close-import"><b>&#10005</b></button>
     <div class="import-inner">
         <form autocomplete="off" action="/edit-product/" method="POST">
             {% csrf_token %}
             <input type="text" class="hidden" name="edit-product-record-id" id="edit-product-record-id">
             <div class="record-title" id="edit-product-text">
             </div>
+            <br>
             <div class="record-field">
                 Product Name
                 <div class="string-input-size input-box">
@@ -62,7 +67,10 @@
                     <input type="number" step="any" class="user-info" name="edit-product-price" id="edit-product-price">
                 </div>
             </div>
-            <input type="submit" value="SUBMIT" class=" fill dynamic-btn btn" name="edit-product-btn">
+            <br>
+            <div class="centered-text">
+            <input type="submit" value="Submit" class="fill small-btn btn" name="edit-product-btn">
+            </div>
         </form>
     </div>
 </div>
@@ -70,15 +78,16 @@
 
 {% block delete-record %}
 <div class="delete-record overlay" id="delete-product-overlay">
-    <div class="import-inner">
-        <button class="close" id="close-import"><b>&#10005</b></button>
-        <div class="centered-text dark-font xlarge-font bold text" id="delete-product-text">
+    <div class="import-inner centered-text">
+        <div class="page-name bold" id="delete-product-text">
         </div>
+        
         <form autocomplete="off" action="/delete-product/" method="POST">
+            <br>
             {% csrf_token %}
             <input type="text" class="hidden" name="delete-product-record-id" id="delete-product-record-id">
-            <input type="submit" value="Yes" class="fill dynamic-btn btn half-width" name="delete-product-btn">
-            <input type="submit" value="Cancel" class="outline dynamic-btn btn half-width close">
+            <input type="submit" value="Yes" class="fill small-btn btn" name="delete-product-btn">
+            <input type="submit" value="Cancel" class="outline small-btn btn close">
         </form>
     </div>
 </div>
@@ -87,7 +96,7 @@
 {% block page-content %}
 <div class="page-title">
     Products
-    <input type="button" class="fill small-btn right btn" value="+ Add new record" id="product-overlay-btn">
+    <input type="button" class="fill small-btn rightmost btn" value="+ Add new record" id="product-overlay-btn">
 </div>
 <div class="success prompt full-width center text" id="successful-product-add-prompt">
     Product added!

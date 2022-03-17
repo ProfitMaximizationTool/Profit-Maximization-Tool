@@ -20,7 +20,7 @@
     <!-- sign up form overlaid -->
     <div id="signupoverlay" class="form-size overlay">
         {% block sign-up %}
-        <button class="close" id="closesignup-btn"><b>&#10005</b></button>
+        <button class="close x" id="closesignup-btn"><b>&#10005</b></button>
         <form autocomplete="off" method="POST" action="/signup/">
             {% csrf_token %}
             <div class="form-title"> Create account </div>
@@ -56,7 +56,7 @@
     <!-- sign in form overlaid -->
     <div id="signinoverlay" class="form-size overlay">
         {% block sign-in %}
-        <button class="close" id="closesignin-btn"><b>&#10005</b></button>
+        <button class="close x" id="closesignin-btn"><b>&#10005</b></button>
         <form autocomplete="off" method="POST" action="/signin/">
             {% csrf_token %}
             <div class="form-title"> Sign in </div>
