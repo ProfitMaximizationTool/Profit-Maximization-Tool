@@ -98,6 +98,9 @@
 <div class="success prompt full-width text" id="successful-product-delete-prompt">
     Product deleted!
 </div>
+<div class="error prompt full-width text" id="invalid-product-ingredients-input">
+    Invalid ingredients input. Input should be in JSON format.
+</div>
 <br>
 <div class="table-container">
     <table class="data-table">
@@ -122,6 +125,8 @@
             
             <td> {{ product.cost }} </td>
             <td> {{ product.price }} </td>
+
+            <input type="text" class="hidden" value="{{ product.ingredients }}" id="product-{{ product.id }}-ingredients">
             
             <td class="record-btns">
                 <ion-icon class="record-icon btn edit-product" name="pencil"></ion-icon>

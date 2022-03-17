@@ -284,14 +284,18 @@ def add_product_view(request):
 	products_data = ProductRecord.objects.filter(owner_id=frgn_key).order_by("id")
 	prompt = "none"
 	if request.method == "POST" and "add-product-btn" in request.POST:
-		new_product_name = request.POST['new-product-name']
-		new_product_price = request.POST['new-product-price']
-		new_product_ingredients = request.POST['new-product-ingredients']
-		new_ingredients_json = json.loads(new_product_ingredients)
-		temporary = ProductRecord(productName=new_product_name,price=new_product_price,ingredients=new_ingredients_json,owner_id=business_owner.user_ptr_id)
-		temporary.update_cost()
-		temporary.save()
-		prompt = "successful-product-add-prompt"
+		try:
+			new_product_name = request.POST['new-product-name']
+			new_product_price = request.POST['new-product-price']
+			new_product_ingredients = request.POST['new-product-ingredients']
+			new_product_ingredients = new_product_ingredients.replace("\'", "\"")
+			new_ingredients_json = json.loads(new_product_ingredients)
+			temporary = ProductRecord(productName=new_product_name,price=new_product_price,ingredients=new_ingredients_json,owner_id=business_owner.user_ptr_id)
+			temporary.update_cost()
+			temporary.save()
+			prompt = "successful-product-add-prompt"
+		except:
+			prompt = "invalid-product-ingredients-input"
 
 	return render(request, "products.html", 
 	{"username": business_owner.username, "business_name": business_owner.business_name,
@@ -306,18 +310,22 @@ def edit_product_view(request):
 	products_data = ProductRecord.objects.filter(owner_id=frgn_key).order_by("id")
 	prompt = "none"
 	if request.method == "POST" and "edit-product-btn" in request.POST:
-		edit_id = request.POST['edit-product-record-id']
-		edit_product_name = request.POST['edit-product-name']
-		edit_product_price = request.POST['edit-product-price']
-		edit_product_ingredients = request.POST['edit-product-ingredients']
-		edit_ingredients_json = json.loads(edit_product_ingredients)
-		record = ProductRecord.objects.get(id=edit_id)
-		record.productName = edit_product_name
-		record.price = edit_product_price
-		record.ingredients = edit_ingredients_json
-		record.save()
-		record.update_cost()
-		prompt = "successful-product-edit-prompt"
+		try:
+			edit_id = request.POST['edit-product-record-id']
+			edit_product_name = request.POST['edit-product-name']
+			edit_product_price = request.POST['edit-product-price']
+			edit_product_ingredients = request.POST['edit-product-ingredients']
+			edit_product_ingredients = edit_product_ingredients.replace("\'", "\"")
+			edit_ingredients_json = json.loads(edit_product_ingredients)
+			record = ProductRecord.objects.get(id=edit_id)
+			record.productName = edit_product_name
+			record.price = edit_product_price
+			record.ingredients = edit_ingredients_json
+			record.save()
+			record.update_cost()
+			prompt = "successful-product-edit-prompt"
+		except:
+			prompt = "invalid-product-ingredients-input"
 	
 	return render(request, "products.html", 
 	{"username": business_owner.username, "business_name": business_owner.business_name,
