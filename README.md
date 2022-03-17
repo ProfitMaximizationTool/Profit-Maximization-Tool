@@ -9,13 +9,59 @@ This is a course requirements for CS191/192 Software Engineering Courses of the 
 - Diokno, Alyssa Beatrice
 - Loristo, John Ivan
 
+## Sprint 2
+
+**start date:** March 7, 2022
+
+**end date:** March 18, 2022
+
+### Use cases accomplished in sprint 2
+
+- UC3-S1: Business owner inputs existing products database
+
+- UC3-S2: Business owner inputs existing inventory database
+
+- UC3-S5: Business owner tries to input existing products database but uses the wrong file
+
+- UC3-S6: Business owner tries to input existing inventory database but uses the wrong file
+
+### Changelog in sprint 2:
+
+- New Dashboard with sidebar
+
+- New Products Page
+
+- New Inventory Page
+
+- New Profile Page
+
+- Ability to change Name and Business Name
+
+- Ability to upload csv file for Products database
+
+- Added prompt for successful uploading of file
+
+- Added prompt for invalid type of file uploaded
+
+- Ability to upload csv file for Ingredients database
+
+- Contents of Products database are displayed in Products Page
+
+- Contents of Ingredients database are displayed in Inventory page
+
+- Added the ability to manually add, edit, or delete a Product record
+
+- Added the ability to manually add, edit, or delete an Ingredient record
+
+- A Product's cost to manufacture is automatically computed based on Ingredients database
+
 ## Sprint 1
 
 **start date:** February 21, 2022
 
 **end date:** March 4, 2022
 
-### Use cases accomplished:
+### Use cases accomplished in sprint 1
 
 - UC-1.0-S1: Business owner successfully signs up for an account
 
@@ -27,17 +73,17 @@ This is a course requirements for CS191/192 Software Engineering Courses of the 
 
 - UC-1.0-S5: Username not available
 
-## Features so far
+## Changelog in sprint 1:
 
-1. Users can sign up for an account and fill in asked information
+- Users can sign up for an account and fill in asked information
 
-2. Users can login using registered account
+- Users can login using registered account
 
-3. Upon successful sign up or login, users are redirected towards home page with logged in status
+- Upon successful sign up or login, users are redirected towards home page with logged in status
 
-4. Users are prompted with an error if the password they used for logging in is incorrect
+- Users are prompted with an error if the password they used for logging in is incorrect
 
-5. Users are prompted with an error if the username they input during sign up is already taken
+- Users are prompted with an error if the username they input during sign up is already taken
 
 # How to run this build
 
@@ -164,4 +210,8 @@ Paste the url into your browser and then you should be seeing the home page of t
 
 # References
 
-no author. [Django documentation]([Django documentation | Django documentation | Django (djangoproject.com)](https://docs.djangoproject.com/en/4.0/?fbclid=IwAR2dqnYI2Q_iRjttWoAFagmqd_ke_HnjRE7PHrCd-nApRYyxHAKQjhqGDks)). Last accessed: March 15, 2022
+no author. [Django documentation | Django documentation | Django (djangoproject.com)](https://docs.djangoproject.com/en/4.0/?fbclid=IwAR2dqnYI2Q_iRjttWoAFagmqd_ke_HnjRE7PHrCd-nApRYyxHAKQjhqGDks). Last accessed: March 15, 2022
+
+no author. [Chart.js | Open source HTML5 Charts for your website (chartjs.org)](https://www.chartjs.org/). Last accessed: March 17, 2022
+
+no author. [Ionicons: The premium icon pack for Ionic Framework](https://ionic.io/ionicons?fbclid=IwAR06Mi3Gf3W7reZclNyMe_IkwfzIA9IOG8pBuu2sSHtGUGWTaA7Brh9ZOeg). Last accessed: March 17, 2022
