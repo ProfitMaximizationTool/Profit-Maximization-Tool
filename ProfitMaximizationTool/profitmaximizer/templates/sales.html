@@ -2,8 +2,128 @@
 
 {% block title %}<title>Profitify: Sales</title>{% endblock %}
 
-{% block page-content %}
-    <div class="left-text dark-font xlarge-font bold text">
-        SALES
+{% block add-record %}
+<div class="add-record overlay" id="add-sales-overlay">
+    <button class="close x" id="close-import"><b>&#10005</b></button>
+    <div class="import-inner">
+        <form autocomplete="off" action="/add-sales-record/" method="POST">
+            {% csrf_token %}
+            <div class="record-title">
+                Add New SalesRecord
+            </div>
+            <div class="record-field">
+                Date
+                <div class="int-input-size input-box">
+                    <input type="text" class="string-input move" name="new-sales-record-date">
+                </div>
+            </div>
+            <div class="record-field">
+                Sales Report (JSON format)
+                <div class="string-input-size input-box">
+                    <input type="text" class="string-input move" name="new-sales-report">
+                </div>
+            </div>
+            <br>
+            <div class="centered-text">
+                <input type="submit" value="Save" class="fill small-btn btn" name="add-sales-btn">
+            </div>
+        </form>
     </div>
+</div>
+{% endblock %}
+
+{% block edit-record %}
+<div class="edit-record overlay" id="edit-sales-overlay">
+    <button class="close x" id="close-import"><b>&#10005</b></button>
+    <div class="import-inner">
+        <form autocomplete="off" action="/edit-sales-record/" method="POST">
+            {% csrf_token %}
+            <input type="text" class="hidden" name="edit-sales-record-id" id="edit-sales-record-id">
+            <div class="record-title" id="edit-sales-text"></div>
+            <br>
+            <div class="record-field">
+                Date
+                <div class="int-input-size input-box">
+                    <input type="text" class="string-input move" name="edit-sales-record-date" id="edit-sales-record-date">
+                </div>
+            </div>
+            <div class="record-field">
+                Sales Report (JSON format)
+                <div class="string-input-size input-box">
+                    <input type="text" class="string-input move" name="edit-sales-report" id="edit-sales-report">
+                </div>
+            </div>
+            <br>
+            <div class="centered-text">
+            <input type="submit" value="Submit" class="fill small-btn btn" name="edit-sales-btn">
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}
+
+{% block delete-record %}
+<div class="delete-record overlay" id="delete-sales-overlay">
+    <div class="import-inner centered-text">
+        <div class="page-name bold" id="delete-sales-text"></div>
+        
+        <form autocomplete="off" action="/delete-sales-record/" method="POST">
+            <br>
+            {% csrf_token %}
+            <input type="text" class="hidden" name="delete-sales-record-id" id="delete-sales-record-id">
+            <input type="submit" value="Yes" class="fill small-btn btn" name="delete-sales-btn">
+            <input type="submit" value="Cancel" class="outline small-btn btn close">
+        </form>
+    </div>
+</div>
+{% endblock %}
+
+{% block page-content %}
+    <div class="page-title">
+        Sales
+        <input type="button" class="fill small-btn rightmost btn" value="+ Add new record" id="sales-overlay-btn">
+    </div>
+    <div class="success prompt full-width center text" id="successful-add-prompt">
+        SalesRecord added!
+    </div>
+    <div class="success prompt full-width text" id="successful-edit-prompt">
+        SalesRecord edited!
+    </div>
+    <div class="success prompt full-width text" id="successful-delete-prompt">
+        SalesRecord deleted!
+    </div>
+
+    <br>
+    <div class="table-container">
+        <table class="data-table">
+            <tr>
+                <th class="record-id"> ID </th> 
+                <th class="record-name"> Date </th> 
+                <th class="record-items"> Sales Report </th> 
+                <th class="record-price"> Profit </th>
+                <th class="record-btns">  </th>
+            </tr>
+            {% for record in sales_data %}
+            <tr class="sales-record data-table-row" id="sales-record-{{ record.id }}">
+                <td class="record-id"> {{ record.id }} </td>
+                <td class="record-name"> {{ record.date }} </td>
+                <td>
+                {% for product, quantity in record.sales_report.items %}
+                    {{ product }} ({{ quantity }} units) <br>
+                {% endfor %}
+                </td>
+                
+                <td> {{ record.expenses }} </td>
+
+                <input type="text" class="hidden" value="{{ record.sales_report }}" id="sales-report-{{ record.id }}">
+                
+                <td class="record-btns">
+                    <ion-icon class="record-icon btn edit-sales" name="pencil"></ion-icon>
+                    <ion-icon class="record-icon btn delete-sales" name="trash"></ion-icon>
+                </td>
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+
 {% endblock %}

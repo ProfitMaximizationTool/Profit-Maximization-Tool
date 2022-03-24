@@ -3,13 +3,34 @@
 {% block title %}<title>Profitify: Products</title>{% endblock %}
 
 {% block add-record %}
+<table class="hidden">
+    <tr class="product-ingredients-row">
+        <td>
+            <select>
+            {% for ingredient in inventory_data %}
+                <option value="{{ ingredient.id }}">{{ ingredient.ingredient_name }}</option>
+            {% endfor %}
+            </select>
+        </td>
+        <td>
+           <div class="record-field">
+                <div class="int-input-size input-box">
+                    <input type="number" class="int-input move">
+                </div>
+            </div>
+        </td>
+        <td>
+            <ion-icon class="record-icon btn delete-product-ingredients-row" name="trash"></ion-icon>
+        </td>
+    </tr>
+</table>
 <div class="add-record overlay" id="add-product-overlay">
     <button class="close x" id="close-import"><b>&#10005</b></button>
     <div class="import-inner">
-        <form autocomplete="off" action="/add-product/" method="POST">
+        <form autocomplete="off" action="/add-product-record/" method="POST">
             {% csrf_token %}
             <div class="record-title">
-                Add new product record
+                Add New ProductRecord
             </div>
             <div class="record-field">
                 <br>
@@ -18,11 +39,16 @@
                     <input type="text" class="string-input move" name="new-product-name">
                 </div>
             </div>
-            <div class="record-field">
-                Ingredients (Json format)
-                <div class="string-input-size input-box">
-                    <input type="text" class="string-input move" name="new-product-ingredients">
-                </div>
+           <div class="record-field">
+                Ingredients
+                <table id="product-ingredients">
+                    <tr>
+                        <td>Ingredient Name</td>
+                        <td>Quantity</td>
+                        <td></td>
+                    </tr>
+                </table>
+                <input type="button" class="fill small-btn rightmost btn" value="+" id="add-product-ingredients-row">
             </div>
             <div class="record-field">
                 Price
@@ -43,7 +69,7 @@
 <div class="edit-record overlay" id="edit-product-overlay">
     <button class="close x" id="close-import"><b>&#10005</b></button>
     <div class="import-inner">
-        <form autocomplete="off" action="/edit-product/" method="POST">
+        <form autocomplete="off" action="/edit-product-record/" method="POST">
             {% csrf_token %}
             <input type="text" class="hidden" name="edit-product-record-id" id="edit-product-record-id">
             <div class="record-title" id="edit-product-text">
@@ -82,7 +108,7 @@
         <div class="page-name bold" id="delete-product-text">
         </div>
         
-        <form autocomplete="off" action="/delete-product/" method="POST">
+        <form autocomplete="off" action="/delete-product-record/" method="POST">
             <br>
             {% csrf_token %}
             <input type="text" class="hidden" name="delete-product-record-id" id="delete-product-record-id">
@@ -94,56 +120,56 @@
 {% endblock %}
 
 {% block page-content %}
-<div class="page-title">
-    Products
-    <input type="button" class="fill small-btn rightmost btn" value="+ Add new record" id="product-overlay-btn">
-</div>
-<div class="success prompt full-width center text" id="successful-product-add-prompt">
-    Product added!
-</div>
-<div class="success prompt full-width text" id="successful-product-edit-prompt">
-    Product edited!
-</div>
-<div class="success prompt full-width text" id="successful-product-delete-prompt">
-    Product deleted!
-</div>
-<div class="error prompt full-width text" id="invalid-product-ingredients-input">
-    Invalid ingredients input. Input should be in JSON format.
-</div>
-<br>
-<div class="table-container">
-    <table class="data-table">
-        <tr>
-            <th class="record-id"> ID </th> 
-            <th class="record-name"> Product Name </th> 
-            <th class="record-items"> Ingredients/Materials </th> 
-            <th class="record-price"> Cost </th>
-            <th class="record-price"> Price </th>
-            <th class="record-btns">  </th>
-        </tr>
-        {% for product in products_data %}
-        <tr class="product-record data-table-row" id="product-record-{{ product.id }}">
-            <td class="record-id"> {{ product.id }} </td>
-            <td class="record-name"> {{ product.productName }} </td>
-            
-            <td>
-            {% for ingr, quantity in product.ingredients.items %}
-                {{ ingr }} ({{ quantity }} units) <br>
-            {% endfor %}
-            </td>
-            
-            <td> {{ product.cost }} </td>
-            <td> {{ product.price }} </td>
+    <div class="page-title">
+        Products
+        <input type="button" class="fill small-btn rightmost btn" value="+ Add new record" id="product-overlay-btn">
+    </div>
+    <div class="success prompt full-width center text" id="successful-product-add-prompt">
+        ProductRecord added!
+    </div>
+    <div class="success prompt full-width text" id="successful-product-edit-prompt">
+        ProductRecord edited!
+    </div>
+    <div class="success prompt full-width text" id="successful-product-delete-prompt">
+        ProductRecord deleted!
+    </div>
+    <div class="error prompt full-width text" id="invalid-product-ingredients-input">
+        Invalid ingredients input. Input should be in JSON format.
+    </div>
+    <br>
+    <div class="table-container">
+        <table class="data-table">
+            <tr>
+                <th class="record-id"> ID </th> 
+                <th class="record-name"> Product Name </th> 
+                <th class="record-items"> Ingredients/Materials </th> 
+                <th class="record-price"> Cost </th>
+                <th class="record-price"> Price </th>
+                <th class="record-btns">  </th>
+            </tr>
+            {% for product in products_data %}
+            <tr class="product-record data-table-row" id="product-record-{{ product.id }}">
+                <td class="record-id"> {{ product.id }} </td>
+                <td class="record-name"> {{ product.product_name }} </td>
+                
+                <td>
+                {% for ingr, quantity in product.ingredients.items %}
+                    {{ ingr }} ({{ quantity }} units) <br>
+                {% endfor %}
+                </td>
+                
+                <td> {{ product.cost }} </td>
+                <td> {{ product.price }} </td>
 
-            <input type="text" class="hidden" value="{{ product.ingredients }}" id="product-{{ product.id }}-ingredients">
-            
-            <td class="record-btns">
-                <ion-icon class="record-icon btn edit-product" name="pencil"></ion-icon>
-                <ion-icon class="record-icon btn delete-product" name="trash"></ion-icon>
-            </td>
-        </tr>
-        {% endfor %}
-    </table>
-</div>
+                <input type="text" class="hidden" value="{{ product.ingredients }}" id="product-{{ product.id }}-ingredients">
+                
+                <td class="record-btns">
+                    <ion-icon class="record-icon btn edit-product" name="pencil"></ion-icon>
+                    <ion-icon class="record-icon btn delete-product" name="trash"></ion-icon>
+                </td>
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
 
 {% endblock %}

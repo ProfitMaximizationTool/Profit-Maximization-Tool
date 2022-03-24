@@ -20,7 +20,7 @@ class IngredientRecord(models.Model):
 
 class ProductRecord(models.Model):
 	owner = models.ForeignKey(BusinessOwner,on_delete=models.CASCADE)
-	productName = models.CharField(max_length=255)
+	product_name = models.CharField(max_length=255)
 	ingredients = models.JSONField(default=dict)
 	cost = models.DecimalField(max_digits=10,decimal_places=2,default=0)
 	price = models.DecimalField(max_digits=10,decimal_places=2,default=0)
@@ -36,4 +36,19 @@ class ProductRecord(models.Model):
 				
 		self.cost = new_cost
 		self.save()
-		
+
+
+"""
+suggestions for variable names
+class ProductionRecord:
+	date
+	production_report
+	expenses
+
+class SalesRecord:
+	date
+	sales_report
+	profit
+
+
+"""

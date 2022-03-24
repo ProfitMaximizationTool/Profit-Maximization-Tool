@@ -2,8 +2,128 @@
 
 {% block title %}<title>Profitify: Production</title>{% endblock %}
 
-{% block page-content %}
-    <div class="left-text dark-font xlarge-font bold text">
-        PRODUCTION
+{% block add-record %}
+<div class="add-record overlay" id="add-production-overlay">
+    <button class="close x" id="close-import"><b>&#10005</b></button>
+    <div class="import-inner">
+        <form autocomplete="off" action="/add-production-record/" method="POST">
+            {% csrf_token %}
+            <div class="record-title">
+                Add New ProductionRecord
+            </div>
+            <div class="record-field">
+                Date
+                <div class="int-input-size input-box">
+                    <input type="text" class="string-input move" name="new-production-record-date">
+                </div>
+            </div>
+            <div class="record-field">
+                Production Report (JSON format)
+                <div class="string-input-size input-box">
+                    <input type="text" class="string-input move" name="new-production-report">
+                </div>
+            </div>
+            <br>
+            <div class="centered-text">
+                <input type="submit" value="Save" class="fill small-btn btn" name="add-production-btn">
+            </div>
+        </form>
     </div>
+</div>
+{% endblock %}
+
+{% block edit-record %}
+<div class="edit-record overlay" id="edit-production-overlay">
+    <button class="close x" id="close-import"><b>&#10005</b></button>
+    <div class="import-inner">
+        <form autocomplete="off" action="/edit-production-record/" method="POST">
+            {% csrf_token %}
+            <input type="text" class="hidden" name="edit-production-record-id" id="edit-production-record-id">
+            <div class="record-title" id="edit-production-text"></div>
+            <br>
+            <div class="record-field">
+                Date
+                <div class="int-input-size input-box">
+                    <input type="text" class="string-input move" name="edit-production-record-date" id="edit-production-record-date">
+                </div>
+            </div>
+            <div class="record-field">
+                Production Report (JSON format)
+                <div class="string-input-size input-box">
+                    <input type="text" class="string-input move" name="edit-production-report" id="edit-production-report">
+                </div>
+            </div>
+            <br>
+            <div class="centered-text">
+            <input type="submit" value="Submit" class="fill small-btn btn" name="edit-production-btn">
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}
+
+{% block delete-record %}
+<div class="delete-record overlay" id="delete-production-overlay">
+    <div class="import-inner centered-text">
+        <div class="page-name bold" id="delete-production-text"></div>
+        
+        <form autocomplete="off" action="/delete-production-record/" method="POST">
+            <br>
+            {% csrf_token %}
+            <input type="text" class="hidden" name="delete-production-record-id" id="delete-production-record-id">
+            <input type="submit" value="Yes" class="fill small-btn btn" name="delete-production-btn">
+            <input type="submit" value="Cancel" class="outline small-btn btn close">
+        </form>
+    </div>
+</div>
+{% endblock %}
+
+{% block page-content %}
+    <div class="page-title">
+        Production
+        <input type="button" class="fill small-btn rightmost btn" value="+ Add new record" id="production-overlay-btn">
+    </div>
+    <div class="success prompt full-width center text" id="successful-add-prompt">
+        ProductionRecord added!
+    </div>
+    <div class="success prompt full-width text" id="successful-edit-prompt">
+        ProductionRecord edited!
+    </div>
+    <div class="success prompt full-width text" id="successful-delete-prompt">
+        ProductionRecord deleted!
+    </div>
+
+    <br>
+    <div class="table-container">
+        <table class="data-table">
+            <tr>
+                <th class="record-id"> ID </th> 
+                <th class="record-name"> Date </th> 
+                <th class="record-items"> Production Report </th> 
+                <th class="record-price"> Expenses </th>
+                <th class="record-btns">  </th>
+            </tr>
+            {% for record in production_data %}
+            <tr class="production-record data-table-row" id="production-record-{{ record.id }}">
+                <td class="record-id"> {{ record.id }} </td>
+                <td class="record-name"> {{ record.date }} </td>
+                <td>
+                {% for product, quantity in record.production_report.items %}
+                    {{ product }} ({{ quantity }} units) <br>
+                {% endfor %}
+                </td>
+                
+                <td> {{ record.expenses }} </td>
+
+                <input type="text" class="hidden" value="{{ record.production_report }}" id="production-report-{{ record.id }}">
+                
+                <td class="record-btns">
+                    <ion-icon class="record-icon btn edit-production" name="pencil"></ion-icon>
+                    <ion-icon class="record-icon btn delete-production" name="trash"></ion-icon>
+                </td>
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+
 {% endblock %}

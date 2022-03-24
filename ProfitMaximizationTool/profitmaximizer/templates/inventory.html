@@ -6,10 +6,10 @@
 <div class="add-record overlay" id="add-ingredient-overlay">
     <button class="close x" id="close-import"><b>&#10005</b></button>
     <div class="import-inner">
-        <form autocomplete="off" action="/add-ingredient/" method="POST">
+        <form autocomplete="off" action="/add-ingredient-record/" method="POST">
             {% csrf_token %}
             <div class="record-title">
-                Add new inventory record
+                Add New InventoryRecord
             </div>
             <div class="record-field">
                 <br>
@@ -49,7 +49,7 @@
 <div class="edit-record overlay" id="edit-ingredient-overlay">
     <button class="close x" id="close-import"><b>&#10005</b></button>
     <div class="import-inner">
-        <form autocomplete="off" action="/edit-ingredient/" method="POST">
+        <form autocomplete="off" action="/edit-ingredient-record/" method="POST">
             {% csrf_token %}
             <input type="text" class="hidden" name="edit-ingredient-record-id" id="edit-ingredient-record-id">
             <div class="record-title" id="edit-ingredient-text">
@@ -93,7 +93,7 @@
     <div class="import-inner centered-text">
         <div class="page-name" id="delete-ingredient-text">
         </div>
-        <form autocomplete="off" action="/delete-ingredient/" method="POST">
+        <form autocomplete="off" action="/delete-ingredient-record/" method="POST">
             <br>
             {% csrf_token %}
             <input type="text" class="hidden" name="delete-ingredient-record-id" id="delete-ingredient-record-id">
@@ -110,13 +110,13 @@
         <input type="button" class="fill small-btn rightmost btn" value="+ Add new record" id="ingr-overlay-btn">
     </div>
     <div class="success prompt full-width center text" id="successful-ingredient-add-prompt">
-        Ingredient added!
+        IngredientRecord added!
     </div>
     <div class="success prompt full-width text" id="successful-ingredient-edit-prompt">
-        Ingredient edited!
+        IngredientRecord edited!
     </div>
     <div class="success prompt full-width text" id="successful-ingredient-delete-prompt">
-        Ingredient deleted!
+        IngredientRecord deleted!
     </div>
     <br>
     <div class="table-container">

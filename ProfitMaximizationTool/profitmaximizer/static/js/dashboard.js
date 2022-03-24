@@ -85,7 +85,7 @@ Array.prototype.slice.call(document.getElementsByClassName("card")).forEach(func
 	});
 });
 
-if(page == "inventory"){
+if (page == "inventory"){
 	// Adding new ingredient record
 	document.getElementById("ingr-overlay-btn").addEventListener("click", function(event){
 		event.preventDefault();
@@ -138,7 +138,7 @@ if(page == "inventory"){
 
 
 
-if(page == "products"){
+if (page == "products"){
 	// Adding new product record
 	document.getElementById("product-overlay-btn").addEventListener("click", function(event){
 		event.preventDefault();
@@ -159,10 +159,8 @@ if(page == "products"){
 			event.preventDefault();
 			document.getElementById("edit-product-overlay").style.display = "block";
 			var recordID = event.target.parentElement.parentElement.children[0].innerText;
-			var recordName = event.target.parentElement.parentElement.children[1].innerText;;
-			// var recordIngredients = event.target.parentElement.parentElement.children[2].innerText;
+			var recordName = event.target.parentElement.parentElement.children[1].innerText;
 			var recordIngredients = document.getElementById("product-" + recordID + "-ingredients").value;
-			// console.log*()
 			var recordPrice = event.target.parentElement.parentElement.children[3].innerText;
 			document.getElementById("edit-product-text").innerText = "Edit ProductRecord " + recordID;
 			document.getElementById("edit-product-record-id").value = recordID;
@@ -177,7 +175,7 @@ if(page == "products"){
 		document.getElementById("successful-product-edit-prompt").style.display = "block";
 	}
 
-	// Delete ingredient record
+	// Delete product record
 	Array.prototype.slice.call(document.getElementsByClassName("delete-product")).forEach(function(element){
 		element.addEventListener("click", function(event){
 			event.preventDefault();
@@ -191,5 +189,34 @@ if(page == "products"){
 	if (prompt == "successful-product-delete-prompt"){
 		document.getElementById("successful-product-delete-prompt").style.display = "block";
 	}
+
+	var productIngredientRowID = 0;
+	document.getElementById("add-product-ingredients-row").addEventListener("click", function(event){
+		event.preventDefault();
+		var tableElement = event.target.previousElementSibling;
+		var newRow = document.getElementsByClassName("product-ingredients-row")[0].cloneNode(true);
+		tableElement.appendChild(newRow);
+
+		newRow.children[2].addEventListener("click", function(event){
+			event.preventDefault();
+			tableElement.removeChild(newRow);
+		});
+
+
+		newRow.children[0].children[0].name = "ingredient-id-" + productIngredientRowID;
+		newRow.children[1].children[0].children[0].children[0].name = "ingredient-qty-" + productIngredientRowID;
+		productIngredientRowID += 1;
+	});
+
+	Array.prototype.slice.call(document.getElementsByClassName("delete-product-ingredients-row")).forEach(function(element){
+		element.addEventListener("click", function(event){
+			event.preventDefault();
+			var tableElement = event.target.parentElement.parentElement.parentElement;
+			var row = event.target.parentElement.parentElement;
+			tableElement.removeChild(row);
+		});
+	});
+
+
 
 }
