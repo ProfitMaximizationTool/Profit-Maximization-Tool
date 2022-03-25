@@ -37,6 +37,11 @@ class ProductRecord(models.Model):
 		self.cost = new_cost
 		self.save()
 
+class SalesRecord(models.Model):
+	owner = models.ForeignKey(BusinessOwner,on_delete=models.CASCADE,null=True)
+	date = models.DateField(null=True,unique=True)
+	sales_report = models.JSONField(default=dict)
+	profit = models.DecimalField(max_digits=10,decimal_places=2,default=0)
 
 """
 suggestions for variable names

@@ -7,12 +7,12 @@ from django.shortcuts import render, redirect
 from django.http import HttpResponse, HttpResponseRedirect
 from django.contrib.auth import login, logout, authenticate
 from django.contrib.auth.decorators import login_required
-from profitmaximizer.models import BusinessOwner, IngredientRecord, ProductRecord
+from profitmaximizer.models import BusinessOwner, IngredientRecord, ProductRecord, SalesRecord
 from django.core.exceptions import ObjectDoesNotExist
 from django.views.decorators.csrf import csrf_protect
 from profitmaximizer.utils import update_all_products
 import json
-
+from datetime import datetime
 
 def index_view(request):
 	# default loading of index page
@@ -138,6 +138,39 @@ def dashboard_view(request):
 					temp_product.save()
 					temp_product.update_cost()
 			prompt = "successful-product-import-prompt"
+
+		# Processing sales database in csv. Note that "," is delimeter
+		if 'sales-table' in request.FILES:
+			sales_file = request.FILES['sales-table']
+			if not sales_file.name.endswith('.csv'):
+				prompt = "unsuccessful-sales-import-prompt"
+				return render(request, "dashboard.html", 
+				{"username": business_owner.username, "business_name": business_owner.business_name,
+				"full_name": business_owner.full_name, "page": "dashboard", "prompt": prompt})
+			sales_lines = sales_file.read().decode("utf-8")
+			sales_data = sales_lines.split("\n")
+			sales_data[0] = sales_data[0].split(",")
+			sales_data[0][1] = sales_data[0][1].replace('\r','')
+			for i in range(1,len(sales_data)-1):
+				sales_data[i] = sales_data[i].split(",")
+				sales_data[i][0] = datetime.strptime(sales_data[i][0],"%Y-%m-%d").date()
+				sales_data[i][1] = sales_data[i][1].split("|")
+				sales = {}
+				for j in range(len(sales_data[i][1])):
+					sales_data[i][1][j] = sales_data[i][1][j].split("/")
+					sales_data[i][1][j][-1] = int(sales_data[i][1][j][-1])
+					prod_name = sales_data[i][1][j][0]
+					num_sales = sales_data[i][1][j][1]
+					sales[prod_name] = num_sales
+				try:
+					temp_sales = SalesRecord.objects.get(date=sales_data[i][0],sales_report=sales,owner_id=business_owner.user_ptr_id)
+					temp_sales.date = sales_data[i][0]
+					temp_sales.salesOfEachProduct = sales
+					temp_sales.save()
+				except ObjectDoesNotExist:
+					temp_sales = SalesRecord(date=sales_data[i][0],sales_report=sales,owner_id=business_owner.user_ptr_id)
+					temp_sales.save()
+			prompt = "successful-sales-import-prompt"
 
 	return render(request, "dashboard.html", 
 		{"username": business_owner.username, "business_name": business_owner.business_name,
