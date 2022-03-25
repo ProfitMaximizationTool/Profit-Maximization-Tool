@@ -3,6 +3,27 @@
 {% block title %}<title>Profitify: Production</title>{% endblock %}
 
 {% block add-record %}
+<table class="hidden">
+    <tr class="name-qty-input-row">
+        <td>
+            <select class="name-input-row-select">
+            {% for product in products_data %}
+                <option class="name-input-row-option" value="{{ product.product_name }}">{{ product.product_name }}</option>
+            {% endfor %}
+            </select>
+        </td>
+        <td>
+           <div class="record-field">
+                <div class="int-input-size input-box">
+                    <input type="number" class="int-input move" required>
+                </div>
+            </div>
+        </td>
+        <td>
+            <ion-icon class="record-icon btn delete-name-qty-input-row" name="trash"></ion-icon>
+        </td>
+    </tr>
+</table>
 <div class="add-record overlay" id="add-production-overlay">
     <button class="close x" id="close-import"><b>&#10005</b></button>
     <div class="import-inner">
@@ -18,10 +39,15 @@
                 </div>
             </div>
             <div class="record-field">
-                Production Report (JSON format)
-                <div class="string-input-size input-box">
-                    <input type="text" class="string-input move" name="new-production-report">
-                </div>
+                Production Report
+                <table class="name-qty-input-table" id="add-overlay-name-qty-input-table">
+                    <tr id="name-qty-input-table-header">
+                        <td>Product Name</td>
+                        <td>Quantity</td>
+                        <td></td>
+                    </tr>
+                </table>
+                <input type="button" class="fill small-btn rightmost btn add-name-qty-input-row" value="+">
             </div>
             <br>
             <div class="centered-text">
@@ -48,10 +74,15 @@
                 </div>
             </div>
             <div class="record-field">
-                Production Report (JSON format)
-                <div class="string-input-size input-box">
-                    <input type="text" class="string-input move" name="edit-production-report" id="edit-production-report">
-                </div>
+                Production Report
+                <table class="name-qty-input-table" id="edit-overlay-name-qty-input-table">
+                    <tr id="name-qty-input-table-header">
+                        <td>Product Name</td>
+                        <td>Quantity</td>
+                        <td></td>
+                    </tr>
+                </table>
+                <input type="button" class="fill small-btn rightmost btn add-name-qty-input-row" value="+">
             </div>
             <br>
             <div class="centered-text">

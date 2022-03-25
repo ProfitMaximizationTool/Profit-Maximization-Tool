@@ -250,7 +250,8 @@ def add_product_record(request, business_owner):
 		temporary.update_cost()
 		temporary.save()
 		prompt = "successful-product-add-prompt"
-	except:
+	except Exception as e:
+		print(e)
 		prompt = "invalid-product-ingredients-input"
 
 	return prompt
@@ -366,13 +367,15 @@ def delete_ingredient_record(request, business_owner):
 @csrf_protect
 def sales_view(request):
 	business_owner = BusinessOwner.objects.get(username=request.user.username)
+	products_data = ProductRecord.objects.filter(owner=business_owner).order_by("id")
 	sales_data = SalesRecord.objects.filter(owner=business_owner).order_by("id")
 	prompt = "prompt"
 
 
 	return render(request, "sales.html", 
 		{"username": business_owner.username, "business_name": business_owner.business_name,
-		"full_name": business_owner.full_name, "page": "sales", "sales_data": sales_data, "prompt": prompt})
+		"full_name": business_owner.full_name, "page": "sales", "sales_data": sales_data, "products_data": products_data,
+		"prompt": prompt})
 
 
 
@@ -401,6 +404,8 @@ def delete_sales_record(request, business_owner):
 @csrf_protect
 def production_view(request):
 	business_owner = BusinessOwner.objects.get(username=request.user.username)
+	products_data = ProductRecord.objects.filter(owner=business_owner).order_by("id")
+
 
 	return render(request, "production.html", 
 		{"username": business_owner.username, "business_name": business_owner.business_name,

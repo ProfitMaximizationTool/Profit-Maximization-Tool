@@ -6,16 +6,16 @@
 <table class="hidden">
     <tr class="name-qty-input-row">
         <td>
-            <select>
+            <select class="name-input-row-select">
             {% for ingredient in inventory_data %}
-                <option value="{{ ingredient.ingredient_name }}">{{ ingredient.ingredient_name }}</option>
+                <option class="name-input-row-option" value="{{ ingredient.ingredient_name }}">{{ ingredient.ingredient_name }}</option>
             {% endfor %}
             </select>
         </td>
         <td>
            <div class="record-field">
                 <div class="int-input-size input-box">
-                    <input type="number" class="int-input move">
+                    <input type="number" class="int-input move" required>
                 </div>
             </div>
         </td>
@@ -42,7 +42,7 @@
            <div class="record-field">
                 Ingredients
                 <table class="name-qty-input-table" id="add-overlay-name-qty-input-table">
-                    <tr>
+                    <tr id="name-qty-input-table-header">
                         <td>Ingredient Name</td>
                         <td>Quantity</td>
                         <td></td>
@@ -84,7 +84,7 @@
             <div class="record-field">
                 Ingredients
                 <table class="name-qty-input-table" id="edit-overlay-name-qty-input-table">
-                    <tr>
+                    <tr id="name-qty-input-table-header">
                         <td>Ingredient Name</td>
                         <td>Quantity</td>
                         <td></td>

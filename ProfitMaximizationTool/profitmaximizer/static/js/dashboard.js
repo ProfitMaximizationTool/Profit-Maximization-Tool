@@ -137,9 +137,9 @@ if (page == "inventory"){
 }
 
 
-
+var nameQtyInputRowID = 0;
 if (page == "products"){
-	var nameQtyInputRowID = 0;
+	
 	// Adding new product record
 	document.getElementById("product-overlay-btn").addEventListener("click", function(event){
 		event.preventDefault();
@@ -155,38 +155,6 @@ if (page == "products"){
 		document.getElementById("successful-product-add-prompt").style.display = "block";
 	}
 
-
-	function addNameQtyInputRow(nameQtyInputTable, name, qty){
-		var nameQtyInputRow = document.getElementsByClassName("name-qty-input-row")[0].cloneNode(true);
-		nameQtyInputTable.appendChild(nameQtyInputRow);
-
-		// delete-name-qty-input-row button
-		nameQtyInputRow.children[2].addEventListener("click", function(event){
-			event.preventDefault();
-			deleteNameQtyInputRow(event.target);
-		});
-
-		nameQtyInputRow.children[0].children[0].name = "name-input-row-" + nameQtyInputRowID;
-		nameQtyInputRow.children[0].children[0].value = name;
-		nameQtyInputRow.children[1].children[0].children[0].children[0].name = "qty-input-row-" + nameQtyInputRowID;
-		nameQtyInputRow.children[1].children[0].children[0].children[0].value = qty;
-		nameQtyInputRowID += 1;
-	}
-
-	function clearNameQtyInputTable(nameQtyInputTable){
-		var nameQtyInputRow = nameQtyInputTable.firstElementChild;
-		while (nameQtyInputRow){
-			nameQtyInputTable.removeChild(nameQtyInputRow);
-			nameQtyInputRow = nameQtyInputTable.firstElementChild;
-		}
-	}
-
-	function deleteNameQtyInputRow(removeButton){
-		var nameQtyInputTable = removeButton.parentElement.parentElement.parentElement;
-		var nameQtyInputRow = removeButton.parentElement.parentElement;
-		nameQtyInputTable.removeChild(nameQtyInputRow);
-	}
-
 	// Edit product record
 	Array.prototype.slice.call(document.getElementsByClassName("edit-product")).forEach(function(element){
 		element.addEventListener("click", function(event){
@@ -196,9 +164,11 @@ if (page == "products"){
 			var recordName = event.target.parentElement.parentElement.children[1].innerText;
 			var recordIngredients = JSON.parse(document.getElementById("product-" + recordID + "-ingredients").value.replaceAll("'", '"'));
 			var recordPrice = event.target.parentElement.parentElement.children[3].innerText;
+
 			document.getElementById("edit-product-text").innerText = "Edit ProductRecord " + recordID;
 			document.getElementById("edit-product-record-id").value = recordID;
 			document.getElementById("edit-product-name").value = recordName;
+			document.getElementById("edit-product-price").value = recordPrice;
 
 			var nameQtyInputTable = document.getElementById("edit-overlay-name-qty-input-table");
 
@@ -212,7 +182,7 @@ if (page == "products"){
 			}
 
 
-			document.getElementById("edit-product-price").value = recordPrice;
+			
 
 		});
 	});
@@ -236,23 +206,122 @@ if (page == "products"){
 		document.getElementById("successful-product-delete-prompt").style.display = "block";
 	}
 
-	Array.prototype.slice.call(document.getElementsByClassName("add-name-qty-input-row")).forEach(function(element){
+}
 
+
+if (page == "sales"){
+	// Adding new sales record
+	document.getElementById("sales-overlay-btn").addEventListener("click", function(event){
+		event.preventDefault();
+		document.getElementById("add-sales-overlay").style.display = "block";
+		clearNameQtyInputTable(document.getElementById("add-overlay-name-qty-input-table"));
+	})
+
+
+	// Edit sales record
+	Array.prototype.slice.call(document.getElementsByClassName("edit-sales")).forEach(function(element){
 		element.addEventListener("click", function(event){
 			event.preventDefault();
-			addNameQtyInputRow(element.previousElementSibling);
+			document.getElementById("edit-sales-overlay").style.display = "block";
+			var saleID = event.target.parentElement.parentElement.children[0].innerText;
+			var saleDate = event.target.parentElement.parentElement.children[1].innerText;
+			var saleReport =  JSON.parse(document.getElementById("sales-report-" + recordID).value.replaceAll("'", '"'));
+			var saleProfit = event.target.parentElement.parentElement.children[3].innerText;
+
+			document.getElementById("edit-sales-text").innerText = "Edit SalesRecord " + saleID;
+			document.getElementById("edit-sales-record-date").value = saleID;
+
+			var nameQtyInputTable = document.getElementById("edit-overlay-name-qty-input-table");
+
+			clearNameQtyInputTable(nameQtyInputTable);
+
+
+			for (var name of Object.keys(saleReport)){
+				var qty = recordIngredients[name];
+				addNameQtyInputRow(nameQtyInputTable, name, qty);
+			}
 
 		});
 	});
 
-
-	Array.prototype.slice.call(document.getElementsByClassName("delete-name-qty-row")).forEach(function(element){
+	// Delete sales record
+	Array.prototype.slice.call(document.getElementsByClassName("delete-sales")).forEach(function(element){
 		element.addEventListener("click", function(event){
 			event.preventDefault();
-			deleteNameQtyInputRow(event.target);
+			document.getElementById("delete-sales-overlay").style.display = "block";
+			var recordID = event.target.parentElement.parentElement.children[0].innerText;
+			document.getElementById("delete-sales-text").innerText = "Are you sure you want to delete SalesRecord " + recordID + "?";
+			document.getElementById("delete-sales-record-id").value = recordID;
 		});
 	});
+}
 
 
 
+
+Array.prototype.slice.call(document.getElementsByClassName("add-name-qty-input-row")).forEach(function(element){
+
+	element.addEventListener("click", function(event){
+		event.preventDefault();
+		addNameQtyInputRow(element.previousElementSibling);
+
+	});
+});
+
+
+Array.prototype.slice.call(document.getElementsByClassName("delete-name-qty-row")).forEach(function(element){
+	element.addEventListener("click", function(event){
+		event.preventDefault();
+		deleteNameQtyInputRow(event.target);
+	});
+});
+
+
+function addNameQtyInputRow(nameQtyInputTable, name, qty){
+	var nameQtyInputRow = document.getElementsByClassName("name-qty-input-row")[0].cloneNode(true);
+	nameQtyInputTable.appendChild(nameQtyInputRow);
+
+	// delete-name-qty-input-row button
+	nameQtyInputRow.children[2].addEventListener("click", function(event){
+		event.preventDefault();
+		deleteNameQtyInputRow(event.target);
+	});
+	var nameInput = nameQtyInputRow.children[0].children[0];
+	var qtyInput = nameQtyInputRow.children[1].children[0].children[0].children[0];
+	nameInput.name = "name-input-row-" + nameQtyInputRowID;
+
+	var nameExists = false;
+	for (var i in nameInput.children){
+		var options = nameInput.children[i];
+		if (options.value == name){
+			nameExists = true;
+			break;
+		}
+	}
+
+	if (!nameExists){
+		var ingrOption = nameInput.firstElementChild.cloneNode(true);
+		ingrOption.value = name;
+		ingrOption.innerText = name;
+		nameInput.appendChild(ingrOption);
+	}
+	nameInput.value = name;
+	qtyInput.name = "qty-input-row-" + nameQtyInputRowID;
+	qtyInput.value = qty;
+	nameQtyInputRowID += 1;
+}
+
+function clearNameQtyInputTable(nameQtyInputTable){
+	var nameQtyInputRow = nameQtyInputTable.lastElementChild;
+
+	while (nameQtyInputTable.children.length != 1){
+		nameQtyInputTable.removeChild(nameQtyInputRow);
+		nameQtyInputRow = nameQtyInputTable.lastElementChild;
+	}
+}
+
+function deleteNameQtyInputRow(removeButton){
+	var nameQtyInputTable = removeButton.parentElement.parentElement.parentElement;
+	var nameQtyInputRow = removeButton.parentElement.parentElement;
+	nameQtyInputTable.removeChild(nameQtyInputRow);
 }

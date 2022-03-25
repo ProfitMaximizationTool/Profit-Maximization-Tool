@@ -1,5 +1,3 @@
-from asyncio.windows_events import NULL
-from tkinter import CASCADE
 from django.db import models
 from django.contrib.auth.models import User
 from django.core.exceptions import ObjectDoesNotExist
