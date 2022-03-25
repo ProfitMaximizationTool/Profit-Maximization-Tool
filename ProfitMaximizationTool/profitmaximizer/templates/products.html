@@ -4,11 +4,11 @@
 
 {% block add-record %}
 <table class="hidden">
-    <tr class="product-ingredients-row">
+    <tr class="name-qty-input-row">
         <td>
             <select>
             {% for ingredient in inventory_data %}
-                <option value="{{ ingredient.id }}">{{ ingredient.ingredient_name }}</option>
+                <option value="{{ ingredient.ingredient_name }}">{{ ingredient.ingredient_name }}</option>
             {% endfor %}
             </select>
         </td>
@@ -20,35 +20,35 @@
             </div>
         </td>
         <td>
-            <ion-icon class="record-icon btn delete-product-ingredients-row" name="trash"></ion-icon>
+            <ion-icon class="record-icon btn delete-name-qty-input-row" name="trash"></ion-icon>
         </td>
     </tr>
 </table>
 <div class="add-record overlay" id="add-product-overlay">
     <button class="close x" id="close-import"><b>&#10005</b></button>
     <div class="import-inner">
-        <form autocomplete="off" action="/add-product-record/" method="POST">
+        <form autocomplete="off" method="POST">
             {% csrf_token %}
             <div class="record-title">
                 Add New ProductRecord
             </div>
             <div class="record-field">
                 <br>
-                Product Name
+                Name
                 <div class="string-input-size input-box">
                     <input type="text" class="string-input move" name="new-product-name">
                 </div>
             </div>
            <div class="record-field">
                 Ingredients
-                <table id="product-ingredients">
+                <table class="name-qty-input-table" id="add-overlay-name-qty-input-table">
                     <tr>
                         <td>Ingredient Name</td>
                         <td>Quantity</td>
                         <td></td>
                     </tr>
                 </table>
-                <input type="button" class="fill small-btn rightmost btn" value="+" id="add-product-ingredients-row">
+                <input type="button" class="fill small-btn rightmost btn add-name-qty-input-row" value="+">
             </div>
             <div class="record-field">
                 Price
@@ -69,26 +69,31 @@
 <div class="edit-record overlay" id="edit-product-overlay">
     <button class="close x" id="close-import"><b>&#10005</b></button>
     <div class="import-inner">
-        <form autocomplete="off" action="/edit-product-record/" method="POST">
+        <form autocomplete="off" method="POST">
             {% csrf_token %}
             <input type="text" class="hidden" name="edit-product-record-id" id="edit-product-record-id">
             <div class="record-title" id="edit-product-text">
             </div>
             <br>
             <div class="record-field">
-                Product Name
+                Name
                 <div class="string-input-size input-box">
                     <input type="text" class="string-input move" name="edit-product-name" id="edit-product-name">
                 </div>
             </div>
             <div class="record-field">
-                Product Ingredients
-                <div class="string-input-size input-box">
-                    <input type="text" step="any" class="user-info" name="edit-product-ingredients" id="edit-product-ingredients">
-                </div>
+                Ingredients
+                <table class="name-qty-input-table" id="edit-overlay-name-qty-input-table">
+                    <tr>
+                        <td>Ingredient Name</td>
+                        <td>Quantity</td>
+                        <td></td>
+                    </tr>
+                </table>
+                <input type="button" class="fill small-btn rightmost btn add-name-qty-input-row" value="+">
             </div>
             <div class="record-field">
-                Product Price
+                Price
                 <div class="int-input-size input-box">
                     <input type="number" step="any" class="user-info" name="edit-product-price" id="edit-product-price">
                 </div>
@@ -108,7 +113,7 @@
         <div class="page-name bold" id="delete-product-text">
         </div>
         
-        <form autocomplete="off" action="/delete-product-record/" method="POST">
+        <form autocomplete="off" method="POST">
             <br>
             {% csrf_token %}
             <input type="text" class="hidden" name="delete-product-record-id" id="delete-product-record-id">

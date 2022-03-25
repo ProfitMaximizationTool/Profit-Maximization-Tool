@@ -75,114 +75,122 @@ def signout_view(request):
 
 
 @login_required
+@csrf_protect
 def dashboard_view(request):
 	business_owner = BusinessOwner.objects.get(username=request.user.username)
 	prompt = "none"
 
 	if request.method == "POST" and "import-data" in request.POST:
 		if 'inventory-table' in request.FILES:
-			inventory_file = request.FILES['inventory-table']
-			if not inventory_file.name.endswith('.csv'):
-				prompt = "unsuccessful-ingredient-import-prompt"
-				return render(request, "dashboard.html", 
-				{"username": business_owner.username, "business_name": business_owner.business_name,
-				"full_name": business_owner.full_name, "page": "dashboard", "prompt": prompt})
-			inventory_lines = inventory_file.read().decode("utf-8")
-			lines = inventory_lines.split("\n")
-			for line in lines[1:]:
-				if line == '':
-					pass
-				else:
-					columns = line.split(",")
-					try:
-						temporary = IngredientRecord.objects.get(ingredient_name=columns[0], owner_id=business_owner.user_ptr_id)
-						temporary.cost = columns[1]
-						temporary.units = columns[2]
-						temporary.daily_units = columns[3]
-						temporary.save()
-					except ObjectDoesNotExist:
-						temporary = IngredientRecord(ingredient_name=columns[0], cost=columns[1],units=columns[2], daily_units=columns[3], owner_id=business_owner.user_ptr_id)
-						temporary.save()
-			prompt = "successful-ingredient-import-prompt"
+			prompt = import_inventory_table(request, business_owner)
 					
 		if 'products-table' in request.FILES:
-			products_file = request.FILES['products-table']
-			if not products_file.name.endswith('.csv'):
-				prompt = "unsuccessful-product-import-prompt"
-				return render(request, "dashboard.html", 
-				{"username": business_owner.username, "business_name": business_owner.business_name,
-				"full_name": business_owner.full_name, "page": "dashboard", "prompt": prompt})
-			products_lines = products_file.read().decode("utf-8")
-			products_data = products_lines.split("\n")
-			products_data[0] = products_data[0].split(",")
-			products_data[0][-1] = products_data[0][-1].replace("\r","")
-			last_ingr_index = len(products_data[0])
-			first_ingr_index = products_data[0].index("price")+1
-			for i in range(1,len(products_data)-1):
-				products_data[i] = products_data[i].split(",")
-				products_data[i][1] = float(products_data[i][1]);  # price
-				products_data[i][first_ingr_index:] = [int(x) for x in products_data[i][first_ingr_index:]] # convert ingredients quantity to integer
-				ingr = {}
-				for j in range(first_ingr_index,last_ingr_index):
-					quantity = products_data[i][j]
-					if quantity != 0:
-						ingr[products_data[0][j]] = quantity
-				try:
-					temp_product = ProductRecord.objects.get(product_name=products_data[i][0],owner_id=business_owner.user_ptr_id)
-					temp_product.price = products_data[i][1]
-					temp_product.ingredients = ingr
-					temp_product.update_cost()
-					temp_product.save()
-				except ObjectDoesNotExist:
-					temp_product = ProductRecord(product_name=products_data[i][0],price=products_data[i][1],ingredients=ingr,owner_id=business_owner.user_ptr_id)
-					temp_product.save()
-					temp_product.update_cost()
-			prompt = "successful-product-import-prompt"
+			prompt = import_products_table(request, business_owner)
 
-		# Processing sales database in csv. Note that "," is delimeter
 		if 'sales-table' in request.FILES:
-			sales_file = request.FILES['sales-table']
-			if not sales_file.name.endswith('.csv'):
-				prompt = "unsuccessful-sales-import-prompt"
-				return render(request, "dashboard.html", 
-				{"username": business_owner.username, "business_name": business_owner.business_name,
-				"full_name": business_owner.full_name, "page": "dashboard", "prompt": prompt})
-			sales_lines = sales_file.read().decode("utf-8")
-			sales_data = sales_lines.split("\n")
-			sales_data[0] = sales_data[0].split(",")
-			sales_data[0][1] = sales_data[0][1].replace('\r','')
-			for i in range(1,len(sales_data)-1):
-				sales_data[i] = sales_data[i].split(",")
-				sales_data[i][0] = datetime.strptime(sales_data[i][0],"%Y-%m-%d").date()
-				sales_data[i][1] = sales_data[i][1].split("|")
-				sales = {}
-				for j in range(len(sales_data[i][1])):
-					sales_data[i][1][j] = sales_data[i][1][j].split("/")
-					sales_data[i][1][j][-1] = int(sales_data[i][1][j][-1])
-					prod_name = sales_data[i][1][j][0]
-					num_sales = sales_data[i][1][j][1]
-					sales[prod_name] = num_sales
-				try:
-					temp_sales = SalesRecord.objects.get(date=sales_data[i][0],sales_report=sales,owner_id=business_owner.user_ptr_id)
-					temp_sales.date = sales_data[i][0]
-					temp_sales.salesOfEachProduct = sales
-					temp_sales.save()
-				except ObjectDoesNotExist:
-					temp_sales = SalesRecord(date=sales_data[i][0],sales_report=sales,owner_id=business_owner.user_ptr_id)
-					temp_sales.save()
-			prompt = "successful-sales-import-prompt"
+			prompt = import_sales_table(request, business_owner)
 
 	return render(request, "dashboard.html", 
 		{"username": business_owner.username, "business_name": business_owner.business_name,
 		"full_name": business_owner.full_name, "page": "dashboard", "prompt": prompt})
 
 
+def import_inventory_table(request, business_owner):
+	inventory_file = request.FILES['inventory-table']
+	if not inventory_file.name.endswith('.csv'):
+		prompt = "unsuccessful-ingredient-import-prompt"
+		return prompt
+	inventory_lines = inventory_file.read().decode("utf-8")
+	lines = inventory_lines.split("\n")
+	for line in lines[1:]:
+		if line == '':
+			pass
+		else:
+			columns = line.split(",")
+			try:
+				temporary = IngredientRecord.objects.get(ingredient_name=columns[0], owner=business_owner)
+				temporary.cost = columns[1]
+				temporary.units = columns[2]
+				temporary.daily_units = columns[3]
+				temporary.save()
+			except ObjectDoesNotExist:
+				temporary = IngredientRecord(
+					ingredient_name=columns[0], cost=columns[1],units=columns[2], daily_units=columns[3], owner=business_owner)
+				temporary.save()
+	prompt = "successful-ingredient-import-prompt"
+	return prompt
+
+
+def import_products_table(request, business_owner):
+	products_file = request.FILES['products-table']
+	if not products_file.name.endswith('.csv'):
+		prompt = "unsuccessful-product-import-prompt"
+		return prompt
+	products_lines = products_file.read().decode("utf-8")
+	products_data = products_lines.split("\n")
+	products_data[0] = products_data[0].split(",")
+	products_data[0][-1] = products_data[0][-1].replace("\r","")
+	last_ingr_index = len(products_data[0])
+	first_ingr_index = products_data[0].index("price")+1
+	for i in range(1,len(products_data)-1):
+		products_data[i] = products_data[i].split(",")
+		products_data[i][1] = float(products_data[i][1]);  # price
+		products_data[i][first_ingr_index:] = [int(x) for x in products_data[i][first_ingr_index:]] # convert ingredients quantity to integer
+		ingr = {}
+		for j in range(first_ingr_index,last_ingr_index):
+			quantity = products_data[i][j]
+			if quantity != 0:
+				ingr[products_data[0][j]] = quantity
+		try:
+			temp_product = ProductRecord.objects.get(product_name=products_data[i][0],owner=business_owner)
+			temp_product.price = products_data[i][1]
+			temp_product.ingredients = ingr
+			temp_product.update_cost()
+			temp_product.save()
+		except ObjectDoesNotExist:
+			temp_product = ProductRecord(
+				product_name=products_data[i][0],price=products_data[i][1],ingredients=ingr,owner=business_owner)
+			temp_product.save()
+			temp_product.update_cost()
+	prompt = "successful-product-import-prompt"
+	return prompt
+
+def import_sales_table(request, business_owner):
+	sales_file = request.FILES['sales-table']
+	if not sales_file.name.endswith('.csv'):
+		prompt = "unsuccessful-sales-import-prompt"
+		return prompt
+	sales_lines = sales_file.read().decode("utf-8")
+	sales_data = sales_lines.split("\n")
+	sales_data[0] = sales_data[0].split(",")
+	sales_data[0][1] = sales_data[0][1].replace('\r','')
+	for i in range(1,len(sales_data)-1):
+		sales_data[i] = sales_data[i].split(",")
+		sales_data[i][0] = datetime.strptime(sales_data[i][0],"%Y-%m-%d").date()
+		sales_data[i][1] = sales_data[i][1].split("|")
+		sales = {}
+		for j in range(len(sales_data[i][1])):
+			sales_data[i][1][j] = sales_data[i][1][j].split("/")
+			sales_data[i][1][j][-1] = int(sales_data[i][1][j][-1])
+			prod_name = sales_data[i][1][j][0]
+			num_sales = sales_data[i][1][j][1]
+			sales[prod_name] = num_sales
+		try:
+			temp_sales = SalesRecord.objects.get(date=sales_data[i][0],sales_report=sales,owner=business_owner)
+			temp_sales.date = sales_data[i][0]
+			temp_sales.salesOfEachProduct = sales
+			temp_sales.save()
+		except ObjectDoesNotExist:
+			temp_sales = SalesRecord(date=sales_data[i][0],sales_report=sales,owner=business_owner)
+			temp_sales.save()
+	prompt = "successful-sales-import-prompt"
+	return prompt
+
 
 @login_required
 @csrf_protect
 def profile_view(request):
 	business_owner = BusinessOwner.objects.get(username=request.user.username)
-
 	prompt = "none"
 
 	if request.method == "POST" and "save-btn" in request.POST:
@@ -202,231 +210,195 @@ def profile_view(request):
 
 
 @login_required
+@csrf_protect
 def products_view(request):
 	business_owner = BusinessOwner.objects.get(username=request.user.username)
-	frgn_key = business_owner.user_ptr_id
-	products_data = ProductRecord.objects.filter(owner_id=frgn_key).order_by("id")
-	inventory_data = IngredientRecord.objects.filter(owner_id=frgn_key).order_by("id")
+	products_data = ProductRecord.objects.filter(owner=business_owner).order_by("id")
+	inventory_data = IngredientRecord.objects.filter(owner=business_owner).order_by("id")
 	update_all_products()
-	return render(request, "products.html", 
-		{"username": business_owner.username, "business_name": business_owner.business_name,
-		"full_name": business_owner.full_name, "page": "products", "products_data": products_data, "inventory_data": inventory_data})
-
-
-@login_required
-@csrf_protect
-def add_product_record_view(request):
-	business_owner = BusinessOwner.objects.get(username=request.user.username)
-	frgn_key = business_owner.user_ptr_id
-	products_data = ProductRecord.objects.filter(owner_id=frgn_key).order_by("id")
-	inventory_data = IngredientRecord.objects.filter(owner_id=frgn_key).order_by("id")
-
 	prompt = "none"
-	if request.method == "POST" and "add-product-btn" in request.POST:
-		# try:
-		# 	new_product_name = request.POST['new-product-name']
-		# 	new_product_price = request.POST['new-product-price']
-		# 	new_product_ingredients = request.POST['new-product-ingredients']
-		# 	new_product_ingredients = new_product_ingredients.replace("\'", "\"")
-		# 	new_ingredients_json = json.loads(new_product_ingredients)
-		# 	temporary = ProductRecord(product_name=new_product_name,price=new_product_price,ingredients=new_ingredients_json,owner_id=business_owner.user_ptr_id)
-		# 	temporary.update_cost()
-		# 	temporary.save()
-		# 	prompt = "successful-product-add-prompt"
-		# except:
-		# 	prompt = "invalid-product-ingredients-input"
-		print(request.POST)
+
+	if request.method == "POST":
+		if "add-product-btn" in request.POST:
+			prompt = add_product_record(request, business_owner)
+		elif "edit-product-btn" in request.POST:
+			prompt = edit_product_record(request, business_owner)
+		elif "delete-product-btn" in request.POST:
+			prompt = delete_product_record(request, business_owner)
+
 
 	return render(request, "products.html", 
-		{"username": business_owner.username, "business_name": business_owner.business_name,
-		"full_name": business_owner.full_name, "page": "products", "products_data": products_data, "inventory_data": inventory_data, "prompt": prompt})
+		{"username": business_owner.username, "business_name": business_owner.business_name, "full_name": business_owner.full_name, 
+		"page": "products", "products_data": products_data, "inventory_data": inventory_data, "prompt": prompt})
 
 
-@login_required
-@csrf_protect
-def edit_product_record_view(request):
-	business_owner = BusinessOwner.objects.get(username=request.user.username)
-	frgn_key = business_owner.user_ptr_id
-	products_data = ProductRecord.objects.filter(owner_id=frgn_key).order_by("id")
-	inventory_data = IngredientRecord.objects.filter(owner_id=frgn_key).order_by("id")
+def add_product_record(request, business_owner):
 	prompt = "none"
-	if request.method == "POST" and "edit-product-btn" in request.POST:
-		try:
-			edit_id = request.POST['edit-product-record-id']
-			edit_product_name = request.POST['edit-product-name']
-			edit_product_price = request.POST['edit-product-price']
-			edit_product_ingredients = request.POST['edit-product-ingredients']
-			edit_product_ingredients = edit_product_ingredients.replace("\'", "\"")
-			edit_ingredients_json = json.loads(edit_product_ingredients)
-			record = ProductRecord.objects.get(id=edit_id)
-			record.product_name = edit_product_name
-			record.price = edit_product_price
-			record.ingredients = edit_ingredients_json
-			record.save()
-			record.update_cost()
-			prompt = "successful-product-edit-prompt"
-		except:
-			prompt = "invalid-product-ingredients-input"
+	try:
+		new_product_name = request.POST['new-product-name']
+		new_product_price = request.POST['new-product-price']
+		new_product_ingredients = {}
+		for key in request.POST:
+			if "name-input-row" in key:
+				name_qty_input_row_id = key.replace("name-input-row-", "")
+				name = request.POST[key]
+				qty = request.POST["qty-input-row-" + name_qty_input_row_id]
+				new_product_ingredients[name] = int(qty)
+		temporary = ProductRecord(
+			product_name=new_product_name, price=new_product_price, ingredients=new_product_ingredients, owner=business_owner)
+
+		temporary.update_cost()
+		temporary.save()
+		prompt = "successful-product-add-prompt"
+	except:
+		prompt = "invalid-product-ingredients-input"
+
+	return prompt
+
+
+def edit_product_record(request, business_owner):
+	prompt = "none"
+	try:
+		edit_id = request.POST['edit-product-record-id']
+		edit_product_name = request.POST['edit-product-name']
+		edit_product_price = request.POST['edit-product-price']
+
+		edit_product_ingredients = {}
+		for key in request.POST:
+			if "name-input-row" in key:
+				name_qty_input_row_id = key.replace("name-input-row-", "")
+				name = request.POST[key]
+				qty = request.POST["qty-input-row-" + name_qty_input_row_id]
+				edit_product_ingredients[name] = int(qty)
+
+		record = ProductRecord.objects.get(id=edit_id)
+		record.product_name = edit_product_name
+		record.price = edit_product_price
+		record.ingredients = edit_product_ingredients
+		record.save()
+		record.update_cost()
+		prompt = "successful-product-edit-prompt"
+	except:
+		prompt = "invalid-product-ingredients-input"
 	
-	return render(request, "products.html", 
-		{"username": business_owner.username, "business_name": business_owner.business_name,
-		"full_name": business_owner.full_name, "page": "products", "products_data": products_data, "inventory_data": inventory_data, "prompt": prompt})
+	return prompt
+
+def delete_product_record(request, business_owner):
+	prompt = "none"
+	delete_id = request.POST['delete-product-record-id']
+	delete_record = ProductRecord.objects.get(id=delete_id)
+	delete_record.delete()
+	prompt = "successful-product-delete-prompt"
+
+	return prompt
+
+
 
 
 @login_required
 @csrf_protect
-def delete_product_record_view(request):
-	business_owner = BusinessOwner.objects.get(username=request.user.username)
-	frgn_key = business_owner.user_ptr_id
-	products_data = ProductRecord.objects.filter(owner_id=frgn_key).order_by("id")
-	inventory_data = IngredientRecord.objects.filter(owner_id=frgn_key).order_by("id")
-	prompt = "none"
-	if request.method == "POST" and "delete-product-btn" in request.POST:
-		delete_id = request.POST['delete-product-record-id']
-		delete_record = ProductRecord.objects.get(id=delete_id)
-		delete_record.delete()
-		prompt = "successful-product-delete-prompt"
-
-	return render(request, "products.html", 
-		{"username": business_owner.username, "business_name": business_owner.business_name,
-		"full_name": business_owner.full_name, "page": "products", "products_data": products_data, "inventory_data": inventory_data, "prompt": prompt})
-
-
-
-
-
-@login_required
 def inventory_view(request):
 	business_owner = BusinessOwner.objects.get(username=request.user.username)
-	frgn_key = business_owner.user_ptr_id
-	inventory_data = IngredientRecord.objects.filter(owner_id=frgn_key).order_by("id")
+	inventory_data = IngredientRecord.objects.filter(owner=business_owner).order_by("id")
+	prompt = "none"
+	if request.method == "POST":
+		if "add-ingredient-btn" in request.POST:
+			prompt = add_ingredient_record(request, business_owner)
+		elif "edit-ingredient-btn" in request.POST:
+			prompt = edit_ingredient_record(request, business_owner)
+		elif "delete-ingredient-btn" in request.POST:
+			prompt = delete_ingredient_record(request, business_owner)
 
 	return render(request, "inventory.html", 
 		{"username": business_owner.username, "business_name": business_owner.business_name,
-		"full_name": business_owner.full_name, "page": "inventory", "inventory_data": inventory_data})
+		"full_name": business_owner.full_name, "page": "inventory", "inventory_data": inventory_data, "prompt": prompt})
 
 
-
-@login_required
-@csrf_protect
-def add_ingredient_record_view(request):
+def add_ingredient_record(request, business_owner):
 	prompt = "none"
-	business_owner = BusinessOwner.objects.get(username=request.user.username)
-	frgn_key = business_owner.user_ptr_id
-	inventory_data = IngredientRecord.objects.filter(owner_id=frgn_key).order_by("id")
-	if request.method == "POST" and "add-ingredient-btn" in request.POST:
-		new_ingredient_name = request.POST['new-ingredient-name']
-		new_ingredient_cost = request.POST['new-ingredient-cost']
-		new_total_units = request.POST['new-total-units']
-		new_daily_units = request.POST['new-daily-units']
-		temporary = IngredientRecord(ingredient_name=new_ingredient_name, cost=new_ingredient_cost, units=new_total_units, daily_units=new_daily_units, owner_id=business_owner.user_ptr_id)
-		temporary.save()
-		prompt = "successful-ingredient-add-prompt"
+	new_ingredient_name = request.POST['new-ingredient-name']
+	new_ingredient_cost = request.POST['new-ingredient-cost']
+	new_total_units = request.POST['new-total-units']
+	new_daily_units = request.POST['new-daily-units']
+	temporary = IngredientRecord(
+		ingredient_name=new_ingredient_name, cost=new_ingredient_cost, units=new_total_units, daily_units=new_daily_units, owner=business_owner)
+	temporary.save()
+	prompt = "successful-ingredient-add-prompt"
 	
 	update_all_products()
-	return render(request, "inventory.html", 
-		{"username": business_owner.username, "business_name": business_owner.business_name,
-		"full_name": business_owner.full_name, "page": "inventory", "inventory_data": inventory_data, "prompt": prompt})
+	return prompt
+
+
+def edit_ingredient_record(request, business_owner):
+	prompt = "none"
+
+	edit_id = request.POST['edit-ingredient-record-id']
+	edit_ingredient_name = request.POST['edit-ingredient-name']
+	edit_ingredient_cost = request.POST['edit-ingredient-cost']
+	edit_total_units = request.POST['edit-ingredient-total-units']
+	edit_daily_units = request.POST['edit-ingredient-daily-units']
+	record = IngredientRecord.objects.get(id=edit_id)
+	record.ingredient_name = edit_ingredient_name
+	record.cost = edit_ingredient_cost
+	record.units = edit_total_units
+	record.daily_units = edit_daily_units
+	record.save()
+	prompt = "successful-ingredient-edit-prompt"
+
+	update_all_products()
+
+	return prompt
+
+
+def delete_ingredient_record(request, business_owner):
+	prompt = "none"
+
+	delete_id = request.POST['delete-ingredient-record-id']
+	delete_record = IngredientRecord.objects.get(id=delete_id)
+	delete_record.delete()
+	prompt = "successful-ingredient-delete-prompt"
+
+	update_all_products()
+	return prompt
 
 
 @login_required
 @csrf_protect
-def edit_ingredient_record_view(request):
-	prompt = "none"
-	business_owner = BusinessOwner.objects.get(username=request.user.username)
-	frgn_key = business_owner.user_ptr_id
-	inventory_data = IngredientRecord.objects.filter(owner_id=frgn_key).order_by("id")
-	if request.method == "POST" and "edit-ingredient-btn" in request.POST:
-		edit_id = request.POST['edit-ingredient-record-id']
-		edit_ingredient_name = request.POST['edit-ingredient-name']
-		edit_ingredient_cost = request.POST['edit-ingredient-cost']
-		edit_total_units = request.POST['edit-ingredient-total-units']
-		edit_daily_units = request.POST['edit-ingredient-daily-units']
-		record = IngredientRecord.objects.get(id=edit_id)
-		record.ingredient_name = edit_ingredient_name
-		record.cost = edit_ingredient_cost
-		record.units = edit_total_units
-		record.daily_units = edit_daily_units
-		record.save()
-		prompt = "successful-ingredient-edit-prompt"
-
-	update_all_products()
-	return render(request, "inventory.html", 
-		{"username": business_owner.username, "business_name": business_owner.business_name,
-		"full_name": business_owner.full_name, "page": "inventory", "inventory_data": inventory_data, "prompt": prompt})
-
-
-@login_required
-@csrf_protect
-def delete_ingredient_record_view(request):
-	prompt = "none"
-	business_owner = BusinessOwner.objects.get(username=request.user.username)
-	frgn_key = business_owner.user_ptr_id 
-	inventory_data = IngredientRecord.objects.filter(owner_id=frgn_key).order_by("id")
-
-	if request.method == "POST" and "delete-ingredient-btn" in request.POST:
-		delete_id = request.POST['delete-ingredient-record-id']
-		delete_record = IngredientRecord.objects.get(id=delete_id)
-		delete_record.delete()
-		prompt = "successful-ingredient-delete-prompt"
-
-	update_all_products()
-	return render(request, "inventory.html", 
-		{"username": business_owner.username, "business_name": business_owner.business_name,
-		"full_name": business_owner.full_name, "page": "inventory", "inventory_data": inventory_data, "prompt": prompt})
-
-
-
-
-
-@login_required
 def sales_view(request):
 	business_owner = BusinessOwner.objects.get(username=request.user.username)
+	sales_data = SalesRecord.objects.filter(owner=business_owner).order_by("id")
+	prompt = "prompt"
+
 
 	return render(request, "sales.html", 
 		{"username": business_owner.username, "business_name": business_owner.business_name,
-		"full_name": business_owner.full_name, "page": "sales"})
+		"full_name": business_owner.full_name, "page": "sales", "sales_data": sales_data, "prompt": prompt})
 
 
+
+
+def add_sales_record(request, business_owner):
+	prompt = "none"
+
+	return prompt
+
+
+
+def edit_sales_record(request, business_owner):
+	prompt = "none"
+
+	return prompt
+
+
+def delete_sales_record(request, business_owner):
+	prompt = "none"
+
+	return prompt
 
 
 
 @login_required
 @csrf_protect
-def add_sales_record_view(request):
-	business_owner = BusinessOwner.objects.get(username=request.user.username)
-	prompt = "none"
-
-	return render(request, "sales.html",
-		{"username": business_owner.username, "business_name": business_owner.business_name,
-		"full_name": business_owner.full_name, "page": "sales"})
-
-
-@login_required
-@csrf_protect
-def edit_sales_record_view(request):
-	business_owner = BusinessOwner.objects.get(username=request.user.username)
-	prompt = "none"
-
-	return render(request, "sales.html",
-		{"username": business_owner.username, "business_name": business_owner.business_name,
-		"full_name": business_owner.full_name, "page": "sales"})
-
-
-@login_required
-@csrf_protect
-def delete_sales_record_view(request):
-	business_owner = BusinessOwner.objects.get(username=request.user.username)
-	prompt = "none"
-
-	return render(request, "sales.html",
-		{"username": business_owner.username, "business_name": business_owner.business_name,
-		"full_name": business_owner.full_name, "page": "sales"})
-
-
-
-
-@login_required
 def production_view(request):
 	business_owner = BusinessOwner.objects.get(username=request.user.username)
 
@@ -436,38 +408,23 @@ def production_view(request):
 
 
 
-@login_required
-@csrf_protect
-def add_production_record_view(request):
-	business_owner = BusinessOwner.objects.get(username=request.user.username)
+def add_production_record(request, business_owner):
 	prompt = "none"
 
-	return render(request, "production.html",
-		{"username": business_owner.username, "business_name": business_owner.business_name,
-		"full_name": business_owner.full_name, "page": "production"})
+	return prompt
 
-@login_required
-@csrf_protect
-def edit_production_record_view(request):
-	business_owner = BusinessOwner.objects.get(username=request.user.username)
+
+def edit_production_record_view(request, business_owner):
 	prompt = "none"
 
-	return render(request, "production.html",
-		{"username": business_owner.username, "business_name": business_owner.business_name,
-		"full_name": business_owner.full_name, "page": "production"})
+	return prompt
 
 
-@login_required
-@csrf_protect
-def delete_production_record_view(request):
-	business_owner = BusinessOwner.objects.get(username=request.user.username)
+
+def delete_production_record_view(request, business_owner):
 	prompt = "none"
 
-	return render(request, "production.html",
-		{"username": business_owner.username, "business_name": business_owner.business_name,
-		"full_name": business_owner.full_name, "page": "production"})
-
-
+	return prompt
 
 
 

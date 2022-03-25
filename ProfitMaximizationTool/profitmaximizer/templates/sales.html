@@ -6,7 +6,7 @@
 <div class="add-record overlay" id="add-sales-overlay">
     <button class="close x" id="close-import"><b>&#10005</b></button>
     <div class="import-inner">
-        <form autocomplete="off" action="/add-sales-record/" method="POST">
+        <form autocomplete="off" method="POST">
             {% csrf_token %}
             <div class="record-title">
                 Add New SalesRecord
@@ -36,7 +36,7 @@
 <div class="edit-record overlay" id="edit-sales-overlay">
     <button class="close x" id="close-import"><b>&#10005</b></button>
     <div class="import-inner">
-        <form autocomplete="off" action="/edit-sales-record/" method="POST">
+        <form autocomplete="off" method="POST">
             {% csrf_token %}
             <input type="text" class="hidden" name="edit-sales-record-id" id="edit-sales-record-id">
             <div class="record-title" id="edit-sales-text"></div>
@@ -67,7 +67,7 @@
     <div class="import-inner centered-text">
         <div class="page-name bold" id="delete-sales-text"></div>
         
-        <form autocomplete="off" action="/delete-sales-record/" method="POST">
+        <form autocomplete="off" method="POST">
             <br>
             {% csrf_token %}
             <input type="text" class="hidden" name="delete-sales-record-id" id="delete-sales-record-id">

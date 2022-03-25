@@ -6,7 +6,7 @@
 <div class="add-record overlay" id="add-ingredient-overlay">
     <button class="close x" id="close-import"><b>&#10005</b></button>
     <div class="import-inner">
-        <form autocomplete="off" action="/add-ingredient-record/" method="POST">
+        <form autocomplete="off" method="POST">
             {% csrf_token %}
             <div class="record-title">
                 Add New InventoryRecord
@@ -49,7 +49,7 @@
 <div class="edit-record overlay" id="edit-ingredient-overlay">
     <button class="close x" id="close-import"><b>&#10005</b></button>
     <div class="import-inner">
-        <form autocomplete="off" action="/edit-ingredient-record/" method="POST">
+        <form autocomplete="off" method="POST">
             {% csrf_token %}
             <input type="text" class="hidden" name="edit-ingredient-record-id" id="edit-ingredient-record-id">
             <div class="record-title" id="edit-ingredient-text">
@@ -93,7 +93,7 @@
     <div class="import-inner centered-text">
         <div class="page-name" id="delete-ingredient-text">
         </div>
-        <form autocomplete="off" action="/delete-ingredient-record/" method="POST">
+        <form autocomplete="off" method="POST">
             <br>
             {% csrf_token %}
             <input type="text" class="hidden" name="delete-ingredient-record-id" id="delete-ingredient-record-id">
