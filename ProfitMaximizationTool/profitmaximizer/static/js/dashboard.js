@@ -269,7 +269,7 @@ Array.prototype.slice.call(document.getElementsByClassName("add-name-qty-input-r
 });
 
 
-Array.prototype.slice.call(document.getElementsByClassName("delete-name-qty-row")).forEach(function(element){
+Array.prototype.slice.call(document.getElementsByClassName("delete-name-qty-input-row")).forEach(function(element){
 	element.addEventListener("click", function(event){
 		event.preventDefault();
 		deleteNameQtyInputRow(event.target);
@@ -282,7 +282,7 @@ function addNameQtyInputRow(nameQtyInputTable, name, qty){
 	nameQtyInputTable.appendChild(nameQtyInputRow);
 
 	// delete-name-qty-input-row button
-	nameQtyInputRow.children[2].addEventListener("click", function(event){
+	nameQtyInputRow.children[2].firstElementChild.addEventListener("click", function(event){
 		event.preventDefault();
 		deleteNameQtyInputRow(event.target);
 	});
