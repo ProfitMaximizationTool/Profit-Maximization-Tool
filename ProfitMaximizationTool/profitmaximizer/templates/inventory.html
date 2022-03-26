@@ -121,22 +121,22 @@
     <br>
     <div class="table-container">
         <table class="data-table">
-            <tr>
-                <th class="record-id"> ID </th>
-                <th class="record-name"> Ingredient Name </th>
-                <th class="record-price"> Unit Cost </th>
-                <th class="record-price"> Total Units </th>
-                <th class="record-price"> Daily Units </th>
-                <th class="record-btns">  </th>
+            <tr class="data-table-row">
+                <th class="record-id data-table-header"> ID </th>
+                <th class="record-name data-table-header"> Ingredient Name </th>
+                <th class="record-price data-table-header"> Unit Cost </th>
+                <th class="record-price data-table-header"> Total Units </th>
+                <th class="record-price data-table-header"> Daily Units </th>
+                <th class="record-btns data-table-header">  </th>
             </tr>
             {% for ingredient in inventory_data %}
             <tr class="ingredient-record data-table-row" id="ingredient-record-{{ ingredient.id }}">
-                <td class="record-id"> {{ ingredient.id}} </td>
-                <td> {{ ingredient.ingredient_name }} </td>
-                <td> {{ ingredient.cost }} </td>
-                <td> {{ ingredient.units }} </td>
-                <td> {{ ingredient.daily_units }} </td>
-                <td class="record-btns">
+                <td class="record-id data-table-cell"> {{ ingredient.id}} </td>
+                <td class="data-table-cell"> {{ ingredient.ingredient_name }} </td>
+                <td class="data-table-cell"> {{ ingredient.cost }} </td>
+                <td class="data-table-cell"> {{ ingredient.units }} </td>
+                <td class="data-table-cell"> {{ ingredient.daily_units }} </td>
+                <td class="record-btns data-table-cell">
                     <ion-icon class="record-icon btn edit-ingredient" name="pencil"></ion-icon>
                     <ion-icon class="record-icon btn delete-ingredient" name="trash"></ion-icon>
                 </td>

@@ -333,12 +333,12 @@
 
 .add-record {
     width: 400px;
-    height: 450px;
+    height: auto;
 }
 
 .edit-record {
     width: 400px;
-    height: 450px;
+    height: auto;
 }
 
 .record-title {
@@ -386,8 +386,11 @@
     float: right;
 }
 
-.close:hover {
+.x:hover {
     background-color: var(--light);
+}
+
+.close:hover {
     cursor: pointer;
 }
 
@@ -780,34 +783,35 @@ a:hover {
     margin-left: 15px;
 }
 
-th {
-    color: var(--dark);
-    font-size: var(--small);
-    text-align: left;
-}
-
-tr {
-    height: 40px;
+.data-table-row {
+    height: auto;
     width: 100%;
     padding-left: 15px;
     padding-right: 15px;
 }
 
-tr:not(:first-child):hover {
+.data-table-row:not(:first-child):hover {
     background-color: #524a4e0c;
 }
 
-tr:not(:first-child) {
+.data-table-row:not(:first-child) {
     font-weight: 400;
     font-size: var(--xsmall);
 }
 
-tr:first-child {
+.data-table-row:first-child {
     border-bottom: 0.5px solid #524a4e4b;
     border-radius: 0;
+    color: var(--dark);
+    font-size: var(--small);
+    text-align: left;
 }
 
-td {
+.data-table-header {
+    padding-bottom: 15px;
+}
+
+.data-table-cell {
     padding-top: 15px;
     padding-bottom: 15px;
 }
