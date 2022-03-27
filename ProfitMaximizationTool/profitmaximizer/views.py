@@ -10,7 +10,7 @@ from django.contrib.auth.decorators import login_required
 from profitmaximizer.models import BusinessOwner, IngredientRecord, ProductRecord, SalesRecord
 from django.core.exceptions import ObjectDoesNotExist
 from django.views.decorators.csrf import csrf_protect
-from profitmaximizer.utils import update_all_products
+from profitmaximizer.utils import update_all_products, update_all_revenues
 import json
 from datetime import datetime
 
@@ -152,6 +152,7 @@ def import_products_table(request, business_owner):
 				product_name=products_data[i][0],price=products_data[i][1],ingredients=ingr,owner=business_owner)
 			temp_product.save()
 			temp_product.update_cost()
+	update_all_revenues()
 	prompt = "successful-product-import-prompt"
 	return prompt
 
@@ -179,10 +180,12 @@ def import_sales_table(request, business_owner):
 			temp_sales = SalesRecord.objects.get(date=sales_data[i][0],sales_report=sales,owner=business_owner)
 			temp_sales.date = sales_data[i][0]
 			temp_sales.salesOfEachProduct = sales
+			temp_sales.update_revenue()
 			temp_sales.save()
 		except ObjectDoesNotExist:
 			temp_sales = SalesRecord(date=sales_data[i][0],sales_report=sales,owner=business_owner)
 			temp_sales.save()
+			temp_sales.update_revenue()
 	prompt = "successful-sales-import-prompt"
 	return prompt
 
@@ -254,6 +257,7 @@ def add_product_record(request, business_owner):
 		print(e)
 		prompt = "invalid-product-ingredients-input"
 
+	update_all_revenues()
 	return prompt
 
 
@@ -282,6 +286,7 @@ def edit_product_record(request, business_owner):
 	except:
 		prompt = "invalid-product-ingredients-input"
 	
+	update_all_revenues()
 	return prompt
 
 def delete_product_record(request, business_owner):
@@ -291,6 +296,7 @@ def delete_product_record(request, business_owner):
 	delete_record.delete()
 	prompt = "successful-product-delete-prompt"
 
+	update_all_revenues()
 	return prompt
 
 
@@ -371,7 +377,7 @@ def sales_view(request):
 	sales_data = SalesRecord.objects.filter(owner=business_owner).order_by("id")
 	prompt = "prompt"
 
-
+	update_all_revenues()
 	return render(request, "sales.html", 
 		{"username": business_owner.username, "business_name": business_owner.business_name,
 		"full_name": business_owner.full_name, "page": "sales", "sales_data": sales_data, "products_data": products_data,
