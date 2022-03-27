@@ -53,6 +53,22 @@ class SalesRecord(models.Model):
 		self.revenue = new_revenue
 		self.save()
 
+class ProductionRecord(models.Model):
+	owner = models.ForeignKey(BusinessOwner,on_delete=models.CASCADE,null=True)
+	date = models.DateField(null=True,unique=True)
+	production_report = models.JSONField(default=dict)
+	expenses = models.DecimalField(max_digits=10,decimal_places=2,default=0)
+
+	def update_expenses(self):
+		new_expense = 0
+		for prod in self.production_report.keys():
+			try:
+				target_prod = ProductRecord.objects.get(product_name=prod, owner=self.owner)
+				new_expense += (target_prod.cost)*(self.production_report[prod])
+			except ObjectDoesNotExist:
+				expenses += 0
+		self.expenses = new_expense
+		self.save()
 """
 suggestions for variable names
 class ProductionRecord:

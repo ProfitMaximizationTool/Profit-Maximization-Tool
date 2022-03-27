@@ -27,7 +27,7 @@
 <div class="add-record overlay" id="add-production-overlay">
     <button class="close x" id="close-import"><b>&#10005</b></button>
     <div class="import-inner">
-        <form autocomplete="off" action="/add-production-record/" method="POST">
+        <form autocomplete="off" method="POST">
             {% csrf_token %}
             <div class="record-title">
                 Add New ProductionRecord
@@ -62,7 +62,7 @@
 <div class="edit-record overlay" id="edit-production-overlay">
     <button class="close x" id="close-import"><b>&#10005</b></button>
     <div class="import-inner">
-        <form autocomplete="off" action="/edit-production-record/" method="POST">
+        <form autocomplete="off" method="POST">
             {% csrf_token %}
             <input type="text" class="hidden" name="edit-production-record-id" id="edit-production-record-id">
             <div class="record-title" id="edit-production-text"></div>
@@ -98,7 +98,7 @@
     <div class="import-inner centered-text">
         <div class="page-name bold" id="delete-production-text"></div>
         
-        <form autocomplete="off" action="/delete-production-record/" method="POST">
+        <form autocomplete="off" method="POST">
             <br>
             {% csrf_token %}
             <input type="text" class="hidden" name="delete-production-record-id" id="delete-production-record-id">
@@ -114,13 +114,13 @@
         Production
         <input type="button" class="fill small-btn rightmost btn" value="+ Add new record" id="production-overlay-btn">
     </div>
-    <div class="success prompt full-width center text" id="successful-add-prompt">
+    <div class="success prompt full-width center text" id="successful-production-add-prompt">
         ProductionRecord added!
     </div>
-    <div class="success prompt full-width text" id="successful-edit-prompt">
+    <div class="success prompt full-width text" id="successful-production-edit-prompt">
         ProductionRecord edited!
     </div>
-    <div class="success prompt full-width text" id="successful-delete-prompt">
+    <div class="success prompt full-width text" id="successful-production-delete-prompt">
         ProductionRecord deleted!
     </div>
 
