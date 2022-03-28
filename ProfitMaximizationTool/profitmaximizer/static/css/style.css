@@ -4,6 +4,11 @@
     --primary: #ff5c8d;
     --light: #fdeff4;
     --dark: #524a4e;
+    --success: #c7f6b6;
+    --success-dark: #007e33;
+    --danger: #ffcccb;
+    --danger-dark: #cc0000;
+
 
     /* font sizes */
     --xsmall: 12px;
@@ -273,7 +278,7 @@
 }
 
 .int-input-size {
-    width: 130px;
+    width: 110px;
     height: 30px;
     margin-top: 5px;
     margin-bottom: 5px;
@@ -322,6 +327,18 @@
 .user-info:focus {
     outline: none;
     transform: translate(-2px)
+}
+
+.name-input-row-select {
+    width: 180px;
+    height: 30px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
+.name-input-row-select:focus {
+    border: 0.05px solid var(--primary);
+    outline: none;
 }
 
 /* Please generalize .import (by changing name). I used this class in other overlays as well*/
@@ -689,11 +706,13 @@ a:hover {
 }
 
 .success {
-    background-color: var(--light);
+    background-color: var(--success);
+    border-color: var(--success-dark);
 }
 
 .error {
-    background-color: var(--secondary);
+    background-color: var(--danger);
+    border-color: var(--danger-dark);
 }
 
 
