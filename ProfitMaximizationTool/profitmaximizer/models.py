@@ -1,3 +1,4 @@
+from enum import unique
 from django.db import models
 from django.contrib.auth.models import User
 from django.core.exceptions import ObjectDoesNotExist
@@ -11,14 +12,14 @@ class BusinessOwner(User):
 
 class IngredientRecord(models.Model):
 	owner = models.ForeignKey(BusinessOwner, on_delete=models.CASCADE)
-	ingredient_name = models.CharField(max_length=255)
+	ingredient_name = models.CharField(max_length=255,unique=True)
 	cost = models.DecimalField(max_digits=10, decimal_places=2)
 	units = models.IntegerField()
 	daily_units = models.IntegerField()
 
 class ProductRecord(models.Model):
 	owner = models.ForeignKey(BusinessOwner,on_delete=models.CASCADE)
-	product_name = models.CharField(max_length=255)
+	product_name = models.CharField(max_length=255,unique=True)
 	ingredients = models.JSONField(default=dict)
 	cost = models.DecimalField(max_digits=10,decimal_places=2,default=0)
 	price = models.DecimalField(max_digits=10,decimal_places=2,default=0)
