@@ -54,6 +54,16 @@ class SalesRecord(models.Model):
 		self.revenue = new_revenue
 		self.save()
 
+	def update_profit(self):
+		new_profit = 0
+		try:
+			target_day = ProductionRecord.objects.get(date=self.date,owner=self.owner)
+			new_profit = self.revenue - target_day.expenses
+		except ObjectDoesNotExist:
+			new_profit += 0
+		self.profit = new_profit
+		self.save()
+
 class ProductionRecord(models.Model):
 	owner = models.ForeignKey(BusinessOwner,on_delete=models.CASCADE,null=True)
 	date = models.DateField(null=True,unique=True)

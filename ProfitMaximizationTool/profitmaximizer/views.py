@@ -10,7 +10,7 @@ from django.contrib.auth.decorators import login_required
 from profitmaximizer.models import BusinessOwner, IngredientRecord, ProductRecord, SalesRecord, ProductionRecord
 from django.core.exceptions import ObjectDoesNotExist
 from django.views.decorators.csrf import csrf_protect
-from profitmaximizer.utils import update_all_products, update_all_revenues, update_all_expenses
+from profitmaximizer.utils import update_all_products, update_all_revenues, update_all_expenses, update_all_profit
 import json
 from datetime import datetime
 
@@ -183,11 +183,13 @@ def import_sales_table(request, business_owner):
 			temp_sales.date = sales_data[i][0]
 			temp_sales.salesOfEachProduct = sales
 			temp_sales.update_revenue()
+			temp_sales.update_profit()
 			temp_sales.save()
 		except ObjectDoesNotExist:
 			temp_sales = SalesRecord(date=sales_data[i][0],sales_report=sales,owner=business_owner)
 			temp_sales.save()
 			temp_sales.update_revenue()
+			temp_sales.update_profit()
 	prompt = "successful-sales-import-prompt"
 	return prompt
 
@@ -221,6 +223,8 @@ def import_production_table(request, business_owner):
 			temp_production = ProductionRecord(date=production_data[i][0], production_report=production,owner=business_owner)
 			temp_production.save()
 			temp_production.update_expenses()
+	
+	update_all_profit()
 	prompt = "successful-production-import-prompt"
 	return prompt
 
@@ -412,8 +416,17 @@ def sales_view(request):
 	products_data = ProductRecord.objects.filter(owner=business_owner).order_by("id")
 	sales_data = SalesRecord.objects.filter(owner=business_owner).order_by("id")
 	prompt = "prompt"
+	
+	if request.method == "POST":
+		if "add-sales-btn" in request.POST:
+			prompt = add_sales_record(request, business_owner)
+		elif "edit-sales-btn" in request.POST:
+			prompt = edit_sales_record(request, business_owner)
+		elif "delete-sales-btn" in request.POST:
+			prompt = delete_sales_record(request, business_owner)
 
 	update_all_revenues()
+	update_all_profit()
 	return render(request, "sales.html", 
 		{"username": business_owner.username, "business_name": business_owner.business_name,
 		"full_name": business_owner.full_name, "page": "sales", "sales_data": sales_data, "products_data": products_data,
@@ -424,20 +437,61 @@ def sales_view(request):
 
 def add_sales_record(request, business_owner):
 	prompt = "none"
-
+	try:
+		new_sales_record_date = request.POST['new-sales-record-date']
+		new_sales_record_date = datetime.strptime(new_sales_record_date,"%Y-%m-%d").date()
+		new_sales_report = {}
+		for key in request.POST:
+			if "name-input-row" in key:
+				name_qty_input_row_id = key.replace("name-input-row-", "")
+				name = request.POST[key]
+				qty = request.POST["qty-input-row-" + name_qty_input_row_id]
+				new_sales_report[name] = int(qty)
+		temporary = SalesRecord(date=new_sales_record_date, sales_report= new_sales_report, owner=business_owner)
+		temporary.update_revenue()
+		temporary.save()
+		prompt = "succesful-sales-add-prompt"
+	except Exception as e:
+		print(e)
+		prompt = "invalid-sales-"
 	return prompt
-
 
 
 def edit_sales_record(request, business_owner):
 	prompt = "none"
+	try:
+		# edit_id = request.POST['edit-sales-record-id']
+		edit_date = request.POST['edit-sales-record-date']
+		edit_date = datetime.strptime(edit_date,"%Y-%m-%d").date()
+		# print(f'edit_date = {edit_date}')
+		edit_sales_report = {}
+		for key in request.POST:
+			if "name-input-row" in key:
+				name_qty_input_row_id = key.replace("name-input-row-", "")
+				name = request.POST[key]
+				qty = request.POST["qty-input-row-" + name_qty_input_row_id]
+				edit_sales_report[name] = int(qty)
+
+		record = SalesRecord.objects.get(date=edit_date)
+		record.date = edit_date
+		record.sales_report = edit_sales_report
+		record.update_revenue()
+		record.update_profit()
+		record.save()
+		print(f'successful edit')
+		prompt = "successful-sales-edit-prompt"
+	except:
+		prompt = "invalid-sales-report-input"
 
 	return prompt
 
 
 def delete_sales_record(request, business_owner):
 	prompt = "none"
-
+	delete_id = request.POST['delete-sales-record-id']
+	delete_record = SalesRecord.objects.get(id=delete_id)
+	delete_record.delete()
+	prompt = "successful-sales-delete-prompt"
 	return prompt
 
 
@@ -468,6 +522,7 @@ def add_production_record(request, business_owner):
 	prompt = "none"
 	try:
 		new_production_date = request.POST['new-production-record-date']
+		new_production_date = datetime.strptime(new_production_date,"%Y-%m-%d").date()
 		new_production_products = {}
 		for key in request.POST:
 			if "name-input-row" in key:
@@ -482,14 +537,16 @@ def add_production_record(request, business_owner):
 	except Exception as e:
 		print(e)
 		prompt = "invalid-production-"
+	update_all_profit()
 	return prompt
 
 
 def edit_production_record(request, business_owner):
 	prompt = "none"
 	try:
-		edit_id = request.POST['edit-production-record-id']
+		# edit_id = request.POST['edit-production-record-id']
 		edit_date = request.POST['edit-production-record-date']
+		edit_date = datetime.strptime(edit_date,"%Y-%m-%d").date()
 		edit_production_products = {}
 		for key in request.POST:
 			if "name-input-row" in key:
@@ -498,7 +555,7 @@ def edit_production_record(request, business_owner):
 				qty = request.POST["qty-input-row-" + name_qty_input_row_id]
 				edit_production_products[name] = int(qty)
 
-		record = ProductionRecord.objects.get(id=edit_id)
+		record = ProductionRecord.objects.get(date=edit_date)
 		record.date = edit_date
 		record.production_report = edit_production_products
 		record.update_expenses()
@@ -506,7 +563,7 @@ def edit_production_record(request, business_owner):
 		prompt = "successful-production-edit-prompt"
 	except:
 		prompt = "invalid-production-products-input"
-
+	update_all_profit()
 	return prompt
 
 
