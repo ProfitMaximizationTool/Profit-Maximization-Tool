@@ -130,7 +130,8 @@
             <tr>
                 <th class="record-id"> ID </th> 
                 <th class="record-name"> Date </th> 
-                <th class="record-items"> Sales Report </th> 
+                <th class="record-items"> Sales Report </th>
+                <th class="record-revenue"> Revenue </th> 
                 <th class="record-price"> Profit </th>
                 <th class="record-btns">  </th>
             </tr>
@@ -143,7 +144,7 @@
                     {{ product }} ({{ quantity }} units) <br>
                 {% endfor %}
                 </td>
-                
+                <td class="record-revenue"> {{ record.revenue }}</td>
                 <td> {{ record.expenses }} </td>
 
                 <input type="text" class="hidden" value="{{ record.sales_report }}" id="sales-report-{{ record.id }}">

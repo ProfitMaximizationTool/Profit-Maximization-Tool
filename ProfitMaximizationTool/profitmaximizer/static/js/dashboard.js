@@ -60,13 +60,24 @@ if (prompt == "successful-ingredient-import-prompt"){
 if (prompt == "successful-product-import-prompt"){
 	document.getElementById("successful-product-import-prompt").style.display = "inline-block";
 }
+if (prompt == "successful-sales-import-prompt"){
+	document.getElementById("successful-sales-import-prompt").style.display = "inline-block";
+}
+if (prompt == "successful-production-import-prompt"){
+	document.getElementById("successful-production-import-prompt").style.display = "inline-block";
+}
 if (prompt == "unsuccessful-ingredient-import-prompt"){
 	document.getElementById("unsuccessful-ingredient-import-prompt").style.display = "inline-block";
 }
 if (prompt == "unsuccessful-product-import-prompt"){
 	document.getElementById("unsuccessful-product-import-prompt").style.display = "inline-block";
 }
-
+if (prompt == "unsuccessful-sales-import-prompt"){
+	document.getElementById("unsuccessful-sales-import-prompt").style.display = "inline-block";
+}
+if (prompt == "unsuccessful-production-import-prompt"){
+	document.getElementById("unsuccessful-production-import-prompt").style.display = "inline-block";
+}
 Array.prototype.slice.call(document.getElementsByClassName("close")).forEach(function(element){
 	element.addEventListener("click", function(event){
 		event.preventDefault();
@@ -256,7 +267,52 @@ if (page == "sales"){
 	});
 }
 
+if (page == "production"){
+	// Adding new production record
+	document.getElementById("production-overlay-btn").addEventListener("click", function(event){
+		event.preventDefault();
+		document.getElementById("add-production-overlay").style.display = "block";
+		clearNameQtyInputTable(document.getElementById("add-overlay-name-qty-input-table"));
+	})
 
+
+	// Edit production record
+	Array.prototype.slice.call(document.getElementsByClassName("edit-production")).forEach(function(element){
+		element.addEventListener("click", function(event){
+			event.preventDefault();
+			document.getElementById("edit-production-overlay").style.display = "block";
+			var productionID = event.target.parentElement.parentElement.children[0].innerText;
+			var productionDate = event.target.parentElement.parentElement.children[1].innerText;
+			var productionReport =  JSON.parse(document.getElementById("Production-report-" + recordID).value.replaceAll("'", '"'));
+
+			document.getElementById("edit-production-text").innerText = "Edit ProdcutionRecord " + productionID;
+			document.getElementById("edit-production-record-date").value = productionDate;
+
+			var nameQtyInputTable = document.getElementById("edit-overlay-name-qty-input-table");
+
+			clearNameQtyInputTable(nameQtyInputTable);
+
+
+			for (var name of Object.keys(productionReport)){
+				var name = productName
+				var qty = recordIngredients[name];
+				addNameQtyInputRow(nameQtyInputTable, name, qty);
+			}
+
+		});
+	});
+
+	// Delete production record
+	Array.prototype.slice.call(document.getElementsByClassName("delete-production")).forEach(function(element){
+		element.addEventListener("click", function(event){
+			event.preventDefault();
+			document.getElementById("delete-production-overlay").style.display = "block";
+			var recordID = event.target.parentElement.parentElement.children[0].innerText;
+			document.getElementById("delete-production-text").innerText = "Are you sure you want to delete ProductionRecord " + recordID + "?";
+			document.getElementById("delete-production-record-id").value = recordID;
+		});
+	});
+}
 
 
 Array.prototype.slice.call(document.getElementsByClassName("add-name-qty-input-row")).forEach(function(element){
@@ -269,7 +325,7 @@ Array.prototype.slice.call(document.getElementsByClassName("add-name-qty-input-r
 });
 
 
-Array.prototype.slice.call(document.getElementsByClassName("delete-name-qty-row")).forEach(function(element){
+Array.prototype.slice.call(document.getElementsByClassName("delete-name-qty-input-row")).forEach(function(element){
 	element.addEventListener("click", function(event){
 		event.preventDefault();
 		deleteNameQtyInputRow(event.target);
@@ -282,7 +338,7 @@ function addNameQtyInputRow(nameQtyInputTable, name, qty){
 	nameQtyInputTable.appendChild(nameQtyInputRow);
 
 	// delete-name-qty-input-row button
-	nameQtyInputRow.children[2].addEventListener("click", function(event){
+	nameQtyInputRow.children[2].firstElementChild.addEventListener("click", function(event){
 		event.preventDefault();
 		deleteNameQtyInputRow(event.target);
 	});
