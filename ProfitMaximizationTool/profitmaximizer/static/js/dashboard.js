@@ -234,13 +234,13 @@ if (page == "sales"){
 		element.addEventListener("click", function(event){
 			event.preventDefault();
 			document.getElementById("edit-sales-overlay").style.display = "block";
-			var saleID = event.target.parentElement.parentElement.children[0].innerText;
+			var recordID = event.target.parentElement.parentElement.children[0].innerText;
 			var saleDate = event.target.parentElement.parentElement.children[1].innerText;
 			var saleReport =  JSON.parse(document.getElementById("sales-report-" + recordID).value.replaceAll("'", '"'));
 			var saleProfit = event.target.parentElement.parentElement.children[3].innerText;
 
-			document.getElementById("edit-sales-text").innerText = "Edit SalesRecord " + saleID;
-			document.getElementById("edit-sales-record-date").value = saleID;
+			document.getElementById("edit-sales-text").innerText = "Edit SalesRecord " + recordID;
+			document.getElementById("edit-sales-record-date").value = recordID;
 
 			var nameQtyInputTable = document.getElementById("edit-overlay-name-qty-input-table");
 
@@ -248,7 +248,7 @@ if (page == "sales"){
 
 
 			for (var name of Object.keys(saleReport)){
-				var qty = recordIngredients[name];
+				var qty = saleReport[name];
 				addNameQtyInputRow(nameQtyInputTable, name, qty);
 			}
 
@@ -281,11 +281,11 @@ if (page == "production"){
 		element.addEventListener("click", function(event){
 			event.preventDefault();
 			document.getElementById("edit-production-overlay").style.display = "block";
-			var productionID = event.target.parentElement.parentElement.children[0].innerText;
+			var recordID = event.target.parentElement.parentElement.children[0].innerText;
 			var productionDate = event.target.parentElement.parentElement.children[1].innerText;
-			var productionReport =  JSON.parse(document.getElementById("Production-report-" + recordID).value.replaceAll("'", '"'));
+			var productionReport =  JSON.parse(document.getElementById("production-report-" + recordID).value.replaceAll("'", '"'));
 
-			document.getElementById("edit-production-text").innerText = "Edit ProdcutionRecord " + productionID;
+			document.getElementById("edit-production-text").innerText = "Edit ProductionRecord " + recordID;
 			document.getElementById("edit-production-record-date").value = productionDate;
 
 			var nameQtyInputTable = document.getElementById("edit-overlay-name-qty-input-table");
@@ -294,8 +294,7 @@ if (page == "production"){
 
 
 			for (var name of Object.keys(productionReport)){
-				var name = productName
-				var qty = recordIngredients[name];
+				var qty = productionReport[name];
 				addNameQtyInputRow(nameQtyInputTable, name, qty);
 			}
 
@@ -356,10 +355,10 @@ function addNameQtyInputRow(nameQtyInputTable, name, qty){
 	}
 
 	if (!nameExists){
-		var ingrOption = nameInput.firstElementChild.cloneNode(true);
-		ingrOption.value = name;
-		ingrOption.innerText = name;
-		nameInput.appendChild(ingrOption);
+		var option = nameInput.firstElementChild.cloneNode(true);
+		option.value = name;
+		option.innerText = name;
+		nameInput.appendChild(option);
 	}
 	nameInput.value = name;
 	qtyInput.name = "qty-input-row-" + nameQtyInputRowID;
