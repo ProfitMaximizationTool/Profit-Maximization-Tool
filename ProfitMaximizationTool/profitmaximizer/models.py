@@ -1,4 +1,5 @@
 from enum import unique
+from unicodedata import name
 from django.db import models
 from django.contrib.auth.models import User
 from django.core.exceptions import ObjectDoesNotExist
@@ -12,17 +13,23 @@ class BusinessOwner(User):
 
 class IngredientRecord(models.Model):
 	owner = models.ForeignKey(BusinessOwner, on_delete=models.CASCADE)
-	ingredient_name = models.CharField(max_length=255,unique=True)
+	ingredient_name = models.CharField(max_length=255)
 	cost = models.DecimalField(max_digits=10, decimal_places=2)
 	units = models.IntegerField()
 	daily_units = models.IntegerField()
 
+	class Meta:
+		constraints = [models.UniqueConstraint(fields=['owner','ingredient_name'],name='unique_ingredient_name')]
+
 class ProductRecord(models.Model):
 	owner = models.ForeignKey(BusinessOwner,on_delete=models.CASCADE)
-	product_name = models.CharField(max_length=255,unique=True)
+	product_name = models.CharField(max_length=255)
 	ingredients = models.JSONField(default=dict)
 	cost = models.DecimalField(max_digits=10,decimal_places=2,default=0)
 	price = models.DecimalField(max_digits=10,decimal_places=2,default=0)
+
+	class Meta:
+		constraints = [models.UniqueConstraint(fields=['owner','product_name'],name='unique_product_name')]
 
 	def update_cost(self):
 		new_cost = 0
@@ -38,10 +45,13 @@ class ProductRecord(models.Model):
 
 class SalesRecord(models.Model):
 	owner = models.ForeignKey(BusinessOwner,on_delete=models.CASCADE,null=True)
-	date = models.DateField(null=True,unique=True)
+	date = models.DateField(null=True)
 	sales_report = models.JSONField(default=dict)
 	revenue = models.DecimalField(max_digits=10,decimal_places=2,default=0)
 	profit = models.DecimalField(max_digits=10,decimal_places=2,default=0)
+
+	class Meta:
+		constraints = [models.UniqueConstraint(fields=['owner','date'],name='unique_sales_date')]
 
 	def update_revenue(self):
 		new_revenue = 0
@@ -66,9 +76,12 @@ class SalesRecord(models.Model):
 
 class ProductionRecord(models.Model):
 	owner = models.ForeignKey(BusinessOwner,on_delete=models.CASCADE,null=True)
-	date = models.DateField(null=True,unique=True)
+	date = models.DateField(null=True)
 	production_report = models.JSONField(default=dict)
 	expenses = models.DecimalField(max_digits=10,decimal_places=2,default=0)
+
+	class Meta:
+		constraints = [models.UniqueConstraint(fields=['owner','date'],name='unique_production_date')]
 
 	def update_expenses(self):
 		new_expense = 0
