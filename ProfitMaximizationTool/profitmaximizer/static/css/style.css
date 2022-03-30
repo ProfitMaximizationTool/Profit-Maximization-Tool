@@ -284,23 +284,6 @@
     margin-bottom: 5px;
 }
 
-.long-input {
-    float: right;
-    border: none;
-    font-family: 'Inter', sans-serif;
-    width: 92%;
-    height: 90%;
-    color: #222629;
-    transition: ease-out 0.1s;
-}
-
-.long-input-size {
-    width: 100%;
-    height: 60px;
-    margin-top: 5px;
-    margin-bottom: 5px;
-}
-
 .input-box {
     border: 0.05px solid #524a4e63;
     border-radius: 4px;
@@ -339,10 +322,6 @@
 .name-input-row-select:focus {
     border: 0.05px solid var(--primary);
     outline: none;
-}
-
-.overlay-table-cell {
-    height: 30px;
 }
 
 /* Please generalize .import (by changing name). I used this class in other overlays as well*/
