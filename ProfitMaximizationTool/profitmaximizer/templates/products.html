@@ -5,28 +5,29 @@
 {% block add-record %}
 <table class="hidden">
     <tr class="name-qty-input-row">
-        <td>
-            <select class="name-input-row-select">
+        <td class="overlay-table-cell">
+            <select class="name-input-row-select input-box string-input">
             {% for ingredient in inventory_data %}
                 <option class="name-input-row-option" value="{{ ingredient.ingredient_name }}">{{ ingredient.ingredient_name }}</option>
             {% endfor %}
             </select>
         </td>
-        <td>
+        <td class="overlay-table-cell">
            <div class="record-field">
                 <div class="int-input-size input-box">
                     <input type="number" class="int-input move" required>
                 </div>
             </div>
         </td>
-        <td>
+        <td class="overlay-table-cell">
             <ion-icon class="record-icon btn delete-name-qty-input-row" name="trash"></ion-icon>
         </td>
     </tr>
 </table>
+
 <div class="add-record overlay" id="add-product-overlay">
     <button class="close x" id="close-import"><b>&#10005</b></button>
-    <div class="import-inner">
+    <div class="record-container">
         <form autocomplete="off" method="POST">
             {% csrf_token %}
             <div class="record-title">
@@ -39,7 +40,7 @@
                     <input type="text" class="string-input move" name="new-product-name">
                 </div>
             </div>
-           <div class="record-field">
+        <div class="record-field">
                 Ingredients
                 <table class="name-qty-input-table" id="add-overlay-name-qty-input-table">
                     <tr id="name-qty-input-table-header">
@@ -48,8 +49,9 @@
                         <td></td>
                     </tr>
                 </table>
-                <input type="button" class="fill small-btn rightmost btn add-name-qty-input-row" value="+">
+                <input type="button" class="fill small-btn rightmost btn add-name-qty-input-row" value="+ Add">
             </div>
+            <br>
             <div class="record-field">
                 Price
                 <div class="int-input-size input-box">
@@ -68,7 +70,7 @@
 {% block edit-record %}
 <div class="edit-record overlay" id="edit-product-overlay">
     <button class="close x" id="close-import"><b>&#10005</b></button>
-    <div class="import-inner">
+    <div class="record-container">
         <form autocomplete="off" method="POST">
             {% csrf_token %}
             <input type="text" class="hidden" name="edit-product-record-id" id="edit-product-record-id">

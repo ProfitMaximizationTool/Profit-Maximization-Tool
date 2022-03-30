@@ -5,7 +5,7 @@
 {% block add-record %}
 <div class="add-record overlay" id="add-ingredient-overlay">
     <button class="close x" id="close-import"><b>&#10005</b></button>
-    <div class="import-inner">
+    <div class="record-container">
         <form autocomplete="off" method="POST">
             {% csrf_token %}
             <div class="record-title">
@@ -48,7 +48,7 @@
 {% block edit-record %}
 <div class="edit-record overlay" id="edit-ingredient-overlay">
     <button class="close x" id="close-import"><b>&#10005</b></button>
-    <div class="import-inner">
+    <div class="record-container">
         <form autocomplete="off" method="POST">
             {% csrf_token %}
             <input type="text" class="hidden" name="edit-ingredient-record-id" id="edit-ingredient-record-id">
