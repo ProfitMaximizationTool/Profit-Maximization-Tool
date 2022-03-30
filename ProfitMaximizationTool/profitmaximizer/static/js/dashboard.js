@@ -228,6 +228,13 @@ if (page == "sales"){
 		clearNameQtyInputTable(document.getElementById("add-overlay-name-qty-input-table"));
 	})
 
+	if (prompt == "invalid-sales-add-prompt"){
+		document.getElementById("invalid-sales-add-prompt").style.display = "block";
+	}
+
+	if (prompt == "successful-sales-add-prompt"){
+		document.getElementById("successful-sales-add-prompt").style.display = "block";
+	}
 
 	// Edit sales record
 	Array.prototype.slice.call(document.getElementsByClassName("edit-sales")).forEach(function(element){
@@ -240,7 +247,7 @@ if (page == "sales"){
 			var saleProfit = event.target.parentElement.parentElement.children[3].innerText;
 
 			document.getElementById("edit-sales-text").innerText = "Edit SalesRecord " + recordID;
-			document.getElementById("edit-sales-record-date").value = recordID;
+			document.getElementById("edit-sales-record-date").value = saleDate;
 
 			var nameQtyInputTable = document.getElementById("edit-overlay-name-qty-input-table");
 
@@ -254,7 +261,13 @@ if (page == "sales"){
 
 		});
 	});
+	if (prompt == "invalid-sales-edit-prompt"){
+		document.getElementById("invalid-sales-edit-prompt").style.display = "block";
+	}
 
+	if (prompt == "successful-sales-edit-prompt"){
+		document.getElementById("successful-sales-edit-prompt").style.display = "block";
+	}
 	// Delete sales record
 	Array.prototype.slice.call(document.getElementsByClassName("delete-sales")).forEach(function(element){
 		element.addEventListener("click", function(event){
@@ -265,6 +278,10 @@ if (page == "sales"){
 			document.getElementById("delete-sales-record-id").value = recordID;
 		});
 	});
+
+	if (prompt == "successful-sales-delete-prompt"){
+		document.getElementById("successful-sales-delete-prompt").style.display = "block";
+	}
 }
 
 if (page == "production"){
@@ -274,7 +291,14 @@ if (page == "production"){
 		document.getElementById("add-production-overlay").style.display = "block";
 		clearNameQtyInputTable(document.getElementById("add-overlay-name-qty-input-table"));
 	})
+	
+	if (prompt == "invalid-production-add-input"){
+		document.getElementById("invalid-production-add-input").style.display = "block";
+	}
 
+	if (prompt == "successful-production-add-prompt"){
+		document.getElementById("successful-production-add-prompt").style.display = "block";
+	}
 
 	// Edit production record
 	Array.prototype.slice.call(document.getElementsByClassName("edit-production")).forEach(function(element){
@@ -301,6 +325,14 @@ if (page == "production"){
 		});
 	});
 
+	if (prompt == "invalid-production-edit-input"){
+		document.getElementById("invalid-production-edit-input").style.display = "block";
+	}
+
+	if (prompt == "successful-production-edit-prompt"){
+		document.getElementById("successful-production-edit-prompt").style.display = "block";
+	}
+
 	// Delete production record
 	Array.prototype.slice.call(document.getElementsByClassName("delete-production")).forEach(function(element){
 		element.addEventListener("click", function(event){
@@ -311,6 +343,9 @@ if (page == "production"){
 			document.getElementById("delete-production-record-id").value = recordID;
 		});
 	});
+	if (prompt == "successful-production-delete-prompt"){
+		document.getElementById("successful-production-delete-prompt").style.display = "block";
+	}
 }
 
 

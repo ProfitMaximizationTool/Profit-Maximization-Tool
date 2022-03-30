@@ -1,3 +1,4 @@
+from cmath import e
 from decimal import Decimal
 from distutils import core
 from multiprocessing import context
@@ -484,17 +485,17 @@ def add_sales_record(request, business_owner):
 		temporary = SalesRecord(date=new_sales_record_date, sales_report= new_sales_report, owner=business_owner)
 		temporary.update_revenue()
 		temporary.save()
-		prompt = "succesful-sales-add-prompt"
+		prompt = "successful-sales-add-prompt"
 	except Exception as e:
 		print(e)
-		prompt = "invalid-sales-"
+		prompt = "invalid-sales-add-input"
 	return prompt
 
 
 def edit_sales_record(request, business_owner):
 	prompt = "none"
 	try:
-		# edit_id = request.POST['edit-sales-record-id']
+		edit_id = request.POST['edit-sales-record-id']
 		edit_date = request.POST['edit-sales-record-date']
 		edit_date = datetime.strptime(edit_date,"%Y-%m-%d").date()
 		# print(f'edit_date = {edit_date}')
@@ -506,7 +507,7 @@ def edit_sales_record(request, business_owner):
 				qty = request.POST["qty-input-row-" + name_qty_input_row_id]
 				edit_sales_report[name] = int(qty)
 
-		record = SalesRecord.objects.get(date=edit_date)
+		record = SalesRecord.objects.get(date=edit_date, owner=business_owner)
 		record.date = edit_date
 		record.sales_report = edit_sales_report
 		record.update_revenue()
@@ -515,7 +516,7 @@ def edit_sales_record(request, business_owner):
 		print(f'successful edit')
 		prompt = "successful-sales-edit-prompt"
 	except:
-		prompt = "invalid-sales-report-input"
+		prompt = "invalid-sales-edit-input"
 
 	return prompt
 
@@ -548,7 +549,7 @@ def production_view(request):
 			prompt = delete_production_record(request, business_owner)
 	return render(request, "production.html", 
 		{"username": business_owner.username, "business_name": business_owner.business_name,
-		"full_name": business_owner.full_name, "page": "production", "production_data": production_data, "products_data": products_data})
+		"full_name": business_owner.full_name, "page": "production", "production_data": production_data, "products_data": products_data, "prompt": prompt})
 
 
 
@@ -567,10 +568,10 @@ def add_production_record(request, business_owner):
 		temporary = ProductionRecord(date=new_production_date, production_report= new_production_products, owner=business_owner)
 		temporary.update_expenses()
 		temporary.save()
-		prompt = "succesful-production-add-prompt"
+		prompt = "successful-production-add-prompt"
 	except Exception as e:
 		print(e)
-		prompt = "invalid-production-"
+		prompt = "invalid-production-add-input"
 	update_all_profit()
 	return prompt
 
@@ -589,14 +590,15 @@ def edit_production_record(request, business_owner):
 				qty = request.POST["qty-input-row-" + name_qty_input_row_id]
 				edit_production_products[name] = int(qty)
 
-		record = ProductionRecord.objects.get(date=edit_date)
+		record = ProductionRecord.objects.get(date=edit_date, owner=business_owner)
 		record.date = edit_date
 		record.production_report = edit_production_products
 		record.update_expenses()
 		record.save()
 		prompt = "successful-production-edit-prompt"
-	except:
-		prompt = "invalid-production-products-input"
+	except Exception as e:
+		print(e)
+		prompt = "invalid-production-edit-input"
 	update_all_profit()
 	return prompt
 
