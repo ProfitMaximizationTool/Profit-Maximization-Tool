@@ -5,21 +5,21 @@
 {% block add-record %}
 <table class="hidden">
     <tr class="name-qty-input-row">
-        <td class="overlay-table-cell">
+        <td>
             <select class="name-input-row-select input-box string-input">
             {% for ingredient in inventory_data %}
                 <option class="name-input-row-option" value="{{ ingredient.ingredient_name }}">{{ ingredient.ingredient_name }}</option>
             {% endfor %}
             </select>
         </td>
-        <td class="overlay-table-cell">
+        <td>
            <div class="record-field">
                 <div class="int-input-size input-box">
                     <input type="number" class="int-input move" required>
                 </div>
             </div>
         </td>
-        <td class="overlay-table-cell">
+        <td>
             <ion-icon class="record-icon btn delete-name-qty-input-row" name="trash"></ion-icon>
         </td>
     </tr>
@@ -31,7 +31,7 @@
         <form autocomplete="off" method="POST">
             {% csrf_token %}
             <div class="record-title">
-                Add new product record
+                Add new ProductRecord
             </div>
             <div class="record-field">
                 <br>

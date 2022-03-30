@@ -6,7 +6,7 @@
 <table class="hidden">
     <tr class="name-qty-input-row">
         <td>
-            <select class="name-input-row-select">
+            <select class="name-input-row-select input-box string-input">
             {% for product in products_data %}
                 <option class="name-input-row-option" value="{{ product.product_name }}">{{ product.product_name }}</option>
             {% endfor %}
@@ -26,15 +26,16 @@
 </table>
 <div class="add-record overlay" id="add-production-overlay">
     <button class="close x" id="close-import"><b>&#10005</b></button>
-    <div class="import-inner">
+    <div class="record-container">
         <form autocomplete="off" method="POST">
             {% csrf_token %}
             <div class="record-title">
-                Add New ProductionRecord
+                Add new ProductionRecord
             </div>
             <div class="record-field">
+                <br>
                 Date
-                <div class="int-input-size input-box">
+                <div class="string-input-size input-box">
                     <input type="date" class="string-input move" name="new-production-record-date">
                 </div>
             </div>
@@ -47,8 +48,9 @@
                         <td></td>
                     </tr>
                 </table>
-                <input type="button" class="fill small-btn rightmost btn add-name-qty-input-row" value="+">
+                <input type="button" class="fill small-btn rightmost btn add-name-qty-input-row" value="+ Add">
             </div>
+            <br>
             <br>
             <div class="centered-text">
                 <input type="submit" value="Save" class="fill small-btn btn" name="add-production-btn">
@@ -61,16 +63,16 @@
 {% block edit-record %}
 <div class="edit-record overlay" id="edit-production-overlay">
     <button class="close x" id="close-import"><b>&#10005</b></button>
-    <div class="import-inner">
+    <div class="record-container">
         <form autocomplete="off" method="POST">
             {% csrf_token %}
             <input type="text" class="hidden" name="edit-production-record-id" id="edit-production-record-id">
             <div class="record-title" id="edit-production-text"></div>
-            <br>
             <div class="record-field">
+                <br>
                 Date
-                <div class="int-input-size input-box">
-                    <input type="text" class="string-input move" name="edit-production-record-date" id="edit-production-record-date">
+                <div class="string-input-size input-box">
+                    <input type="date" class="string-input move" name="edit-production-record-date" id="edit-production-record-date">
                 </div>
             </div>
             <div class="record-field">
@@ -82,7 +84,7 @@
                         <td></td>
                     </tr>
                 </table>
-                <input type="button" class="fill small-btn rightmost btn add-name-qty-input-row" value="+">
+                <input type="button" class="fill small-btn rightmost btn add-name-qty-input-row" value="+ Add">
             </div>
             <br>
             <div class="centered-text">
