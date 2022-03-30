@@ -132,28 +132,28 @@
     <br>
     <div class="table-container">
         <table class="data-table">
-            <tr>
-                <th class="record-id"> ID </th> 
-                <th class="record-name"> Date </th> 
-                <th class="record-items"> Production Report </th> 
-                <th class="record-price"> Expenses </th>
-                <th class="record-btns">  </th>
+            <tr class="data-table-row">
+                <th class="record-id data-table-header"> ID </th> 
+                <th class="record-name data-table-header"> Date </th> 
+                <th class="record-items data-table-header"> Production Report </th> 
+                <th class="record-price data-table-header"> Expenses </th>
+                <th class="record-btns data-table-header">  </th>
             </tr>
             {% for record in production_data %}
             <tr class="production-record data-table-row" id="production-record-{{ record.id }}">
-                <td class="record-id"> {{ record.id }} </td>
-                <td class="record-name"> {{ record.date }} </td>
-                <td>
+                <td class="record-id data-table-cell"> {{ record.id }} </td>
+                <td class="record-name data-table-cell"> {{ record.date }} </td>
+                <td class="data-table-cell">
                 {% for product, quantity in record.production_report.items %}
                     {{ product }} ({{ quantity }} units) <br>
                 {% endfor %}
                 </td>
                 
-                <td> {{ record.expenses }} </td>
+                <td class="data-table-cell"> {{ record.expenses }} </td>
 
                 <input type="text" class="hidden" value="{{ record.production_report }}" id="production-report-{{ record.id }}">
                 
-                <td class="record-btns">
+                <td class="record-btns data-table-cell">
                     <ion-icon class="record-icon btn edit-production" name="pencil"></ion-icon>
                     <ion-icon class="record-icon btn delete-production" name="trash"></ion-icon>
                 </td>
