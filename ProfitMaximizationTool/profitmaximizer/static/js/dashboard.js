@@ -224,12 +224,24 @@ if (page == "sales"){
 	// Adding new sales record
 	document.getElementById("sales-overlay-btn").addEventListener("click", function(event){
 		event.preventDefault();
-		document.getElementById("add-sales-overlay").style.display = "block";
+		var overlay = document.getElementById("add-sales-overlay");
+		overlay.style.display = "block";
+		var dateNow = new Date();
+		var month = dateNow.getMonth();
+		var day = dateNow.getDate();
+		if (month < 10){
+			month = "0" + (month + 1);
+		}
+		if (day < 10){
+			day = "0" + day;
+		}
+		var dateNowText = dateNow.getFullYear() + "-" + month + "-" + day;
+		overlay.querySelector("#new-sales-record-date").value = dateNowText;
 		clearNameQtyInputTable(document.getElementById("add-overlay-name-qty-input-table"));
 	})
 
-	if (prompt == "invalid-sales-add-prompt"){
-		document.getElementById("invalid-sales-add-prompt").style.display = "block";
+	if (prompt == "invalid-sales-add-input"){
+		document.getElementById("invalid-sales-add-input").style.display = "block";
 	}
 
 	if (prompt == "successful-sales-add-prompt"){
@@ -242,12 +254,22 @@ if (page == "sales"){
 			event.preventDefault();
 			document.getElementById("edit-sales-overlay").style.display = "block";
 			var recordID = event.target.parentElement.parentElement.children[0].innerText;
-			var saleDate = event.target.parentElement.parentElement.children[1].innerText;
+			var saleDate = new Date(event.target.parentElement.parentElement.children[1].innerText);
 			var saleReport =  JSON.parse(document.getElementById("sales-report-" + recordID).value.replaceAll("'", '"'));
 			var saleProfit = event.target.parentElement.parentElement.children[3].innerText;
 
+			var month = saleDate.getMonth();
+			var day = saleDate.getDate();
+			if (month < 10){
+				month = "0" + (month + 1);
+			}
+			if (day < 10){
+				day = "0" + day;
+			}
+			var saleDateText = saleDate.getFullYear() + "-" + month + "-" + day;
+
 			document.getElementById("edit-sales-text").innerText = "Edit SalesRecord " + recordID;
-			document.getElementById("edit-sales-record-date").value = saleDate;
+			document.getElementById("edit-sales-record-date").value = saleDateText;
 
 			var nameQtyInputTable = document.getElementById("edit-overlay-name-qty-input-table");
 
@@ -261,8 +283,8 @@ if (page == "sales"){
 
 		});
 	});
-	if (prompt == "invalid-sales-edit-prompt"){
-		document.getElementById("invalid-sales-edit-prompt").style.display = "block";
+	if (prompt == "invalid-sales-edit-input"){
+		document.getElementById("invalid-sales-edit-input").style.display = "block";
 	}
 
 	if (prompt == "successful-sales-edit-prompt"){
@@ -288,7 +310,19 @@ if (page == "production"){
 	// Adding new production record
 	document.getElementById("production-overlay-btn").addEventListener("click", function(event){
 		event.preventDefault();
-		document.getElementById("add-production-overlay").style.display = "block";
+		var overlay = document.getElementById("add-production-overlay");
+		overlay.style.display = "block";
+		var dateNow = new Date();
+		var month = dateNow.getMonth();
+		var day = dateNow.getDate();
+		if (month < 10){
+			month = "0" + (month + 1);
+		}
+		if (day < 10){
+			day = "0" + day;
+		}
+		var dateNowText = dateNow.getFullYear() + "-" + month + "-" + day;
+		overlay.querySelector("#new-production-record-date").value = dateNowText;
 		clearNameQtyInputTable(document.getElementById("add-overlay-name-qty-input-table"));
 	})
 	
@@ -306,11 +340,20 @@ if (page == "production"){
 			event.preventDefault();
 			document.getElementById("edit-production-overlay").style.display = "block";
 			var recordID = event.target.parentElement.parentElement.children[0].innerText;
-			var productionDate = event.target.parentElement.parentElement.children[1].innerText;
+			var productionDate = new Date(event.target.parentElement.parentElement.children[1].innerText);
+			var month = productionDate.getMonth();
+			var day = productionDate.getDate();
+			if (month < 10){
+				month = "0" + (month + 1);
+			}
+			if (day < 10){
+				day = "0" + day;
+			}
+			var productionDateText = productionDate.getFullYear() + "-" + month + "-" + day;
 			var productionReport =  JSON.parse(document.getElementById("production-report-" + recordID).value.replaceAll("'", '"'));
 
 			document.getElementById("edit-production-text").innerText = "Edit ProductionRecord " + recordID;
-			document.getElementById("edit-production-record-date").value = productionDate;
+			document.getElementById("edit-production-record-date").value = productionDateText;
 
 			var nameQtyInputTable = document.getElementById("edit-overlay-name-qty-input-table");
 

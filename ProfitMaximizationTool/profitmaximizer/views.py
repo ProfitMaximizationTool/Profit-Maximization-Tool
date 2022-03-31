@@ -449,7 +449,7 @@ def delete_ingredient_record(request, business_owner):
 def sales_view(request):
 	business_owner = BusinessOwner.objects.get(username=request.user.username)
 	products_data = ProductRecord.objects.filter(owner=business_owner).order_by("id")
-	sales_data = SalesRecord.objects.filter(owner=business_owner).order_by("id")
+	sales_data = SalesRecord.objects.filter(owner=business_owner).order_by("date")
 	prompt = "prompt"
 	
 	if request.method == "POST":
@@ -499,6 +499,7 @@ def edit_sales_record(request, business_owner):
 		edit_date = request.POST['edit-sales-record-date']
 		edit_date = datetime.strptime(edit_date,"%Y-%m-%d").date()
 		# print(f'edit_date = {edit_date}')
+
 		edit_sales_report = {}
 		for key in request.POST:
 			if "name-input-row" in key:
@@ -515,7 +516,8 @@ def edit_sales_record(request, business_owner):
 		record.save()
 		print(f'successful edit')
 		prompt = "successful-sales-edit-prompt"
-	except:
+	except Exception as e:
+		print(e)
 		prompt = "invalid-sales-edit-input"
 
 	return prompt
@@ -581,6 +583,7 @@ def edit_production_record(request, business_owner):
 	try:
 		# edit_id = request.POST['edit-production-record-id']
 		edit_date = request.POST['edit-production-record-date']
+
 		edit_date = datetime.strptime(edit_date,"%Y-%m-%d").date()
 		edit_production_products = {}
 		for key in request.POST:
