@@ -9,6 +9,56 @@ This is a course requirements for CS191/192 Software Engineering Courses of the 
 - Diokno, Alyssa Beatrice
 - Loristo, John Ivan
 
+## Sprint 3
+
+**start date:** March 21, 2022
+
+**end date:** April 1, 2022
+
+### Use cases accomplished in sprint 3
+
+- UC3-S3: Business owner inputs existing sales database
+
+- UC3-S4: Business owner inputs existing production database
+
+- UC3-S7: Business owner tries to input existing sales database but uses the wrong file
+
+- UC3-S8: Business owner tries to input existing production database but uses the wrong file
+
+### Changelog in sprint 3:
+
+- Added ability to upload csv file for Sales database
+
+- Added ability to upload csv file for Production database
+
+- Added prompt for invalid Sales database file upload
+
+- Added prompt for invalid Production database file upload
+
+- Added ability to manually add, edit, and delete Sales record
+
+- Added ability to manually add, edit, and delete Production record
+
+- Sales record revenue is automatically computed based on Production table
+
+- Production record Expenses is automatically computed based on Products and Inventory tables
+
+- Improved the interface for adding/editing new or existing ingredients and their costs for Product records by adding dropdown box for ingredient names
+
+- UI Improvements
+  
+  - submit buttons
+  
+  - tables
+  
+  - overlays
+  
+  - scrolling
+
+- Code refactoring (less messy code)
+
+- Revamped the format for Products database csv file
+
 ## Sprint 2
 
 **start date:** March 7, 2022
