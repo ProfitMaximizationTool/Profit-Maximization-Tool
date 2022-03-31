@@ -60,7 +60,7 @@ class SalesRecord(models.Model):
 				target_prod = ProductRecord.objects.get(product_name=prod,owner=self.owner)
 				new_revenue += (target_prod.price)*(self.sales_report[prod])
 			except ObjectDoesNotExist:
-				revenue += 0
+				new_revenue += 0
 		self.revenue = new_revenue
 		self.save()
 
@@ -90,7 +90,7 @@ class ProductionRecord(models.Model):
 				target_prod = ProductRecord.objects.get(product_name=prod, owner=self.owner)
 				new_expense += (target_prod.cost)*(self.production_report[prod])
 			except ObjectDoesNotExist:
-				expenses += 0
+				new_expense += 0
 		self.expenses = new_expense
 		self.save()
 """
