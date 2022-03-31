@@ -24,6 +24,7 @@
         <form autocomplete="off" method="POST" action="/signup/">
             {% csrf_token %}
             <div class="form-title"> Create account </div>
+            <br>
             <div class="input-box form-input-size">
                 <ion-icon class="form-icon" name="person"></ion-icon>
                 <input class="user-info" type="text" placeholder="Full Name" name="fullname" required>
@@ -60,6 +61,7 @@
         <form autocomplete="off" method="POST" action="/signin/">
             {% csrf_token %}
             <div class="form-title"> Sign in </div>
+            <br>
             <div class="input-box form-input-size">
                 <ion-icon class="form-icon" name="at"></ion-icon>
                 <input class="user-info" type="text" placeholder="Username" name="username" required>

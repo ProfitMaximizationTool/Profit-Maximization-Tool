@@ -36,6 +36,7 @@ document.getElementById("toggle-sidebar-btn").addEventListener("click", function
 });
 
 document.getElementById("go-to-" + page + "-btn").style.backgroundColor = "#fdeff4";
+document.getElementById("go-to-" + page + "-btn").style.fontWeight = "700";
 
 if (prompt == "saved-profile-changes"){
 	document.getElementById("saved-profile-prompt").style.display = "inline-block";
