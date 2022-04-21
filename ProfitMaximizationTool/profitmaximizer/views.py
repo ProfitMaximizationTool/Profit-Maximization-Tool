@@ -5,7 +5,7 @@ from multiprocessing import context
 from tkinter.tix import AUTO
 from turtle import update
 from django.shortcuts import render, redirect
-from django.http import HttpResponse, HttpResponseRedirect
+from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
 from django.contrib.auth import login, logout, authenticate
 from django.contrib.auth.decorators import login_required
 from profitmaximizer.models import BusinessOwner, IngredientRecord, ProductRecord, SalesRecord, ProductionRecord
@@ -14,6 +14,9 @@ from django.views.decorators.csrf import csrf_protect
 from profitmaximizer.utils import update_all_products, update_all_revenues, update_all_expenses, update_all_profit
 import json
 from datetime import datetime
+import numpy
+from scipy.optimize import linprog
+
 
 def index_view(request):
 	# default loading of index page
@@ -626,6 +629,44 @@ def profit_tracker_view(request):
 	return render(request, "profit_tracker.html", 
 		{"username": business_owner.username, "business_name": business_owner.business_name,
 		"full_name": business_owner.full_name, "page": "profit-tracker"})
+
+
+
+@login_required
+def profit_optimizer_view(request):
+	business_owner = BusinessOwner.objects.get(username=request.user.username)
+
+	products_data = ProductRecord.objects.filter(owner=business_owner).order_by("id")
+	inventory_data = IngredientRecord.objects.filter(owner=business_owner).order_by("id")
+
+	constraints_LHS = []
+	for ingr in inventory_data:
+		row = []
+		for prod in products_data:
+			row.append(prod.ingredients.get(ingr.ingredient_name, 0))
+		constraints_LHS.append(row)
+
+	constraints_LHS = numpy.array(constraints_LHS)
+	constratins_RHS = numpy.array([i.daily_units for i in inventory_data]) # daily units of each ingredient
+
+	prices = numpy.array([i.price for i in products_data])
+	costs = numpy.array([i.cost for i in products_data])
+
+	profit_coeff = -(prices - costs) # assumes all products produced are sold;
+	# we can maximize profit by minimizing the negative of profit
+
+	result = linprog(profit_coeff, A_ub=constraints_LHS, b_ub=constratins_RHS, bounds=(0, None))
+
+	optimal = {
+		"Status: ": result.message,
+		"Optimal Profit:": -(round(result.fun, 2)), 
+		"Optimal Production": {prod.product_name: round(result.x[i]) for i, prod in enumerate(products_data)},
+
+	}
+
+
+	return JsonResponse(optimal)
+
 
 
 

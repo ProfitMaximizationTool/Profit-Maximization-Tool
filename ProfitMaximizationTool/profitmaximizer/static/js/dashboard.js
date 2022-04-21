@@ -459,3 +459,20 @@ function deleteNameQtyInputRow(removeButton){
 	var nameQtyInputRow = removeButton.parentElement.parentElement;
 	nameQtyInputTable.removeChild(nameQtyInputRow);
 }
+
+
+
+
+document.getElementById("optimize-profit-btn").addEventListener("click", function(event){
+	event.preventDefault();
+
+	var request = new XMLHttpRequest();
+	request.open("GET", "/dashboard/profit-optimizer/")
+	request.send();
+
+	request.onreadystatechange = function(){
+		if (this.readyState == 4 && this.status == 200){
+			alert(this.responseText);
+		}
+	};
+});

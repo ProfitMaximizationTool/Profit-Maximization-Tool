@@ -32,4 +32,6 @@ urlpatterns = [
 	# path('delete-production-record/', views.delete_production_record_view, name='delete-production-record'),
 
 	path('dashboard/profit-tracker/', views.profit_tracker_view, name='profit-tracker'),
+
+	path('dashboard/profit-optimizer/', views.profit_optimizer_view, name='profit-optimizer'),
 ]
