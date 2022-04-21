@@ -324,6 +324,14 @@
     outline: none;
 }
 
+.optimize-size {
+    width: 400px;
+    height: auto;
+    max-height: 80%;
+    min-height: 40%;
+    overflow-y: scroll;
+}
+
 /* Please generalize .import (by changing name). I used this class in other overlays as well*/
 
 .import-size {

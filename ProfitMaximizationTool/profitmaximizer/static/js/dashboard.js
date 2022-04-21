@@ -6,6 +6,10 @@ function closeimportfile(){
 	document.getElementById("import-overlay").style.display = "none";
 }
 
+function openoptimizeprofit(){
+	document.getElementById("optimize-overlay").style.display = "block";
+}
+
 function closeOverlay(){
 	Array.prototype.slice.call(document.getElementsByClassName("overlay")).forEach(function(element){
 		element.style.display = "none";
@@ -465,6 +469,7 @@ function deleteNameQtyInputRow(removeButton){
 
 document.getElementById("optimize-profit-btn").addEventListener("click", function(event){
 	event.preventDefault();
+	openoptimizeprofit();
 
 	var request = new XMLHttpRequest();
 	request.open("GET", "/dashboard/profit-optimizer/")
