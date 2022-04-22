@@ -11,7 +11,7 @@ from django.contrib.auth.decorators import login_required
 from profitmaximizer.models import BusinessOwner, IngredientRecord, ProductRecord, SalesRecord, ProductionRecord
 from django.core.exceptions import ObjectDoesNotExist
 from django.views.decorators.csrf import csrf_protect
-from profitmaximizer.utils import update_all_products, update_all_revenues, update_all_expenses, update_all_profit
+from profitmaximizer.utils import *
 import json
 from datetime import datetime
 import numpy
@@ -634,6 +634,7 @@ def profit_tracker_view(request):
 
 @login_required
 def profit_optimizer_view(request):
+	avg_sales_products = get_avg_sales() # dictionary containing average daily sales for each product
 	business_owner = BusinessOwner.objects.get(username=request.user.username)
 
 	products_data = ProductRecord.objects.filter(owner=business_owner).order_by("id")
@@ -649,13 +650,14 @@ def profit_optimizer_view(request):
 	constraints_LHS = numpy.array(constraints_LHS)
 	constratins_RHS = numpy.array([i.daily_units for i in inventory_data]) # daily units of each ingredient
 
-	prices = numpy.array([i.price for i in products_data])
-	costs = numpy.array([i.cost for i in products_data])
+	# prices = numpy.array([i.price for i in products_data])
+	# costs = numpy.array([i.cost for i in products_data])
 
-	profit_coeff = -(prices - costs) # assumes all products produced are sold;
+	# profit_coeff = -(prices - costs) # assumes all products produced are sold;
 	# we can maximize profit by minimizing the negative of profit
+	objective_func_coeffs = numpy.array(get_objective_eqn(avg_sales_products))
 
-	result = linprog(profit_coeff, A_ub=constraints_LHS, b_ub=constratins_RHS, bounds=(0, None))
+	result = linprog(objective_func_coeffs, A_ub=constraints_LHS, b_ub=constratins_RHS, bounds=(0, None))
 
 	optimal = {
 		"Status: ": result.message,
