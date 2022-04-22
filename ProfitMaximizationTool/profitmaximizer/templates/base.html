@@ -78,6 +78,25 @@
         <div class="form-title">
             Profit Optimizer
         </div>
+        <div class="left-text small-font dark-font" id="profit-optimizer-status">
+        </div>
+        <div class="left-text small-font dark-font" id="optimal-profit">
+        </div>
+        <div class="table-container">
+            <table class="data-table" id="optimizer-result-table">
+                <tr class="data-table-row">
+                    <th class="record-name data-table-header"> Product </th> 
+                    <th class="record-price data-table-header"> Quantity </th> 
+                </tr>
+            </table>
+        </div>
+        <div>
+            <form action="/dashboard/profit-optimizer/" method="POST">
+                {% csrf_token %}
+                <input type="text" name="optimizer-result" class="hidden" id="optimizer-result-container">
+                <input type="submit" class="fill dynamic-btn btn" value="ADD TO PRODUCTION TABLE" name="add-to-production-table-btn">
+            </form>
+        </div>
     </div>
 
     <div class="nav-bar">

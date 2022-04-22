@@ -12,11 +12,11 @@ from profitmaximizer.models import BusinessOwner, IngredientRecord, ProductRecor
 from django.core.exceptions import ObjectDoesNotExist
 from django.views.decorators.csrf import csrf_protect
 from profitmaximizer.utils import *
-import json
 from datetime import datetime
-import numpy
 from scipy.optimize import linprog
 
+import numpy
+import json
 
 def index_view(request):
 	# default loading of index page
@@ -127,40 +127,6 @@ def import_inventory_table(request, business_owner):
 	prompt = "successful-ingredient-import-prompt"
 	return prompt
 
-# def import_products_table(request, business_owner):
-# 	products_file = request.FILES['products-table']
-# 	if not products_file.name.endswith('.csv'):
-# 		prompt = "unsuccessful-product-import-prompt"
-# 		return prompt
-# 	products_lines = products_file.read().decode("utf-8")
-# 	products_data = products_lines.split("\n")
-# 	products_data[0] = products_data[0].split(",")
-# 	products_data[0][-1] = products_data[0][-1].replace("\r","")
-# 	last_ingr_index = len(products_data[0])
-# 	first_ingr_index = products_data[0].index("price")+1
-# 	for i in range(1,len(products_data)-1):
-# 		products_data[i] = products_data[i].split(",")
-# 		products_data[i][1] = float(products_data[i][1]);  # price
-# 		products_data[i][first_ingr_index:] = [int(x) for x in products_data[i][first_ingr_index:]] # convert ingredients quantity to integer
-# 		ingr = {}
-# 		for j in range(first_ingr_index,last_ingr_index):
-# 			quantity = products_data[i][j]
-# 			if quantity != 0:
-# 				ingr[products_data[0][j]] = quantity
-# 		try:
-# 			temp_product = ProductRecord.objects.get(product_name=products_data[i][0],owner=business_owner)
-# 			temp_product.price = products_data[i][1]
-# 			temp_product.ingredients = ingr
-# 			temp_product.update_cost()
-# 			temp_product.save()
-# 		except ObjectDoesNotExist:
-# 			temp_product = ProductRecord(
-# 				product_name=products_data[i][0],price=products_data[i][1],ingredients=ingr,owner=business_owner)
-# 			temp_product.save()
-# 			temp_product.update_cost()
-# 	update_all_revenues()
-# 	prompt = "successful-product-import-prompt"
-# 	return prompt
 
 def import_products_table(request, business_owner):
     products_file = request.FILES['products-table']
@@ -633,11 +599,21 @@ def profit_tracker_view(request):
 
 
 @login_required
+@csrf_protect
 def profit_optimizer_view(request):
 	business_owner = BusinessOwner.objects.get(username=request.user.username)
 
+	if request.method == "POST" and "add-to-production-table-btn" in request.POST:
+		print("********************************************************")
+		print((request.POST["optimizer-result"])) # parse this as JSON
+
+		return redirect("/dashboard/production/")
+
+
 	products_data = ProductRecord.objects.filter(owner=business_owner).order_by("id")
 	inventory_data = IngredientRecord.objects.filter(owner=business_owner).order_by("id")
+
+	
 
 	constraints_LHS = []
 	for ingr in inventory_data:
@@ -663,14 +639,15 @@ def profit_optimizer_view(request):
 	result = linprog(objective_func_coeffs, A_ub=constraints_LHS, b_ub=constratins_RHS, bounds=(0, None))
 
 	optimal = {
-		"Status: ": result.message,
-		"Optimal Profit:": -(round(result.fun, 2)), 
-		"Optimal Production": {prod.product_name: round(result.x[i]) for i, prod in enumerate(products_data)},
+		"status": result.message,
+		"optimal-profit": -(round(result.fun, 2)), 
+		"optimal-production": {prod.product_name: round(result.x[i]) for i, prod in enumerate(products_data)},
 
 	}
 
 
 	return JsonResponse(optimal)
+
 
 
 

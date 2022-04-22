@@ -6,9 +6,6 @@ function closeimportfile(){
 	document.getElementById("import-overlay").style.display = "none";
 }
 
-function openoptimizeprofit(){
-	document.getElementById("optimize-overlay").style.display = "block";
-}
 
 function closeOverlay(){
 	Array.prototype.slice.call(document.getElementsByClassName("overlay")).forEach(function(element){
@@ -465,11 +462,46 @@ function deleteNameQtyInputRow(removeButton){
 }
 
 
+function openoptimizeprofit(responseText){
+	var profitOptimizerOutput = JSON.parse(responseText);
+	var container = document.getElementById("optimize-overlay");
+
+	console.log(profitOptimizerOutput);
+	document.getElementById("profit-optimizer-status").innerText = "Calculation Status: " + profitOptimizerOutput["status"];
+	document.getElementById("optimal-profit").innerText = "Optimal Profit: " + profitOptimizerOutput["optimal-profit"];
+
+	var table = document.getElementById("optimizer-result-table");
+
+	clearNameQtyInputTable(table);
+	for (var product in profitOptimizerOutput["optimal-production"]){
+		if (profitOptimizerOutput["optimal-production"].hasOwnProperty(product)){
+			var tr = document.createElement("tr");
+			tr.classList.add("data-table-row");
+
+			var tdName = document.createElement("td");
+			var tdQty = document.createElement("td");
+			tdName.classList.add("data-table-cell");
+			tdQty.classList.add("data-table-cell")
+
+
+			tdName.innerText = product;
+			tdQty.innerText = profitOptimizerOutput["optimal-production"][product];
+
+			tr.appendChild(tdName);
+			tr.appendChild(tdQty);
+			table.appendChild(tr);
+		}
+	}
+	document.getElementById("optimizer-result-container").value = responseText;
+
+
+	container.style.display = "block";
+}
 
 
 document.getElementById("optimize-profit-btn").addEventListener("click", function(event){
 	event.preventDefault();
-	openoptimizeprofit();
+	
 
 	var request = new XMLHttpRequest();
 	request.open("GET", "/dashboard/profit-optimizer/")
@@ -477,7 +509,8 @@ document.getElementById("optimize-profit-btn").addEventListener("click", functio
 
 	request.onreadystatechange = function(){
 		if (this.readyState == 4 && this.status == 200){
-			alert(this.responseText);
+			
+			openoptimizeprofit(this.responseText);
 		}
 	};
 });
