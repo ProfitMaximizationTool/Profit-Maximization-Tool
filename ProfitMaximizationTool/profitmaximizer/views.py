@@ -262,7 +262,7 @@ def import_production_table(request, business_owner):
 			temp_production.save()
 			temp_production.update_expenses()
 	
-	update_all_profit()
+	update_all_profit(business_owner)
 	prompt = "successful-production-import-prompt"
 	return prompt
 
@@ -296,7 +296,7 @@ def products_view(request):
 	business_owner = BusinessOwner.objects.get(username=request.user.username)
 	products_data = ProductRecord.objects.filter(owner=business_owner).order_by("id")
 	inventory_data = IngredientRecord.objects.filter(owner=business_owner).order_by("id")
-	update_all_products()
+	update_all_products(business_owner)
 	prompt = "none"
 
 	if request.method == "POST":
@@ -335,7 +335,7 @@ def add_product_record(request, business_owner):
 		print(e)
 		prompt = "invalid-product-ingredients-input"
 
-	update_all_revenues()
+	update_all_revenues(business_owner)
 	return prompt
 
 
@@ -364,7 +364,7 @@ def edit_product_record(request, business_owner):
 	except:
 		prompt = "invalid-product-ingredients-input"
 	
-	update_all_revenues()
+	update_all_revenues(business_owner)
 	return prompt
 
 def delete_product_record(request, business_owner):
@@ -374,7 +374,7 @@ def delete_product_record(request, business_owner):
 	delete_record.delete()
 	prompt = "successful-product-delete-prompt"
 
-	update_all_revenues()
+	update_all_revenues(business_owner)
 	return prompt
 
 
@@ -410,7 +410,7 @@ def add_ingredient_record(request, business_owner):
 	temporary.save()
 	prompt = "successful-ingredient-add-prompt"
 	
-	update_all_products()
+	update_all_products(business_owner)
 	return prompt
 
 
@@ -430,7 +430,7 @@ def edit_ingredient_record(request, business_owner):
 	record.save()
 	prompt = "successful-ingredient-edit-prompt"
 
-	update_all_products()
+	update_all_products(business_owner)
 
 	return prompt
 
@@ -443,7 +443,7 @@ def delete_ingredient_record(request, business_owner):
 	delete_record.delete()
 	prompt = "successful-ingredient-delete-prompt"
 
-	update_all_products()
+	update_all_products(business_owner)
 	return prompt
 
 
@@ -463,8 +463,8 @@ def sales_view(request):
 		elif "delete-sales-btn" in request.POST:
 			prompt = delete_sales_record(request, business_owner)
 
-	update_all_revenues()
-	update_all_profit()
+	update_all_revenues(business_owner)
+	update_all_profit(business_owner)
 	return render(request, "sales.html", 
 		{"username": business_owner.username, "business_name": business_owner.business_name,
 		"full_name": business_owner.full_name, "page": "sales", "sales_data": sales_data, "products_data": products_data,
@@ -542,7 +542,7 @@ def production_view(request):
 	business_owner = BusinessOwner.objects.get(username=request.user.username)
 	products_data = ProductRecord.objects.filter(owner=business_owner).order_by("id")
 	production_data = ProductionRecord.objects.filter(owner=business_owner).order_by("date")
-	update_all_expenses()
+	update_all_expenses(business_owner)
 	prompt = "none"
 
 	if request.method == "POST":
@@ -577,7 +577,7 @@ def add_production_record(request, business_owner):
 	except Exception as e:
 		print(e)
 		prompt = "invalid-production-add-input"
-	update_all_profit()
+	update_all_profit(business_owner)
 	return prompt
 
 
@@ -605,7 +605,7 @@ def edit_production_record(request, business_owner):
 	except Exception as e:
 		print(e)
 		prompt = "invalid-production-edit-input"
-	update_all_profit()
+	update_all_profit(business_owner)
 	return prompt
 
 
@@ -634,7 +634,6 @@ def profit_tracker_view(request):
 
 @login_required
 def profit_optimizer_view(request):
-	avg_sales_products = get_avg_sales() # dictionary containing average daily sales for each product
 	business_owner = BusinessOwner.objects.get(username=request.user.username)
 
 	products_data = ProductRecord.objects.filter(owner=business_owner).order_by("id")
@@ -650,12 +649,16 @@ def profit_optimizer_view(request):
 	constraints_LHS = numpy.array(constraints_LHS)
 	constratins_RHS = numpy.array([i.daily_units for i in inventory_data]) # daily units of each ingredient
 
-	# prices = numpy.array([i.price for i in products_data])
-	# costs = numpy.array([i.cost for i in products_data])
-
-	# profit_coeff = -(prices - costs) # assumes all products produced are sold;
+	avg_sales_products = None
+	objective_func_coeffs = None
+	if len(SalesRecord.objects.filter(owner=business_owner)) > 0:
+		avg_sales_products = get_avg_sales(business_owner) # dictionary containing average daily sales for each product
+		objective_func_coeffs = numpy.array(get_objective_eqn(products_data,avg_sales_products))
+	else:
+		prices = numpy.array([i.price for i in products_data])
+		costs = numpy.array([i.cost for i in products_data])
+		objective_func_coeffs = -(prices - costs) # assumes all products produced are sold;
 	# we can maximize profit by minimizing the negative of profit
-	objective_func_coeffs = numpy.array(get_objective_eqn(avg_sales_products))
 
 	result = linprog(objective_func_coeffs, A_ub=constraints_LHS, b_ub=constratins_RHS, bounds=(0, None))
 
