@@ -603,13 +603,6 @@ def profit_tracker_view(request):
 def profit_optimizer_view(request):
 	business_owner = BusinessOwner.objects.get(username=request.user.username)
 
-	if request.method == "POST" and "add-to-production-table-btn" in request.POST:
-		print("********************************************************")
-		print((request.POST["optimizer-result"])) # parse this as JSON
-
-		return redirect("/dashboard/production/")
-
-
 	products_data = ProductRecord.objects.filter(owner=business_owner).order_by("id")
 	inventory_data = IngredientRecord.objects.filter(owner=business_owner).order_by("id")
 
@@ -645,6 +638,23 @@ def profit_optimizer_view(request):
 
 	}
 
+	if request.method == "POST" and "add-to-production-table-btn" in request.POST:
+		new_production_date = datetime.today().strftime('%Y-%m-%d')
+		new_production_products = {}
+		for i, item in enumerate(products_data):
+			if (round(result.x[i]) == 0):
+				continue
+			new_production_products[item.product_name] = int(round(result.x[i]))
+		try:
+			temporary = ProductionRecord(date=new_production_date, production_report= new_production_products, owner=business_owner)
+			temporary.update_expenses()
+			temporary.save()	
+			update_all_profit(business_owner)
+		except:
+			ProductionRecord.objects.filter(owner=business_owner, date = new_production_date).update(production_report = new_production_products)
+
+
+		return redirect("/dashboard/production/")
 
 	return JsonResponse(optimal)
 

@@ -6,11 +6,11 @@ def update_all_products(BusinessOwner):
 
 def update_all_revenues(BusinessOwner):
     for sales in SalesRecord.objects.filter(owner=BusinessOwner):
-        sales.update_revenue(BusinessOwner)
+        sales.update_revenue()
 
 def update_all_profit(BusinessOwner):
     for sales in SalesRecord.objects.filter(owner=BusinessOwner):
-        sales.update_profit(BusinessOwner)
+        sales.update_profit()
 
 def update_all_expenses(BusinessOwner):
     for prod in ProductionRecord.objects.filter(owner=BusinessOwner):
