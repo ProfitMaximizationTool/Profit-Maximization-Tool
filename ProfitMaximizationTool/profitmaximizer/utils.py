@@ -36,3 +36,9 @@ def get_objective_eqn(Products_data,avg_sales_product):
         coeffs.append(coefficient)
     return coeffs
 
+def convert_to_profit(n,avg_sales_product,products_data):
+    sX = [avg_sales_product[key] for key in avg_sales_product]
+    profit = round(-n.fun)
+    for i in range(len(n.x)):
+        profit -= sX[i]*products_data[i].price*(n.x[i] - 1)
+    return round(profit)

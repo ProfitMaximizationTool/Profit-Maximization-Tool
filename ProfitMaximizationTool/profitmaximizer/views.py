@@ -606,7 +606,6 @@ def profit_optimizer_view(request):
 	products_data = ProductRecord.objects.filter(owner=business_owner).order_by("id")
 	inventory_data = IngredientRecord.objects.filter(owner=business_owner).order_by("id")
 
-	
 
 	constraints_LHS = []
 	for ingr in inventory_data:
@@ -620,7 +619,8 @@ def profit_optimizer_view(request):
 
 	avg_sales_products = None
 	objective_func_coeffs = None
-	if len(SalesRecord.objects.filter(owner=business_owner)) > 0:
+	n = len(SalesRecord.objects.filter(owner=business_owner))
+	if n > 0:
 		avg_sales_products = get_avg_sales(business_owner) # dictionary containing average daily sales for each product
 		objective_func_coeffs = numpy.array(get_objective_eqn(products_data,avg_sales_products))
 	else:
@@ -630,10 +630,11 @@ def profit_optimizer_view(request):
 	# we can maximize profit by minimizing the negative of profit
 
 	result = linprog(objective_func_coeffs, A_ub=constraints_LHS, b_ub=constratins_RHS, bounds=(0, None))
+	F = convert_to_profit(result,avg_sales_products,products_data) if n > 0 else round(-result.fun,2)
 
 	optimal = {
 		"status": result.message,
-		"optimal-profit": -(round(result.fun, 2)), 
+		"optimal-profit": F, 
 		"optimal-production": {prod.product_name: round(result.x[i]) for i, prod in enumerate(products_data)},
 
 	}
