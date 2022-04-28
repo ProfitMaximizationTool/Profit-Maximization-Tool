@@ -9,6 +9,19 @@ This is a course requirements for CS191/192 Software Engineering Courses of the 
 - Diokno, Alyssa Beatrice
 - Loristo, John Ivan
 
+## Sprint 4
+**start date:** April 18, 2022
+**end date:** April 29, 2022
+
+### Use cases accomplished in sprint 3
+- UC6-S1: Business owner uses the profit optimizer tool
+
+### Changelog in sprint 4:
+- Optimize profit button works now
+- Quantity of products that must be produced (and sold) to obtain Optimal profit for the day is computed and displayed
+- The suggested result of Profit Optimizer can be added to Production table if the user wants to
+- Suggested quantity of products to be produced takes into account the top selling products according to Sales Table
+
 ## Sprint 3
 
 **start date:** March 21, 2022
