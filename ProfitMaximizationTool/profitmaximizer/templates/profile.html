@@ -3,8 +3,8 @@
 {% block title %}<title>Profitify: Profile</title>{% endblock %}
 
 {% block page-content %}
-    <div class="left-text dark-font xlarge-font bold text">
-        EDIT PROFILE
+    <div class="page-title">
+        Edit Profile
     </div>
     <br>
 
@@ -13,28 +13,31 @@
             <div class="success prompt input-width text" id="saved-profile-prompt">
                 Saved!
             </div>
-            <form autocomplete="off" method="POST">
-                {% csrf_token %}
-                <div class="left-text dark-font large-font bold text">
-                    ACCOUNT INFORMATION
-                </div>
-                <div class="left-text dark-font large-font text">
-                    Full Name
-                    <div class="input-box input-width">
-                        <ion-icon class="form-icon" name="person"></ion-icon>
-                        <input class="user-info" type="text" value="{{ full_name|safe}}" name="new-full-name">
+            <div class="one-third">
+                <form autocomplete="off" method="POST">
+                    {% csrf_token %}
+                    <div class="left-text dark-font large-font bold text">
+                        Account Information
                     </div>
-                </div>
-                <div class="left-text dark-font large-font text">
-                    Business Name
-                    <div class="input-box input-width">
-                        <ion-icon class="form-icon" name="business"></ion-icon>
-                        <input class="user-info" type="text" value="{{ business_name|safe}}" name="new-business-name">
+                    <br>
+                    <div class="small-font left-text dark-font text">
+                        Full Name
+                        <div class="string-input-size input-box">
+                            <ion-icon class="form-icon" name="person"></ion-icon>
+                            <input class="user-info" type="text" value="{{ full_name|safe}}" name="new-full-name">
+                        </div>
                     </div>
-                </div>
-                <br>
-                <input type="submit" class="left fill medium-btn btn" value="SAVE" name="save-btn" >
-            </form>
+                    <div class="small-font left-text dark-font text">
+                        Business Name
+                        <div class="string-input-size input-box">
+                            <ion-icon class="form-icon" name="business"></ion-icon>
+                            <input class="user-info" type="text" value="{{ business_name|safe}}" name="new-business-name">
+                        </div>
+                    </div>
+                    <br>
+                    <input type="submit" class="fill small-btn btn" value="Save changes" name="save-btn" >
+                </form>
+            </div>
         </div>
     </div>
 {% endblock %}

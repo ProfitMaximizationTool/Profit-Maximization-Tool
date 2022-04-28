@@ -803,6 +803,10 @@ a:hover {
     margin-left: 10px;
 }
 
+.record-icon:hover{
+    color: var(--primary);
+}
+
 .data-table-row {
     height: auto;
     width: 100%;
@@ -828,6 +832,7 @@ a:hover {
 }
 
 .data-table-header {
+    padding-top: 15px;
     padding-bottom: 15px;
 }
 
@@ -916,15 +921,28 @@ a:hover {
 
 .one-third {
     width: calc((100% / 3) - 20px);
-    height: auto;
+    height: 500px;
+    max-height: 500px;
 }
 
 .two-thirds {
     width: calc((200% / 3) - 20px);
-    height: auto;
+    height: 500px;
+    max-height: 500px;
+}
+
+.numbers {
+    font-size: 35px;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 500;
+    color: var(--primary);
 }
 
 /* Scrollbar */
 ::-webkit-scrollbar {
     width: 0px;
+}
+
+i {
+    color: var(--dark);
 }

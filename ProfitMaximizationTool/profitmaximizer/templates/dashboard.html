@@ -38,28 +38,40 @@
     <div class="dashboard-container">
     
         <div class="one-fourth block default-font">
-            <span class="xsmall-font"> Number of Products </span>
-            <
+            <div class="xsmall-font"> Number of Products </div>
+            <div class="numbers"> 3513 </div>
         </div>
 
         <div class="one-fourth block default-font small-font">
-            <span class="xsmall-font"> Number of Inventory Items </span>
+            <div class="xsmall-font"> Number of Inventory Items </div>
+            <div class="numbers"> 6089 </div>
         </div>
 
         <div class="one-fourth block default-font small-font">
-            <span class="xsmall-font"> Average Profit </span>
+            <div class="xsmall-font"> Average Profit </div>
+            <div class="numbers"> PhP 7632 </div>
         </div>
 
         <div class="one-fourth block default-font small-font">
-            <span class="xsmall-font"> Average Expenses  </span>
+            <div class="xsmall-font"> Average Expenses  </div>
+            <div class="numbers"> PhP 2457 </div>
         </div>
 
         <div class="two-thirds block default-font small-font">
-            <span class="xsmall-font"> Profit Chart </span>
+            <div class="xsmall-font"> Profit Chart </div>
         </div>
 
         <div class="one-third block default-font">
-            <span class="xsmall-font"> Optimal Production </span>
+            <div class="xsmall-font"> Optimal Production </div>
+            <br>
+            <div class="table-container">
+                <table class="data-table" id="optimizer-result-table">
+                    <tr class="optimal-table-row">
+                        <th class="record-name optimal-table-header"> Product </th> 
+                        <th class="record-price optimal-table-header"> Quantity </th> 
+                    </tr>
+                </table>
+            </div>
         </div>
     </div>
 {% endblock %}
