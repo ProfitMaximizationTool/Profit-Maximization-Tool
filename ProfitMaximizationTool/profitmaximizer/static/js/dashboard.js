@@ -461,13 +461,12 @@ function deleteNameQtyInputRow(removeButton){
 	nameQtyInputTable.removeChild(nameQtyInputRow);
 }
 
-
 function openoptimizeprofit(responseText){
 	var profitOptimizerOutput = JSON.parse(responseText);
 	var container = document.getElementById("optimize-overlay");
 
 	console.log(profitOptimizerOutput);
-	document.getElementById("profit-optimizer-status").innerText = "Calculation Status: " + profitOptimizerOutput["status"];
+	document.getElementById("profit-optimizer-status").innerText = profitOptimizerOutput["status"];
 	document.getElementById("optimal-profit").innerText = "Optimal Profit: " + profitOptimizerOutput["optimal-profit"];
 
 	var table = document.getElementById("optimizer-result-table");
@@ -476,12 +475,12 @@ function openoptimizeprofit(responseText){
 	for (var product in profitOptimizerOutput["optimal-production"]){
 		if (profitOptimizerOutput["optimal-production"].hasOwnProperty(product)){
 			var tr = document.createElement("tr");
-			tr.classList.add("data-table-row");
+			tr.classList.add("optimal-table-row");
 
 			var tdName = document.createElement("td");
 			var tdQty = document.createElement("td");
-			tdName.classList.add("data-table-cell");
-			tdQty.classList.add("data-table-cell")
+			tdName.classList.add("optimal-table-cell");
+			tdQty.classList.add("optimal-table-cell")
 
 
 			tdName.innerText = product;
@@ -494,14 +493,12 @@ function openoptimizeprofit(responseText){
 	}
 	document.getElementById("optimizer-result-container").value = responseText;
 
-
 	container.style.display = "block";
 }
 
 
 document.getElementById("optimize-profit-btn").addEventListener("click", function(event){
 	event.preventDefault();
-	
 
 	var request = new XMLHttpRequest();
 	request.open("GET", "/dashboard/profit-optimizer/")
@@ -509,7 +506,6 @@ document.getElementById("optimize-profit-btn").addEventListener("click", functio
 
 	request.onreadystatechange = function(){
 		if (this.readyState == 4 && this.status == 200){
-			
 			openoptimizeprofit(this.responseText);
 		}
 	};

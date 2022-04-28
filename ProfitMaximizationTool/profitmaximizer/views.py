@@ -634,7 +634,7 @@ def profit_optimizer_view(request):
 
 	optimal = {
 		"status": result.message,
-		"optimal-profit": F, 
+		"optimal-profit": round(F,2), 
 		"optimal-production": {prod.product_name: round(result.x[i]) for i, prod in enumerate(products_data)},
 
 	}

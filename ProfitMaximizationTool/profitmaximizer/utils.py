@@ -40,5 +40,5 @@ def convert_to_profit(n,avg_sales_product,products_data):
     sX = [avg_sales_product[key] for key in avg_sales_product]
     profit = round(-n.fun)
     for i in range(len(n.x)):
-        profit -= sX[i]*products_data[i].price*(n.x[i] - 1)
+        profit -= sX[i]*float(products_data[i].price)*(n.x[i]- 1)
     return round(profit)

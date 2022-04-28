@@ -6,7 +6,7 @@
     <div class="page-title">
         Dashboard
     </div>
-    <div class="left-text dark-font xlarge-font text">
+    <div class="left-text dark-font large-font text">
         Hi, {{ full_name|safe }}.
     </div>
     <div class="success prompt full-width center text" id="successful-ingredient-import-prompt">
@@ -34,5 +34,31 @@
     <div class="error prompt full-width" id="unsuccessful-production-import-prompt">
         Production file upload unsuccessful, file extenstion must be .csv.
     </div>
+    <br>
+    <div class="dashboard-container">
+    
+        <div class="one-fourth block default-font">
+            NUMBER OF PRODUCTS
+        </div>
 
+        <div class="one-fourth block default-font">
+            NUMBER OF INVENTORY ITEMS
+        </div>
+
+        <div class="one-fourth block default-font">
+            insert average profit here
+        </div>
+
+        <div class="one-fourth block default-font">
+            insert average expenses here
+        </div>
+
+        <div class="two-thirds block default-font">
+            insert profit chart here
+        </div>
+
+        <div class="one-third block default-font">
+            insert optimal number of products to produce here
+        </div>
+    </div>
 {% endblock %}

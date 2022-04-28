@@ -21,42 +21,34 @@
             <div class="card-container">
 
                 <div class="card" id="products-file">
-                    <div class="face">
-                        <div class="card-content">
-                            <ion-icon class="card-icon" name="pricetag"></ion-icon>
-                            <div class="extra-bold">Products</div>
-                            <p class="xsmall-font regular">The Products table (must be csv file). </p>
-                        </div>
+                    <div class="card-content">
+                        <ion-icon class="card-icon" name="pricetag"></ion-icon>
+                        <div class="extra-bold">Products</div>
+                        <p class="xsmall-font regular">The Products table (must be csv file). </p>
                     </div>
                 </div>
 
                 <div class="card" id="inventory-file">
-                    <div class="face">
-                        <div class="card-content">
-                            <ion-icon class="card-icon" name="briefcase"></ion-icon>
-                            <div class="extra-bold">Inventory</div>
-                            <p class="xsmall-font regular">The Inventory table (must be csv file). </p>
-                        </div>
+                    <div class="card-content">
+                        <ion-icon class="card-icon" name="briefcase"></ion-icon>
+                        <div class="extra-bold">Inventory</div>
+                        <p class="xsmall-font regular">The Inventory table (must be csv file). </p>
                     </div>
                 </div>
 
                 <div class="card" id="sales-file">
-                    <div class="face">
-                        <div class="card-content">
-                            <ion-icon class="card-icon" name="wallet"></ion-icon>
-                            <div class="extra-bold">Sales</div>
-                            <p class="xsmall-font regular">The Sales table (must be csv file). </p>
-                        </div>
+                    <div class="card-content">
+                        <ion-icon class="card-icon" name="wallet"></ion-icon>
+                        <div class="extra-bold">Sales</div>
+                        <p class="xsmall-font regular">The Sales table (must be csv file). </p>
                     </div>
                 </div>
 
                 <div class="card" id="production-file">
-                    <div class="face">
-                        <div class="card-content">
-                            <ion-icon class="card-icon" name="fast-food"></ion-icon>
-                            <div class="extra-bold">Production</div>
-                            <p class="xsmall-font regular">The Production table (must be csv file). </p>
-                        </div>
+                    <div class="card-content">
+                        <ion-icon class="card-icon" name="fast-food"></ion-icon>
+                        <div class="extra-bold">Production</div>
+                        <p class="xsmall-font regular">The Production table (must be csv file). </p>
                     </div>
                 </div>
             </div>
@@ -73,28 +65,35 @@
         </div>
     </div>
 
+    <div class="loading-size overlay" id="loading-overlay">
+        <div class="loader"></div>
+    </div>
+
     <div class="optimize-size overlay" id="optimize-overlay">
         <button class="close x" id="close-import"><b>&#10005</b></button>
         <div class="form-title">
-            Profit Optimizer
+            Optimize Profit
         </div>
-        <div class="left-text small-font dark-font" id="profit-optimizer-status">
+        <br>
+        <div class="default-font xsmall-font left-text dark-font" id="profit-optimizer-status">
         </div>
-        <div class="left-text small-font dark-font" id="optimal-profit">
+        <div class="default-font xsmall-font left-text dark-font" id="optimal-profit">
         </div>
+        <br>
         <div class="table-container">
             <table class="data-table" id="optimizer-result-table">
-                <tr class="data-table-row">
-                    <th class="record-name data-table-header"> Product </th> 
-                    <th class="record-price data-table-header"> Quantity </th> 
+                <tr class="optimal-table-row">
+                    <th class="record-name optimal-table-header"> Product </th> 
+                    <th class="record-price optimal-table-header"> Quantity </th> 
                 </tr>
             </table>
         </div>
+        <br>
         <div>
-            <form action="/dashboard/profit-optimizer/" method="POST">
+            <form action="/dashboard/profit-optimizer/" method="POST" class="centered-text">
                 {% csrf_token %}
                 <input type="text" name="optimizer-result" class="hidden" id="optimizer-result-container">
-                <input type="submit" class="fill dynamic-btn btn" value="ADD TO PRODUCTION TABLE" name="add-to-production-table-btn">
+                <input type="submit" class="fill small-btn btn" value="+ Add to Production Table" name="add-to-production-table-btn">
             </form>
         </div>
     </div>
