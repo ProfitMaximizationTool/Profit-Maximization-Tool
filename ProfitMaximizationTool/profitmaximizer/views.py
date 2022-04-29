@@ -467,7 +467,6 @@ def edit_sales_record(request, business_owner):
 		edit_id = request.POST['edit-sales-record-id']
 		edit_date = request.POST['edit-sales-record-date']
 		edit_date = datetime.strptime(edit_date,"%Y-%m-%d").date()
-		# print(f'edit_date = {edit_date}')
 
 		edit_sales_report = {}
 		for key in request.POST:
@@ -483,7 +482,6 @@ def edit_sales_record(request, business_owner):
 		record.update_revenue()
 		record.update_profit()
 		record.save()
-		print(f'successful edit')
 		prompt = "successful-sales-edit-prompt"
 	except Exception as e:
 		print(e)
@@ -622,7 +620,7 @@ def profit_optimizer_view(request):
 	n = len(SalesRecord.objects.filter(owner=business_owner))
 	if n > 0:
 		avg_sales_products = get_avg_sales(business_owner) # dictionary containing average daily sales for each product
-		objective_func_coeffs = numpy.array(get_objective_eqn(products_data,avg_sales_products))
+		objective_func_coeffs = (-1)*numpy.array(get_objective_eqn(products_data,avg_sales_products))
 	else:
 		prices = numpy.array([i.price for i in products_data])
 		costs = numpy.array([i.cost for i in products_data])
