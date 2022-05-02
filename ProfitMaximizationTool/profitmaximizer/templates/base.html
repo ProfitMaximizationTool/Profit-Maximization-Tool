@@ -97,14 +97,17 @@
 
     <div class="nav-bar">
         <div class="nav-bar-inner">
+            
             {% block nav-bar %}
                 <ion-icon class="nav-icon btn" id="toggle-sidebar-btn" name="menu"></ion-icon>
-
-                <img class="logo" src="{% static 'img/logo-01.png' %}">
-                <div class="nav-app-name">
-                    Profitify
-                </div>
-
+                <a class="page-link btn" href="/dashboard/">
+                    <img class="logo" src="{% static 'img/logo-01.png' %}">
+                 </a>
+                <a class="page-link btn" href="/dashboard/">
+                    <div class="nav-app-name">
+                        Profitify
+                    </div>
+               </a>
                 <div class="btn-width right">
                     <form method="POST" action="/signout/">
                         {% csrf_token %}
@@ -121,7 +124,7 @@
             <div class="sidebar-inner">
                 {% block sidebar %}
                     <br>
-                    <a class="page-link" href="/dashboard/profile/">
+                    <a class="page-link btn" href="/dashboard/profile/">
                         <div class="profile" id="go-to-profile-btn">
                             <img class="profile-photo" src="{% static 'img/pic.jpg' %}">
                             <div class="account-info">

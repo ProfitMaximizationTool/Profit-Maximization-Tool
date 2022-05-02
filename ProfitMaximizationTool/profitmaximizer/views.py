@@ -97,9 +97,16 @@ def dashboard_view(request):
 		if 'production-data' in request.FILES:
 			prompt = import_production_table(request, business_owner)
 
+	num_products = 0
+	num_ingredients = 0
+	avg_profit = 0
+	avg_expenses = 0
+
 	return render(request, "dashboard.html", 
 		{"username": business_owner.username, "business_name": business_owner.business_name,
-		"full_name": business_owner.full_name, "page": "dashboard", "prompt": prompt})
+		"full_name": business_owner.full_name, "page": "dashboard", "prompt": prompt,
+		"num_products": num_products, "num_ingredients": num_ingredients, "avg_profit": avg_profit,
+		"avg_expenses": avg_expenses})
 
 
 def import_inventory_table(request, business_owner):

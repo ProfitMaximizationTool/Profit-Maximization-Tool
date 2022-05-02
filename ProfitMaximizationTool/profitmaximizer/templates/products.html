@@ -146,22 +146,22 @@
     </div>
     <br>
     <div class="string-input-size search input-box">
-        <input type="text" class="string-input move" placeholder="Search product name">
+        <input type="text" class="string-input move" id="search-table" placeholder="Search product name">
     </div>
     <div class="table-container">
         <table class="data-table">
             <tr class="data-table-row">
                 <th class="record-id data-table-header"> ID </th> 
-                <th class="record-name data-table-header"> Product Name </th> 
+                <th class="record-name data-table-header search-key"> Product Name </th> 
                 <th class="record-items data-table-header"> Ingredients/Materials </th> 
                 <th class="record-price data-table-header"> Cost </th>
                 <th class="record-price data-table-header"> Price </th>
                 <th class="record-btns data-table-header">  </th>
             </tr>
             {% for product in products_data %}
-            <tr class="product-record data-table-row" id="product-record-{{ product.id }}">
+            <tr class="products-record data-table-row" id="product-record-{{ product.id }}">
                 <td class="record-id data-table-cell"> {{ product.id }} </td>
-                <td class="record-name data-table-cell"> {{ product.product_name }} </td>
+                <td class="record-name data-table-cell search-key"> {{ product.product_name }} </td>
                 
                 <td class="data-table-cell">
                 {% for ingr, quantity in product.ingredients.items %}

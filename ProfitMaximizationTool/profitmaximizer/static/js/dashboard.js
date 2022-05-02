@@ -1,3 +1,5 @@
+
+
 function openimportfile(){
     document.getElementById("import-overlay").style.display = "block";
 }
@@ -97,7 +99,12 @@ Array.prototype.slice.call(document.getElementsByClassName("card")).forEach(func
 		document.getElementById(element.id + "-container").click();
 	});
 });
+// ===================================================== DASHBOARD ===============================================================
+if (page == "dashboard"){
 
+}
+
+// ====================================================== INVENTORY ==================================================================
 if (page == "inventory"){
 	// Adding new ingredient record
 	document.getElementById("ingr-overlay-btn").addEventListener("click", function(event){
@@ -151,6 +158,7 @@ if (page == "inventory"){
 
 
 var nameQtyInputRowID = 0;
+// ====================================================== PRODUCTS ==================================================================
 if (page == "products"){
 	
 	// Adding new product record
@@ -221,7 +229,7 @@ if (page == "products"){
 
 }
 
-
+// ====================================================== SALES ==================================================================
 if (page == "sales"){
 	// Adding new sales record
 	document.getElementById("sales-overlay-btn").addEventListener("click", function(event){
@@ -307,7 +315,7 @@ if (page == "sales"){
 		document.getElementById("successful-sales-delete-prompt").style.display = "block";
 	}
 }
-
+// ====================================================== PRODUCTION ==================================================================
 if (page == "production"){
 	// Adding new production record
 	document.getElementById("production-overlay-btn").addEventListener("click", function(event){
@@ -392,6 +400,39 @@ if (page == "production"){
 		document.getElementById("successful-production-delete-prompt").style.display = "block";
 	}
 }
+// ==================================================== PROFIT TRACKER ===================================================
+if (page == "profit-tracker"){
+
+}
+
+
+
+// ========================================================================================================================
+
+
+if (page == "products" || page == "inventory" || page == "production" || page == "sales"){
+	document.getElementById("search-table").addEventListener("input", function(event){
+		event.preventDefault();
+		searchTable(event.target.value.toLowerCase(), page);
+	});
+
+
+	function searchTable(input, page){
+		Array.prototype.slice.call(document.getElementsByClassName(page + "-record")).forEach(function(element){
+			var recordKey = element.querySelector(".search-key");
+			if (recordKey.innerText.toLowerCase().search(input) != -1){
+				recordKey.parentElement.style.display = "";
+			}
+			else {
+				recordKey.parentElement.style.display = "none";
+			}
+		});
+	}
+}
+
+
+
+
 
 
 Array.prototype.slice.call(document.getElementsByClassName("add-name-qty-input-row")).forEach(function(element){
@@ -510,3 +551,5 @@ document.getElementById("optimize-profit-btn").addEventListener("click", functio
 		}
 	};
 });
+
+
