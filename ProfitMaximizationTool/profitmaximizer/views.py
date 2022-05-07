@@ -228,7 +228,7 @@ def import_production_table(request, business_owner):
 			temp_production.save()
 			temp_production.update_expenses()
 	
-	update_all_profit(business_owner)
+	# update_all_profit(business_owner)
 	prompt = "successful-production-import-prompt"
 	return prompt
 
@@ -301,7 +301,7 @@ def add_product_record(request, business_owner):
 		print(e)
 		prompt = "invalid-product-ingredients-input"
 
-	update_all_revenues(business_owner)
+	# update_all_revenues(business_owner)
 	return prompt
 
 
@@ -541,7 +541,7 @@ def add_production_record(request, business_owner):
 	except Exception as e:
 		print(e)
 		prompt = "invalid-production-add-input"
-	update_all_profit(business_owner)
+	# update_all_profit(business_owner)
 	return prompt
 
 
@@ -569,7 +569,7 @@ def edit_production_record(request, business_owner):
 	except Exception as e:
 		print(e)
 		prompt = "invalid-production-edit-input"
-	update_all_profit(business_owner)
+	# update_all_profit(business_owner)
 	return prompt
 
 
@@ -621,6 +621,7 @@ def profit_optimizer_view(request):
 	if n > 0:
 		avg_sales_products = get_avg_sales(business_owner) # dictionary containing average daily sales for each product
 		objective_func_coeffs = (-1)*numpy.array(get_objective_eqn(products_data,avg_sales_products))
+		print(f'objective_func_coeffs = {objective_func_coeffs}')
 	else:
 		prices = numpy.array([i.price for i in products_data])
 		costs = numpy.array([i.cost for i in products_data])
@@ -628,7 +629,7 @@ def profit_optimizer_view(request):
 	# we can maximize profit by minimizing the negative of profit
 
 	result = linprog(objective_func_coeffs, A_ub=constraints_LHS, b_ub=constratins_RHS, bounds=(0, None))
-	F = convert_to_profit(result,avg_sales_products,products_data) if n > 0 else round(-result.fun,2)
+	F = -convert_to_profit(result,avg_sales_products,products_data) if n > 0 else round(-result.fun,2)
 
 	optimal = {
 		"status": result.message,

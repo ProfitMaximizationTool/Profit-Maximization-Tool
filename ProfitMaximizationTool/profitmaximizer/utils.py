@@ -30,6 +30,7 @@ def get_avg_sales(BusinessOwner):
 
 def get_objective_eqn(Products_data,avg_sales_product):
     coeffs = []
+    print(f'avg_sales_product = {avg_sales_product}')
     for prod in avg_sales_product:
         curr_product = Products_data.get(product_name = prod)
         coefficient = (avg_sales_product[prod]*float(curr_product.price)) - float(curr_product.cost)
