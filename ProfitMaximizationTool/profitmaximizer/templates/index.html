@@ -8,7 +8,7 @@
     {% load static %}
 
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
-    <link rel="icon" href = "{% static 'img/logo-01.png' %}">
+    <link rel="icon" href="{% static 'img/logo-01.png' %}">
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -16,11 +16,11 @@
 </head>
 
 <body id="index">
-
-    <img class="bg-img" src="{% static 'img/bg-01.jpg' %}">
+ 
+    <!-- <img class="bg-img" src="{% static 'img/bg-01.jpg' %}">
     <img class="bg-img" src="{% static 'img/bg-02.jpg' %}">
     <img class="bg-img" src="{% static 'img/bg-03.jpg' %}">
-    <img class="bg-img" src="{% static 'img/bg-04.jpg' %}">
+    <img class="bg-img" src="{% static 'img/bg-04.jpg' %}"> -->
 
     <!-- sign up form overlaid -->
     <div id="signupoverlay" class="form-size overlay">
@@ -83,21 +83,19 @@
         {% endblock %}
     </div>
 
-    <div class="nav-bar landing transparent">
-        <div class="nav-bar-inner">
-            
+    <div class="nav-bar landing">
+        <div class="landing-nav-bar-inner">
             {% block nav-bar %}
-                <a class="page-link btn" href="#index">
-                    <img class="logo" src="{% static 'img/logo-white-01.png' %}">
-                 </a>
-                <a class="page-link btn" href="/dashboard/">
-                    <div class="landing-app-name">
-                        Profitify
-                    </div>
-               </a>
+                <img class="landing-logo" src="{% static 'img/logo-01.png' %}">
+                <div class="landing-nav-app-name">
+                    Profitify
+                </div>
+                <div>
+                    <button class="btn-width outline dynamic-btn btn margin" id="opensignin-btn"> Sign In </button>
+                    <button class="btn-width fill dynamic-btn btn margin" id="opensignup-btn"> Sign Up </button>
+                </div>    
             {% endblock %}
         </div>
-        <div></div>
     </div>
 
     <div class="main-box">
@@ -106,11 +104,6 @@
 
         <br>
         <!-- sign up and sign in buttons -->
-        <div id="signin-signup">
-            <button class="fill medium-btn btn" id="opensignup-btn"> Sign Up </button>
-            <br>
-            <button class="outline medium-btn btn" id="opensignin-btn"> Sign In </button>
-        </div>
     </div>
 
 

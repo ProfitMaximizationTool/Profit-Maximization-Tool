@@ -33,6 +33,11 @@
     height: 100%;
 }
 
+.margin {
+    margin-left: 4px;
+    margin-right: 4px;
+}
+
 .bg-img {
     height: 100%;
     width: 100%;
@@ -121,11 +126,6 @@
 
 .regular {
     font-weight: 400;
-}
-
-/* Sign up and sign in buttons grouped */
-#signin-signup {
-    text-align: center;
 }
 
 /* Buttons */
@@ -481,19 +481,17 @@ a:link {
 	width: 100%;
     display: block;
     z-index: 5;
+    color: var(--primary);
+    filter: drop-shadow(0px 0px 5px #524a4e3a);
+    background-color: white;
 }
 
 .landing {
-    height: 70px;
-	color: white;
-    background-color: transparent;
+    height: 80px;
 }
 
 .base {
     height: 70px;
-	color: var(--primary);
-    filter: drop-shadow(0px 0px 5px #524a4e3a);
-    background-color: white;
 }
 
 .nav-bar-inner {
@@ -505,6 +503,17 @@ a:link {
     margin-left: 10px;
 }
 
+.landing-nav-bar-inner {
+    display: inline-flex;
+    align-items: center;
+    position: relative;
+    height: 100%;
+    width: 100%;
+    box-sizing: border-box;
+    border-left: 200px solid transparent;
+    border-right: 200px solid transparent;
+}
+
 .logo {
     width: 30px;
     height: 30px;
@@ -512,12 +521,20 @@ a:link {
     object-fit: fill;
 }
 
-.landing-app-name {
+.landing-logo {
+    width: 45px;
+    height: 45px;
+    margin-right: 8px;
+    object-fit: fill;
+}
+
+.landing-nav-app-name {
     font-family: 'Poppins', sans-serif;
     font-weight: 700;
-    font-size: var(--large);
+    font-size: 32px;
     user-select: none;
-    color: white;
+    color: var(--primary);
+    margin-right: auto;
 }
 
 .nav-app-name {
@@ -720,7 +737,7 @@ a:link {
 }
 
 .btn-width {
-    width: 140px;
+    width: 120px;
 }
 
 /* prompts */
