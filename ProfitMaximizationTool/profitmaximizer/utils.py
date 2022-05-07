@@ -30,6 +30,7 @@ def get_avg_sales(BusinessOwner):
 
 def get_objective_eqn(Products_data,avg_sales_product):
     coeffs = []
+    print(f'avg_sales_product = {avg_sales_product}')
     for prod in avg_sales_product:
         curr_product = Products_data.get(product_name = prod)
         coefficient = (avg_sales_product[prod]*float(curr_product.price)) - float(curr_product.cost)
@@ -42,3 +43,14 @@ def convert_to_profit(n,avg_sales_product,products_data):
     for i in range(len(n.x)):
         profit -= sX[i]*float(products_data[i].price)*(n.x[i]- 1)
     return round(profit)
+
+def get_label_and_data(BusinessOwner):
+    dates = []
+    profits = []
+
+    sales_data = SalesRecord.objects.filter(owner=BusinessOwner).order_by("date")
+    for entry in sales_data:
+        dates.append(entry.date.strftime("%Y/%m/%d"))
+        profits.append(float(entry.profit))
+    
+    return (dates,profits)
