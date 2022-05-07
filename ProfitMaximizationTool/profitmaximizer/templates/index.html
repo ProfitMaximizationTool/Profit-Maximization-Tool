@@ -8,7 +8,7 @@
     {% load static %}
 
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
-    <link rel = "icon" href = "{% static 'img/logo-01.png' %}">
+    <link rel="icon" href = "{% static 'img/logo-01.png' %}">
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -16,6 +16,11 @@
 </head>
 
 <body id="index">
+
+    <img class="bg-img" src="{% static 'img/bg-01.jpg' %}">
+    <img class="bg-img" src="{% static 'img/bg-02.jpg' %}">
+    <img class="bg-img" src="{% static 'img/bg-03.jpg' %}">
+    <img class="bg-img" src="{% static 'img/bg-04.jpg' %}">
 
     <!-- sign up form overlaid -->
     <div id="signupoverlay" class="form-size overlay">
@@ -76,6 +81,23 @@
         
         <p class="small-text bottom"> Don't have an account? <a class="underline-link" href="javascript:void(0)" id="gotosignup-btn"> Sign up. </a> </p>
         {% endblock %}
+    </div>
+
+    <div class="nav-bar landing transparent">
+        <div class="nav-bar-inner">
+            
+            {% block nav-bar %}
+                <a class="page-link btn" href="#index">
+                    <img class="logo" src="{% static 'img/logo-white-01.png' %}">
+                 </a>
+                <a class="page-link btn" href="/dashboard/">
+                    <div class="landing-app-name">
+                        Profitify
+                    </div>
+               </a>
+            {% endblock %}
+        </div>
+        <div></div>
     </div>
 
     <div class="main-box">
