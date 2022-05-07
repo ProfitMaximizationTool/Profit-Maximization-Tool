@@ -134,7 +134,7 @@
     </div>
     <br>
     <div class="string-input-size search input-box">
-        <input type="text" class="string-input move" placeholder="Search sales date">
+        <input type="text" class="string-input move" id="search-table" placeholder="Search sales date">
     </div>
     <div class="table-container">
         <table class="data-table">
@@ -149,7 +149,7 @@
             {% for record in sales_data %}
             <tr class="sales-record data-table-row" id="sales-record-{{ record.id }}">
                 <td class="record-id data-table-cell"> {{ record.id }} </td>
-                <td class="record-name data-table-cell"> {{ record.date }} </td>
+                <td class="record-name data-table-cell search-key"> {{ record.date }} </td>
                 <td class="data-table-cell">
                 {% for product, quantity in record.sales_report.items %}
                     {{ product }} ({{ quantity }} units) <br>

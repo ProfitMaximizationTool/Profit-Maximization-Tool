@@ -449,18 +449,25 @@
 
 /* General links */
 
-a {
-    text-align: center;
-}
-
 a:link {
     text-decoration: none;
+}
+
+.underline-link:link {
     color: var(--primary);
 }
 
-a:hover {
+.underline-link:hover {
     text-decoration: underline;
     color: #524A4E;
+}
+
+.dashboard-link {
+    color: var(--dark);
+}
+
+.dashboard-link:hover {
+    background-color: var(--light);
 }
 
 /* Navigation Bar */
@@ -500,6 +507,7 @@ a:hover {
     font-weight: 700;
     font-size: var(--large);
     user-select: none;
+    color: var(--primary);
 }
 
 .nav-icon {
@@ -912,6 +920,12 @@ a:hover {
     border: 18px solid transparent;
     background-color: white;
     margin: 10px;
+    padding: 0px;
+}
+
+.block-inner {
+    width: 100%;
+    height: 100%;
 }
 
 .one-fourth {

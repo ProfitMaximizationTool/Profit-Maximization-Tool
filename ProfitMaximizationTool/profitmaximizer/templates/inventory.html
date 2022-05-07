@@ -120,7 +120,7 @@
     </div>
     <br>
     <div class="string-input-size search input-box">
-        <input type="text" class="string-input move" placeholder="Search ingredient name">
+        <input type="text" class="string-input move" id="search-table" placeholder="Search ingredient name">
     </div>
     <div class="table-container">
         <table class="data-table">
@@ -133,9 +133,9 @@
                 <th class="record-btns data-table-header">  </th>
             </tr>
             {% for ingredient in inventory_data %}
-            <tr class="ingredient-record data-table-row" id="ingredient-record-{{ ingredient.id }}">
+            <tr class="inventory-record data-table-row" id="ingredient-record-{{ ingredient.id }}">
                 <td class="record-id data-table-cell"> {{ ingredient.id}} </td>
-                <td class="data-table-cell"> {{ ingredient.ingredient_name }} </td>
+                <td class="data-table-cell search-key"> {{ ingredient.ingredient_name }} </td>
                 <td class="data-table-cell"> {{ ingredient.cost }} </td>
                 <td class="data-table-cell"> {{ ingredient.units }} </td>
                 <td class="data-table-cell"> {{ ingredient.daily_units }} </td>

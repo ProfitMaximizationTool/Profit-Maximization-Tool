@@ -36,42 +36,67 @@
     </div>
     <br>
     <div class="dashboard-container">
-    
+        
         <div class="one-fourth block default-font">
-            <div class="xsmall-font"> Number of Products </div>
-            <div class="numbers"> 3513 </div>
+            <a class="dashboard-link btn" href="/dashboard/products/">
+                <div class="block-inner">
+                    <div class="xsmall-font"> Number of Products </div>
+                    <div class="numbers"> {{ num_products|safe }} </div>
+                </div>
+            </a>
+        </div>
+        
+        <div class="one-fourth block default-font small-font">
+            <a class="dashboard-link btn" href="/dashboard/inventory/">
+                <div class="block-inner">
+                    <div class="xsmall-font"> Number of Inventory Items </div>
+                    <div class="numbers"> {{ num_ingredients|safe }} </div>
+                </div>
+            </a>
         </div>
 
         <div class="one-fourth block default-font small-font">
-            <div class="xsmall-font"> Number of Inventory Items </div>
-            <div class="numbers"> 6089 </div>
+            <a class="dashboard-link btn" href="/dashboard/sales/">
+                <div class="block-inner">
+                    <div class="xsmall-font"> Average Profit </div>
+                    <div class="numbers"> PhP {{ avg_profit|safe }} </div>
+                </div>
+            </a>
         </div>
 
         <div class="one-fourth block default-font small-font">
-            <div class="xsmall-font"> Average Profit </div>
-            <div class="numbers"> PhP 7632 </div>
-        </div>
-
-        <div class="one-fourth block default-font small-font">
-            <div class="xsmall-font"> Average Expenses  </div>
-            <div class="numbers"> PhP 2457 </div>
+            <a class="dashboard-link btn" href="/dashboard/production/">
+                <div class="block-inner">
+                    <div class="xsmall-font"> Average Expenses  </div>
+                    <div class="numbers"> PhP {{ avg_expenses|safe }} </div>
+                </div>
+            </a>
         </div>
 
         <div class="two-thirds block default-font small-font">
-            <div class="xsmall-font"> Profit Chart </div>
+            <a class="dashboard-link btn" href="/dashboard/profit-tracker/">
+                <div class="block-inner">
+                    <div class="xsmall-font"> Profit Chart </div>
+                </div>
+            </a>
+        </div>
+        
+        <div class="one-third block default-font">
+            <a class="dashboard-link btn" href="/dashboard/production/">
+                <div class="block-inner">
+                    <div class="xsmall-font"> Optimal Production </div>
+                    <br>
+                    <div class="table-container">
+                        <table class="data-table" id="optimizer-result-table">
+                            <tr class="optimal-table-row">
+                                <th class="record-name optimal-table-header"> Product </th> 
+                                <th class="record-price optimal-table-header"> Quantity </th> 
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </a>
         </div>
 
-        <div class="one-third block default-font">
-            <div class="xsmall-font"> Optimal Production </div>
-            <br>
-            <div class="table-container">
-                <table class="data-table" id="optimizer-result-table">
-                    <tr class="optimal-table-row">
-                        <th class="record-name optimal-table-header"> Product </th> 
-                        <th class="record-price optimal-table-header"> Quantity </th> 
-                    </tr>
-                </table>
-            </div>
-        </div>
     </div>
 {% endblock %}
