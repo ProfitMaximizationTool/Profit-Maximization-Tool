@@ -43,3 +43,14 @@ def convert_to_profit(n,avg_sales_product,products_data):
     for i in range(len(n.x)):
         profit -= sX[i]*float(products_data[i].price)*(n.x[i]- 1)
     return round(profit)
+
+def get_label_and_data(BusinessOwner):
+    dates = []
+    profits = []
+
+    sales_data = SalesRecord.objects.filter(owner=BusinessOwner).order_by("date")
+    for entry in sales_data:
+        dates.append(entry.date.strftime("%Y/%m/%d"))
+        profits.append(float(entry.profit))
+    
+    return (dates,profits)

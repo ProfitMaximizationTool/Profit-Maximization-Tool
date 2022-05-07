@@ -83,7 +83,7 @@ def signout_view(request):
 def dashboard_view(request):
 	business_owner = BusinessOwner.objects.get(username=request.user.username)
 	prompt = "none"
-
+	get_label_and_data(business_owner)
 	if request.method == "POST" and "import-data" in request.POST:
 		if 'inventory-table' in request.FILES:
 			prompt = import_inventory_table(request, business_owner)
@@ -269,7 +269,7 @@ def products_view(request):
 	business_owner = BusinessOwner.objects.get(username=request.user.username)
 	products_data = ProductRecord.objects.filter(owner=business_owner).order_by("id")
 	inventory_data = IngredientRecord.objects.filter(owner=business_owner).order_by("id")
-	update_all_products(business_owner)
+	# update_all_products(business_owner)
 	prompt = "none"
 
 	if request.method == "POST":
@@ -337,7 +337,7 @@ def edit_product_record(request, business_owner):
 	except:
 		prompt = "invalid-product-ingredients-input"
 	
-	update_all_revenues(business_owner)
+	# update_all_revenues(business_owner)
 	return prompt
 
 def delete_product_record(request, business_owner):
@@ -347,7 +347,7 @@ def delete_product_record(request, business_owner):
 	delete_record.delete()
 	prompt = "successful-product-delete-prompt"
 
-	update_all_revenues(business_owner)
+	# update_all_revenues(business_owner)
 	return prompt
 
 
@@ -436,8 +436,8 @@ def sales_view(request):
 		elif "delete-sales-btn" in request.POST:
 			prompt = delete_sales_record(request, business_owner)
 
-	update_all_revenues(business_owner)
-	update_all_profit(business_owner)
+	# update_all_revenues(business_owner)
+	# update_all_profit(business_owner)
 	return render(request, "sales.html", 
 		{"username": business_owner.username, "business_name": business_owner.business_name,
 		"full_name": business_owner.full_name, "page": "sales", "sales_data": sales_data, "products_data": products_data,
@@ -513,7 +513,7 @@ def production_view(request):
 	business_owner = BusinessOwner.objects.get(username=request.user.username)
 	products_data = ProductRecord.objects.filter(owner=business_owner).order_by("id")
 	production_data = ProductionRecord.objects.filter(owner=business_owner).order_by("date")
-	update_all_expenses(business_owner)
+	# update_all_expenses(business_owner)
 	prompt = "none"
 
 	if request.method == "POST":
@@ -548,7 +548,7 @@ def add_production_record(request, business_owner):
 	except Exception as e:
 		print(e)
 		prompt = "invalid-production-add-input"
-	# update_all_profit(business_owner)
+	update_all_profit(business_owner)
 	return prompt
 
 
@@ -576,7 +576,7 @@ def edit_production_record(request, business_owner):
 	except Exception as e:
 		print(e)
 		prompt = "invalid-production-edit-input"
-	# update_all_profit(business_owner)
+	update_all_profit(business_owner)
 	return prompt
 
 
