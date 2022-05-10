@@ -209,7 +209,7 @@ def import_sales_table(request, business_owner):
 		try:
 			temp_sales = SalesRecord.objects.get(date=sales_data[i][0],sales_report=sales,owner=business_owner)
 			temp_sales.date = sales_data[i][0]
-			temp_sales.salesOfEachProduct = sales
+			temp_sales.sales_report = sales
 			temp_sales.update_revenue()
 			temp_sales.update_profit()
 			temp_sales.save()
