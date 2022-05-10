@@ -84,7 +84,7 @@ def dashboard_view(request):
 	business_owner = BusinessOwner.objects.get(username=request.user.username)
 	sales_data = SalesRecord.objects.filter(owner=business_owner).order_by("date").reverse()[:7:-1]
 	prompt = "none"
-	get_label_and_data(business_owner)
+	# get_label_and_data(business_owner)
 	if request.method == "POST" and "import-data" in request.POST:
 		if 'inventory-table' in request.FILES:
 			prompt = import_inventory_table(request, business_owner)
@@ -652,21 +652,20 @@ def profit_optimizer_view(request):
 	avg_sales_products = None
 	objective_func_coeffs = None
 	n = len(SalesRecord.objects.filter(owner=business_owner))
-	# if n > 0:
-	# 	avg_sales_products = get_avg_sales(business_owner) # dictionary containing average daily sales for each product
-	# 	objective_func_coeffs = (-1)*numpy.array(get_objective_eqn(products_data,avg_sales_products))
-	# else:
-	# 	prices = numpy.array([i.price for i in products_data])
-	# 	costs = numpy.array([i.cost for i in products_data])
-	# 	objective_func_coeffs = -(prices - costs) # assumes all products produced are sold;
-	prices = numpy.array([i.price for i in products_data])
-	costs = numpy.array([i.cost for i in products_data])
-	objective_func_coeffs = -(prices - costs) # assumes all products produced are sold;
-	objective_func_coeffs = [float(x) for x in objective_func_coeffs]
+	if n > 0:
+		avg_sales_products = get_avg_sales(business_owner) # dictionary containing average daily sales for each product
+		objective_func_coeffs = (-1)*numpy.array(get_objective_eqn(products_data,avg_sales_products))
+	else:
+		prices = numpy.array([i.price for i in products_data])
+		costs = numpy.array([i.cost for i in products_data])
+		objective_func_coeffs = -(prices - costs) # assumes all products produced are sold;
+	# prices = numpy.array([i.price for i in products_data])
+	# costs = numpy.array([i.cost for i in products_data])
+	# objective_func_coeffs = -(prices - costs) # assumes all products produced are sold;
+	# objective_func_coeffs = [float(x) for x in objective_func_coeffs]
 	# we can maximize profit by minimizing the negative of profit
-	print(f'objective_func_coeffs = {objective_func_coeffs}')
 	result = linprog(objective_func_coeffs, A_ub=constraints_LHS, b_ub=constratins_RHS, bounds=(0, None))
-	# F = convert_to_profit(result,avg_sales_products,products_data) if n > 0 else round(-result.fun,2)
+	F = convert_to_profit(result,avg_sales_products,products_data) if n > 0 else round(-result.fun,2)
 	F = round(-result.fun,2)
 
 	optimal = {

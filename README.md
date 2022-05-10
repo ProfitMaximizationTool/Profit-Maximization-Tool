@@ -9,14 +9,41 @@ This is a course requirements for CS191/192 Software Engineering Courses of the 
 - Diokno, Alyssa Beatrice
 - Loristo, John Ivan
 
+## Sprint 5
+
+**start date:** May 2, 2022
+
+**end date:** May 13, 2022
+
+### Use cases accomplished in sprint 5
+
+- UC7-S1: Business owner views the profit chart
+
+### Changelog in sprint 5:
+
+- Added search functionality for products, inventory, sales, and production table
+
+- Changed font styles of new links
+
+- New background for landing page
+
+- Improved edit profile page
+
+- Added ability to set profile picture
+
+- Added chart in dashboard and profit tracker tab
+
 ## Sprint 4
+
 **start date:** April 18, 2022
 **end date:** April 29, 2022
 
-### Use cases accomplished in sprint 3
+### Use cases accomplished in sprint 4
+
 - UC6-S1: Business owner uses the profit optimizer tool
 
 ### Changelog in sprint 4:
+
 - Optimize profit button works now
 - Quantity of products that must be produced (and sold) to obtain Optimal profit for the day is computed and displayed
 - The suggested result of Profit Optimizer can be added to Production table if the user wants to
@@ -271,6 +298,13 @@ Starting development server at http://127.0.0.1:8000/
 ```
 
 Paste the url into your browser and then you should be seeing the home page of the application now
+
+## Importing files order
+
+1. inventory
+2. products
+3. production
+4. sales
 
 # Requirements
 
