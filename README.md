@@ -194,6 +194,7 @@ You can download the text file named *requirements.txt* from the assets dropdown
 asgiref==3.5.0
 Django==4.0.2
 numpy==1.22.2
+Pillow==9.1.0
 scipy==1.8.0
 sqlparse==0.4.2
 tzdata==2021.5

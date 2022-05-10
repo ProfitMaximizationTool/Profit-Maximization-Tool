@@ -132,6 +132,7 @@ def import_inventory_table(request, business_owner):
 				temporary = IngredientRecord(
 					ingredient_name=columns[0], cost=columns[1],units=columns[2], daily_units=columns[3], owner=business_owner)
 				temporary.save()
+	update_all_products(business_owner)
 	prompt = "successful-ingredient-import-prompt"
 	return prompt
 
@@ -630,21 +631,28 @@ def profit_optimizer_view(request):
 	constraints_LHS = numpy.array(constraints_LHS)
 	constratins_RHS = numpy.array([i.daily_units for i in inventory_data]) # daily units of each ingredient
 
+	print(f'LHS = {constraints_LHS}')
+	print(f'RHS = {constratins_RHS}')
+
 	avg_sales_products = None
 	objective_func_coeffs = None
 	n = len(SalesRecord.objects.filter(owner=business_owner))
-	if n > 0:
-		avg_sales_products = get_avg_sales(business_owner) # dictionary containing average daily sales for each product
-		objective_func_coeffs = (-1)*numpy.array(get_objective_eqn(products_data,avg_sales_products))
-		print(f'objective_func_coeffs = {objective_func_coeffs}')
-	else:
-		prices = numpy.array([i.price for i in products_data])
-		costs = numpy.array([i.cost for i in products_data])
-		objective_func_coeffs = -(prices - costs) # assumes all products produced are sold;
+	# if n > 0:
+	# 	avg_sales_products = get_avg_sales(business_owner) # dictionary containing average daily sales for each product
+	# 	objective_func_coeffs = (-1)*numpy.array(get_objective_eqn(products_data,avg_sales_products))
+	# else:
+	# 	prices = numpy.array([i.price for i in products_data])
+	# 	costs = numpy.array([i.cost for i in products_data])
+	# 	objective_func_coeffs = -(prices - costs) # assumes all products produced are sold;
+	prices = numpy.array([i.price for i in products_data])
+	costs = numpy.array([i.cost for i in products_data])
+	objective_func_coeffs = -(prices - costs) # assumes all products produced are sold;
+	objective_func_coeffs = [float(x) for x in objective_func_coeffs]
 	# we can maximize profit by minimizing the negative of profit
-
+	print(f'objective_func_coeffs = {objective_func_coeffs}')
 	result = linprog(objective_func_coeffs, A_ub=constraints_LHS, b_ub=constratins_RHS, bounds=(0, None))
-	F = -convert_to_profit(result,avg_sales_products,products_data) if n > 0 else round(-result.fun,2)
+	# F = convert_to_profit(result,avg_sales_products,products_data) if n > 0 else round(-result.fun,2)
+	F = round(-result.fun,2)
 
 	optimal = {
 		"status": result.message,
