@@ -106,7 +106,7 @@ def dashboard_view(request):
 		{"username": business_owner.username, "business_name": business_owner.business_name,
 		"full_name": business_owner.full_name, "page": "dashboard", "prompt": prompt,
 		"num_products": num_products, "num_ingredients": num_ingredients, "avg_profit": avg_profit,
-		"avg_expenses": avg_expenses})
+		"avg_expenses": avg_expenses, "business_owner_photo": business_owner.photo})
 
 
 def import_inventory_table(request, business_owner):
@@ -250,15 +250,18 @@ def profile_view(request):
 	if request.method == "POST" and "save-btn" in request.POST:
 		new_full_name = request.POST["new-full-name"]
 		new_business_name = request.POST["new-business-name"]
+		photo = request.FILES["business-owner-photo"]
 		business_owner.full_name = new_full_name
 		business_owner.business_name = new_business_name
+		business_owner.photo = photo
 		business_owner.save()
 		prompt = "saved-profile-changes"
 
 
 	return render(request, "profile.html", 
 		{"username": business_owner.username, "business_name": business_owner.business_name,
-		"full_name": business_owner.full_name, "page": "profile", "prompt": prompt})
+		"full_name": business_owner.full_name, "page": "profile", "prompt": prompt, 
+		"business_owner_photo": business_owner.photo})
 
 
 
@@ -283,7 +286,8 @@ def products_view(request):
 
 	return render(request, "products.html", 
 		{"username": business_owner.username, "business_name": business_owner.business_name, "full_name": business_owner.full_name, 
-		"page": "products", "products_data": products_data, "inventory_data": inventory_data, "prompt": prompt})
+		"page": "products", "products_data": products_data, "inventory_data": inventory_data, "prompt": prompt,
+		"business_owner_photo": business_owner.photo})
 
 
 def add_product_record(request, business_owner):
@@ -369,7 +373,8 @@ def inventory_view(request):
 
 	return render(request, "inventory.html", 
 		{"username": business_owner.username, "business_name": business_owner.business_name,
-		"full_name": business_owner.full_name, "page": "inventory", "inventory_data": inventory_data, "prompt": prompt})
+		"full_name": business_owner.full_name, "page": "inventory", "inventory_data": inventory_data, "prompt": prompt,
+		"business_owner_photo": business_owner.photo})
 
 
 def add_ingredient_record(request, business_owner):
@@ -441,7 +446,7 @@ def sales_view(request):
 	return render(request, "sales.html", 
 		{"username": business_owner.username, "business_name": business_owner.business_name,
 		"full_name": business_owner.full_name, "page": "sales", "sales_data": sales_data, "products_data": products_data,
-		"prompt": prompt})
+		"prompt": prompt, "business_owner_photo": business_owner.photo})
 
 
 
@@ -525,7 +530,8 @@ def production_view(request):
 			prompt = delete_production_record(request, business_owner)
 	return render(request, "production.html", 
 		{"username": business_owner.username, "business_name": business_owner.business_name,
-		"full_name": business_owner.full_name, "page": "production", "production_data": production_data, "products_data": products_data, "prompt": prompt})
+		"full_name": business_owner.full_name, "page": "production", "production_data": production_data, 
+		"products_data": products_data, "prompt": prompt, "business_owner_photo": business_owner.photo})
 
 
 
@@ -599,7 +605,7 @@ def profit_tracker_view(request):
 
 	return render(request, "profit_tracker.html", 
 		{"username": business_owner.username, "business_name": business_owner.business_name,
-		"full_name": business_owner.full_name, "page": "profit-tracker"})
+		"full_name": business_owner.full_name, "page": "profit-tracker", "business_owner_photo": business_owner.photo})
 
 
 

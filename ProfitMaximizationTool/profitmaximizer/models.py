@@ -4,9 +4,15 @@ from django.db import models
 from django.contrib.auth.models import User
 from django.core.exceptions import ObjectDoesNotExist
 
+
+
+def business_owner_photos_dir(instance, filename):
+	return "photos/{}-{}".format(instance.username, instance.id)
+
 class BusinessOwner(User):
 	business_name = models.CharField(max_length=100)
 	full_name = models.CharField(max_length=30, blank=True)
+	photo = models.ImageField(upload_to=business_owner_photos_dir, blank=True)
 	
 	def __str__(self):
 		return self.username
@@ -93,17 +99,3 @@ class ProductionRecord(models.Model):
 				new_expense += 0
 		self.expenses = new_expense
 		self.save()
-"""
-suggestions for variable names
-class ProductionRecord:
-	date
-	production_report
-	expenses
-
-class SalesRecord:
-	date
-	sales_report
-	profit
-
-
-"""

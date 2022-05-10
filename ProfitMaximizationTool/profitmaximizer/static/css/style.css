@@ -646,6 +646,14 @@ a:link {
     margin: 10px;
 }
 
+.change-photo-btn {
+    border-radius: 50%;
+    width: 200px;
+    height: 200px;
+    margin: 10px;
+    cursor: pointer;
+}
+
 .page-name {
     color: var(--dark);
     font-family: 'Inter', sans-serif;

@@ -126,9 +126,13 @@
                     <br>
                     <a class="page-link btn" href="/dashboard/profile/">
                         <div class="profile" id="go-to-profile-btn">
-                            <img class="profile-photo" src="{% static 'img/pic.jpg' %}">
+                            {% if business_owner_photo %}
+                                <img class="profile-photo" src="{{ business_owner_photo.url|safe }}">
+                            {% else %}
+                                <img class="profile-photo" src="{% static 'img/logo-01.png' %}">
+                            {% endif %}
                             <div class="account-info">
-                                <div class="small-font bold">{{ full_name|safe }}</div>    <!-- &#8226 -->
+                                <div class="small-font bold">{{ full_name|safe }}</div>
                                 <div class="xsmall-font regular">{{ username|safe }}</div>  
                                 <div class="xsmall-font regular">{{ business_name|safe }}</div>
                             </div>

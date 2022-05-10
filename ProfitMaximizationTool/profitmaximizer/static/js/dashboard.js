@@ -104,6 +104,23 @@ if (page == "dashboard"){
 
 }
 
+if (page == "profile"){
+	var photoContainer = document.getElementById("business-owner-photo");
+	var changePhoto = document.getElementById("change-photo-btn");
+	changePhoto.addEventListener("click", function(event){
+		event.preventDefault();
+		photoContainer.click();
+	})
+
+	photoContainer.addEventListener("change", function(event){
+		event.preventDefault();
+		var url =  window.URL.createObjectURL(photoContainer.files[0]);
+		changePhoto.src = url;
+	});
+
+}
+
+
 // ====================================================== INVENTORY ==================================================================
 if (page == "inventory"){
 	// Adding new ingredient record
