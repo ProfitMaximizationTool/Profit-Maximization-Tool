@@ -109,7 +109,8 @@
                                 },
                                 options: {
                                     legend: {display: false},
-                                    scales: {}
+                                    scales: {},
+                                    maintainAspectRatio: false,
                                     }
                         });
                             });
@@ -123,7 +124,9 @@
         <div class="one-third block default-font">
             <a class="dashboard-link btn" href="/dashboard/production/">
                 <div class="block-inner">
-                    <div class="xsmall-font"> Optimal Production </div>
+                    <div class="default-font small-font left-text dark-font bold">Production for today, {{ today|safe }}</div>
+                    <br>
+                    <div class="default-font xsmall-font left-text dark-font">{{ production_status|safe }}</div>
                     <br>
                     <div class="table-container">
                         <table class="data-table" id="optimizer-result-table">
@@ -131,6 +134,14 @@
                                 <th class="record-name optimal-table-header"> Product </th> 
                                 <th class="record-price optimal-table-header"> Quantity </th> 
                             </tr>
+                            {% for product, qty in production_report.items %}
+                            <tr class="optimal-table-row">
+                                <td class="optimal-table-cell">{{ product }} </td>
+                                <td class="optimal-table-cell">{{ qty }} </td>
+                            </tr>
+                            {% endfor %}
+
+
                         </table>
                     </div>
                 </div>

@@ -28,6 +28,27 @@ def get_avg_sales(BusinessOwner):
         avg_sales_prod[prod] /= len(SalesRecord.objects.filter(owner=BusinessOwner))
     return avg_sales_prod
 
+
+def get_avg_daily_profit(BusinessOwner):
+    sales_data = SalesRecord.objects.filter(owner=BusinessOwner)
+    avg_profit = 0
+    if len(sales_data) > 0:
+        for sales in sales_data:
+            avg_profit += sales.profit
+        avg_profit = avg_profit / len(sales_data)
+
+    return avg_profit
+
+
+def get_avg_daily_expenses(BusinessOwner):
+    production_data = ProductionRecord.objects.filter(owner=BusinessOwner)
+    avg_expenses = 0
+    if len(production_data) > 0:
+        for production in production_data:
+            avg_expenses += production.expenses
+        avg_expenses = avg_expenses / len(production_data)
+    return avg_expenses
+
 def get_objective_eqn(Products_data,avg_sales_product):
     coeffs = []
     print(f'avg_sales_product = {avg_sales_product}')

@@ -147,7 +147,7 @@
             {% for record in production_data %}
             <tr class="production-record data-table-row" id="production-record-{{ record.id }}">
                 <td class="record-id data-table-cell"> {{ record.id }} </td>
-                <td class="record-name data-table-cell"> {{ record.date }} </td>
+                <td class="record-name data-table-cell search-key"> {{ record.date }} </td>
                 <td class="data-table-cell">
                 {% for product, quantity in record.production_report.items %}
                     {{ product }} ({{ quantity }} units) <br>

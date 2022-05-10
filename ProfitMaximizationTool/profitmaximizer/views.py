@@ -98,16 +98,31 @@ def dashboard_view(request):
 		if 'production-data' in request.FILES:
 			prompt = import_production_table(request, business_owner)
 
-	num_products = 0
-	num_ingredients = 0
-	avg_profit = 0
-	avg_expenses = 0
+	num_products = len(ProductRecord.objects.filter(owner=business_owner))
+	num_ingredients = len(IngredientRecord.objects.filter(owner=business_owner))
+	avg_profit = round(get_avg_daily_profit(business_owner), 2)
+	avg_expenses = round(get_avg_daily_expenses(business_owner), 2)
+
+	today = datetime.today().strftime('%Y-%m-%d')
+	try:
+		production = ProductionRecord.objects.get(owner=business_owner, date=today)
+		production_report = production.production_report
+		production_status = production.is_optimal
+		if production.is_optimal:
+			production_status = "This production is optimal."
+		else:
+			production_status = "This production is not optimal. Please run the profit optimizer."
+
+	except ObjectDoesNotExist:
+		production_report = {}
+		production_status = "Please run the profit optimizer."
 
 	return render(request, "dashboard.html", 
 		{"username": business_owner.username, "business_name": business_owner.business_name,
 		"full_name": business_owner.full_name, "page": "dashboard", "prompt": prompt,
 		"num_products": num_products, "num_ingredients": num_ingredients, "avg_profit": avg_profit,
-		"avg_expenses": avg_expenses, "business_owner_photo": business_owner.photo, "sales_data": sales_data})
+		"avg_expenses": avg_expenses, "business_owner_photo": business_owner.photo, "sales_data": sales_data,
+		"today": today, "production_report": production_report, "production_status": production_status})
 
 
 def import_inventory_table(request, business_owner):
@@ -661,7 +676,7 @@ def profit_optimizer_view(request):
 				continue
 			new_production_products[item.product_name] = int(round(result.x[i]))
 		try:
-			temporary = ProductionRecord(date=new_production_date, production_report= new_production_products, owner=business_owner)
+			temporary = ProductionRecord(date=new_production_date, production_report= new_production_products, owner=business_owner, is_optimal=True)
 			temporary.update_expenses()
 			temporary.save()	
 			update_all_profit(business_owner)

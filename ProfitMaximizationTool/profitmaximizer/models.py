@@ -85,6 +85,7 @@ class ProductionRecord(models.Model):
 	date = models.DateField(null=True)
 	production_report = models.JSONField(default=dict)
 	expenses = models.DecimalField(max_digits=10,decimal_places=2,default=0)
+	is_optimal = models.BooleanField(default=False)
 
 	class Meta:
 		constraints = [models.UniqueConstraint(fields=['owner','date'],name='unique_production_date')]
