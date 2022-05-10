@@ -82,6 +82,7 @@ def signout_view(request):
 @csrf_protect
 def dashboard_view(request):
 	business_owner = BusinessOwner.objects.get(username=request.user.username)
+	sales_data = SalesRecord.objects.filter(owner=business_owner).order_by("date").reverse()[:7:-1]
 	prompt = "none"
 	get_label_and_data(business_owner)
 	if request.method == "POST" and "import-data" in request.POST:
@@ -106,7 +107,7 @@ def dashboard_view(request):
 		{"username": business_owner.username, "business_name": business_owner.business_name,
 		"full_name": business_owner.full_name, "page": "dashboard", "prompt": prompt,
 		"num_products": num_products, "num_ingredients": num_ingredients, "avg_profit": avg_profit,
-		"avg_expenses": avg_expenses, "business_owner_photo": business_owner.photo})
+		"avg_expenses": avg_expenses, "business_owner_photo": business_owner.photo, "sales_data": sales_data})
 
 
 def import_inventory_table(request, business_owner):
@@ -602,10 +603,11 @@ def delete_production_record(request, business_owner):
 @login_required
 def profit_tracker_view(request):
 	business_owner = BusinessOwner.objects.get(username=request.user.username)
+	sales_data = SalesRecord.objects.filter(owner=business_owner).order_by("date").reverse()[:30:-1]
 
 	return render(request, "profit_tracker.html", 
 		{"username": business_owner.username, "business_name": business_owner.business_name,
-		"full_name": business_owner.full_name, "page": "profit-tracker", "business_owner_photo": business_owner.photo})
+		"full_name": business_owner.full_name, "page": "profit-tracker", "business_owner_photo": business_owner.photo,"sales_data" : sales_data})
 
 
 
