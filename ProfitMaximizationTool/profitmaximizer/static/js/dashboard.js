@@ -93,16 +93,19 @@ Array.prototype.slice.call(document.getElementsByClassName("close")).forEach(fun
 // Handlers for the import data buttons
 
 Array.prototype.slice.call(document.getElementsByClassName("import-data")).forEach(function(element){
+	const realFileBtn = document.getElementById(element.id + "-container");
+	const displayfileName = document.getElementById(element.id + "-name");
+	
 	element.addEventListener("click", function(event){
 		event.preventDefault();
-		document.getElementById(element.id + "-container").click();
+		realFileBtn.click();
 	});
 
-	document.getElementById(element.id + "-container").addEventListener("change", function() {
-		if (document.getElementById(element.id + "-container").value) {
-			document.getElementById(element.id + "-name").innerHTML = document.getElementById(element.id + "-container").value.match(/[\/\\]([\w\d\s\.\-\(\)]+)$/)[1];
+	realFileBtn.addEventListener("change", function() {
+		if (realFileBtn.value) {
+			displayfileName.innerHTML = realFileBtn.value.match(/[\/\\]([\w\d\s\.\-\(\)]+)$/)[1];
 		} else {
-			document.getElementById(element.id + "-name").innerHTML = "No file chosen"
+			displayfileName.innerHTML = "No file chosen"
 		}
 	})
 });
