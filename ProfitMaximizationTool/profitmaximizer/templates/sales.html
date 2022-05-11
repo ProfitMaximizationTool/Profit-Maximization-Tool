@@ -113,8 +113,8 @@
 {% endblock %}
 
 {% block page-content %}
-    <div class="page-title">
-        Sales
+    <div class="page-title-container">
+        <div class="page-title"> Sales </div>
         <input type="button" class="fill small-btn rightmost btn" value="+ Add new record" id="sales-overlay-btn">
     </div>
     <div class="success prompt full-width center text" id="successful-sales-add-prompt">
@@ -134,6 +134,7 @@
     </div>
     <br>
     <div class="string-input-size search input-box">
+        <ion-icon class="form-icon" name="search"></ion-icon>
         <input type="text" class="string-input move" id="search-table" placeholder="Search sales date">
     </div>
     <div class="table-container">
