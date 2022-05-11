@@ -6,7 +6,7 @@
     <div class="page-title">
         Dashboard
     </div>
-    <div class="left-text dark-font large-font text">
+    <div class="left-text dark-font medium-font text">
         Hi, {{ full_name|safe }}.
     </div>
     <div class="success prompt full-width center text" id="successful-ingredient-import-prompt">
@@ -83,6 +83,8 @@
                     <script>
                         $(document).ready(function(){
                             var ctx = document.getElementById('profitTracker').getContext('2d');
+                            Chart.defaults.font.size = 10;
+                            Chart.defaults.font.family = "'Inter', sans-serif";
                             var profitTracker = new Chart(ctx, {
                                 type: 'line',
                                 data: {
@@ -93,7 +95,7 @@
                                         fill: false,
                                         lineTension: 0.1,
                                         backgroundColor: "rgba(255, 255, 255, 1)",
-                                        borderColor: "rgba(255, 192, 211, 1)",
+                                        borderColor: "#ff5c8d",
                                         data: [{%for sales in sales_data%}'{{sales.profit}}',{%endfor%}],
                                         },
                                         {
@@ -101,14 +103,15 @@
                                         fill: false,
                                         lineTension: 0.1,
                                         backgroundColor: "rgba(255, 255, 255, 1)",
-                                        borderColor: "rgba(199, 246, 182,1)",
+                                        borderColor: "#524a4e",
                                         data: [{%for sales in sales_data%}'{{sales.revenue}}',{%endfor%}]
                                         },
                                     ]
-                                    
                                 },
                                 options: {
-                                    legend: {display: false},
+                                    legend: {
+                                        display: false,
+                                    },
                                     scales: {},
                                     maintainAspectRatio: false,
                                     }
