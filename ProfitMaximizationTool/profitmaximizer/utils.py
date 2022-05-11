@@ -51,7 +51,6 @@ def get_avg_daily_expenses(BusinessOwner):
 
 def get_objective_eqn(Products_data,avg_sales_product):
     coeffs = []
-    print(f'avg_sales_product = {avg_sales_product}')
     for prod in avg_sales_product:
         curr_product = Products_data.get(product_name = prod)
         coefficient = (avg_sales_product[prod]*float(curr_product.price)) - float(curr_product.cost)
@@ -65,13 +64,21 @@ def convert_to_profit(n,avg_sales_product,products_data):
         profit -= sX[i]*float(products_data[i].price)*(n.x[i]- 1)
     return round(profit)
 
-def get_label_and_data(BusinessOwner):
-    dates = []
-    profits = []
-
-    sales_data = SalesRecord.objects.filter(owner=BusinessOwner).order_by("date")
-    for entry in sales_data:
-        dates.append(entry.date.strftime("%Y/%m/%d"))
-        profits.append(float(entry.profit))
-    
-    return (dates,profits)
+def update_available_units(business_owner,production_report,products_data,ingredients_data):
+    print(f'production_report = {production_report}')
+    for prod in production_report:
+        prod_record = None
+        try:
+            prod_record = products_data.get(product_name=prod)
+            for ingr in prod_record.ingredients:
+                ingr_record = None
+                try:
+                    ingr_record = ingredients_data.get(ingredient_name=ingr)
+                    decr_value = production_report[prod]*prod_record.ingredients[ingr]
+                    ingr_record.units = ingr_record.units - decr_value
+                    ingr_record.daily_units = ingr_record.daily_units - decr_value
+                    ingr_record.save()
+                except Exception as e:
+                    print(e)
+        except Exception as e:
+            print(e)

@@ -567,6 +567,9 @@ def add_production_record(request, business_owner):
 		temporary = ProductionRecord(date=new_production_date, production_report= new_production_products, owner=business_owner)
 		temporary.update_expenses()
 		temporary.save()
+		products_data = ProductRecord.objects.filter(owner=business_owner).order_by("id")
+		inventory_data = IngredientRecord.objects.filter(owner=business_owner).order_by("id")
+		update_available_units(business_owner,new_production_products,products_data,inventory_data)
 		prompt = "successful-production-add-prompt"
 	except Exception as e:
 		print(e)
@@ -646,9 +649,6 @@ def profit_optimizer_view(request):
 	constraints_LHS = numpy.array(constraints_LHS)
 	constratins_RHS = numpy.array([i.daily_units for i in inventory_data]) # daily units of each ingredient
 
-	print(f'LHS = {constraints_LHS}')
-	print(f'RHS = {constratins_RHS}')
-
 	avg_sales_products = None
 	objective_func_coeffs = None
 	n = len(SalesRecord.objects.filter(owner=business_owner))
@@ -685,8 +685,13 @@ def profit_optimizer_view(request):
 		try:
 			temporary = ProductionRecord(date=new_production_date, production_report= new_production_products, owner=business_owner, is_optimal=True)
 			temporary.update_expenses()
-			temporary.save()	
-			update_all_profit(business_owner)
+			temporary.save()
+			update_available_units(business_owner,new_production_products,products_data,inventory_data)
+			try:
+				matching_sales_record = SalesRecord.objects.get(date=temporary.date)
+				matching_sales_record.update_profit()
+			except:
+				pass
 		except:
 			ProductionRecord.objects.filter(owner=business_owner, date = new_production_date).update(production_report = new_production_products)
 
