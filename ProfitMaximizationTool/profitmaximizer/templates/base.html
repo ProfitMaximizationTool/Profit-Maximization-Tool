@@ -55,8 +55,8 @@
             <div>
                 <form action=/dashboard/ method="POST" enctype="multipart/form-data">
                     {% csrf_token %}
-                    <input type="file" name="products-table" class="hidden" id="products-file-container">
-                    <input type="file" name="inventory-table" class="hidden" id="inventory-file-container">
+                    <input type="file" name="products-table" id="products-file-container">
+                    <input type="file" name="inventory-table" id="inventory-file-container">
                     <input type="file" name="sales-table" class="hidden" id="sales-file-container">
                     <input type="file" name="production-data" class="hidden" id="production-file-container">
                     <input type="submit" class="btn-width fill dynamic-btn btn" value="Upload File" name="import-data">
@@ -103,12 +103,12 @@
                 <a class="page-link btn" href="/dashboard/">
                     <img class="logo" src="{% static 'img/logo-01.png' %}">
                 </a>
-                <a class="page-link btn" href="/dashboard/">
+                <a class="page-link btn margin-auto" href="/dashboard/">
                     <div class="nav-app-name">
                         Profitify
                     </div>
-               </a>
-                <div class="btn-width right">
+                </a>
+                <div class="btn-width">
                     <form method="POST" action="/signout/">
                         {% csrf_token %}
                         <input type="submit" class="fill dynamic-btn btn" value="Sign out" name="signout-btn" >
@@ -123,7 +123,6 @@
         <div class="sidebar" id="sidebar-container">
             <div class="sidebar-inner">
                 {% block sidebar %}
-                    <br>
                     <a class="page-link btn" href="/dashboard/profile/">
                         <div class="profile" id="go-to-profile-btn">
                             {% if business_owner_photo %}
@@ -182,7 +181,6 @@
             </div>
         </div>
 
-        <br>
         <br>
         
         
