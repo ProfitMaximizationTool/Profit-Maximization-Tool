@@ -92,13 +92,21 @@ Array.prototype.slice.call(document.getElementsByClassName("close")).forEach(fun
 
 // Handlers for the import data buttons
 
-Array.prototype.slice.call(document.getElementsByClassName("card")).forEach(function(element){
+Array.prototype.slice.call(document.getElementsByClassName("import-data")).forEach(function(element){
 	element.addEventListener("click", function(event){
 		event.preventDefault();
-		element.style.backgroundColor = "#fdeff4";
 		document.getElementById(element.id + "-container").click();
 	});
+
+	document.getElementById(element.id + "-container").addEventListener("change", function() {
+		if (document.getElementById(element.id + "-container").value) {
+			document.getElementById(element.id + "-name").innerHTML = document.getElementById(element.id + "-container").value.match(/[\/\\]([\w\d\s\.\-\(\)]+)$/)[1];
+		} else {
+			document.getElementById(element.id + "-name").innerHTML = "No file chosen"
+		}
+	})
 });
+
 // ===================================================== DASHBOARD ===============================================================
 if (page == "dashboard"){
 

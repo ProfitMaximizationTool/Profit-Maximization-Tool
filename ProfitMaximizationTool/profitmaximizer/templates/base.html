@@ -18,48 +18,64 @@
     <div class="import-size overlay" id="import-overlay">
         <div class="import-inner full-width full-height centered-text">
             <button class="close x" id="close-import"><b>&#10005</b></button>
-            <div class="card-container">
-
-                <div class="card" id="products-file">
-                    <div class="card-content">
-                        <ion-icon class="card-icon" name="pricetag"></ion-icon>
-                        <div class="extra-bold">Products</div>
-                        <p class="xsmall-font regular">The Products table (must be csv file). </p>
-                    </div>
-                </div>
-
-                <div class="card" id="inventory-file">
-                    <div class="card-content">
-                        <ion-icon class="card-icon" name="briefcase"></ion-icon>
-                        <div class="extra-bold">Inventory</div>
-                        <p class="xsmall-font regular">The Inventory table (must be csv file). </p>
-                    </div>
-                </div>
-
-                <div class="card" id="sales-file">
-                    <div class="card-content">
-                        <ion-icon class="card-icon" name="wallet"></ion-icon>
-                        <div class="extra-bold">Sales</div>
-                        <p class="xsmall-font regular">The Sales table (must be csv file). </p>
-                    </div>
-                </div>
-
-                <div class="card" id="production-file">
-                    <div class="card-content">
-                        <ion-icon class="card-icon" name="fast-food"></ion-icon>
-                        <div class="extra-bold">Production</div>
-                        <p class="xsmall-font regular">The Production table (must be csv file). </p>
-                    </div>
-                </div>
-            </div>
             <div>
                 <form action=/dashboard/ method="POST" enctype="multipart/form-data">
                     {% csrf_token %}
-                    <input type="file" name="products-table" id="products-file-container">
-                    <input type="file" name="inventory-table" id="inventory-file-container">
+                    <div class="card-container">
+
+                        <div class="card">
+                            <div class="card-content">
+                                <ion-icon class="card-icon" name="pricetag"></ion-icon>
+                                <div class="extra-bold">Products</div>
+                                <p class="xsmall-font regular dark-font">The Products table (must be csv file). </p>
+                                <br>
+                                <button class="fill small-btn btn import-data" id="products-file"> Choose File </button>
+                                <br>
+                                <span class="file-name" id="products-file-name"> No file chosen </span>
+                            </div>
+                        </div>
+        
+                        <div class="card">
+                            <div class="card-content">
+                                <ion-icon class="card-icon" name="briefcase"></ion-icon>
+                                <div class="extra-bold">Inventory</div>
+                                <p class="xsmall-font regular dark-font">The Inventory table (must be csv file). </p>
+                                <br>
+                                <button class="fill small-btn btn import-data" id="inventory-file"> Choose File </button>
+                                <br>
+                                <span class="file-name" id="inventory-file-name"> No file chosen </span>
+                            </div>
+                        </div>
+        
+                        <div class="card">
+                            <div class="card-content">
+                                <ion-icon class="card-icon" name="wallet"></ion-icon>
+                                <div class="extra-bold">Sales</div>
+                                <p class="xsmall-font regular dark-font">The Sales table (must be csv file). </p>
+                                <br>
+                                <button class="fill small-btn btn import-data" id="sales-file"> Choose File </button>
+                                <br>
+                                <span class="file-name" id="sales-file-name"> No file chosen </span>
+                            </div>
+                        </div>
+        
+                        <div class="card">
+                            <div class="card-content">
+                                <ion-icon class="card-icon" name="fast-food"></ion-icon>
+                                <div class="extra-bold">Production</div>
+                                <p class="xsmall-font regular dark-font">The Production table (must be csv file). </p>
+                                <br>
+                                <button class="fill small-btn btn import-data" id="production-file"> Choose File </button>
+                                <br>
+                                <span class="file-name" id="production-file-name"> No file chosen </span>
+                            </div>
+                        </div>
+                    </div>
+                    <input type="file" name="products-table" class="hidden" id="products-file-container">
+                    <input type="file" name="inventory-table" class="hidden" id="inventory-file-container">
                     <input type="file" name="sales-table" class="hidden" id="sales-file-container">
                     <input type="file" name="production-data" class="hidden" id="production-file-container">
-                    <input type="submit" class="btn-width fill dynamic-btn btn" value="Upload File" name="import-data">
+                    <input type="submit" class="btn-width fill dynamic-btn btn" value="Import" name="import-data">
                 </form>
             </div>
         </div>

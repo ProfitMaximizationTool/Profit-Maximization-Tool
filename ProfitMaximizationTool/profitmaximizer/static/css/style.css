@@ -785,13 +785,14 @@ a:link {
 .card-container {
     display: flex;
     width: 100%;
-    height: 68%;
+    height: 80%;
     margin-bottom: 10px;
     justify-content: space-between;
 }
 
 .card {
     width: 23%;
+    height: 70%;
     cursor: pointer;
     text-align: center;
     font-family: 'Inter', sans-serif;
@@ -800,12 +801,6 @@ a:link {
     border: 0.5px solid var(--primary);
     border-radius: 4px;
     transition: 0.5s;
-}
-
-.card:hover {
-    background-color: var(--primary);
-    color: var(--light);
-    border-color: var(--primary);
 }
 
 .card-container .card {
@@ -820,6 +815,11 @@ a:link {
 .card-icon {
     font-size: 40px;
     margin-bottom: 8px;
+}
+
+.file-name {
+    font-size: var(--xsmall);
+    color: var(--dark);
 }
 
 .upload-btn {
