@@ -49,7 +49,7 @@
 /* Main box that contains title, app description, etc. */
 .landing-box {
     width: 100%;
-    height: 100%;
+    height: 100vh;
     box-sizing: border-box;
     border-left: 200px solid transparent;
     border-right: 200px solid transparent;
@@ -190,32 +190,32 @@
 .fill {
     background-color: var(--primary);
     border-color: var(--primary);
-    color: var(--light);
+    color: white;
 }
 
 .fill:hover {
     border-color: var(--primary);
     color: var(--primary);
-    background-color: var(--light);
+    background-color: white;
 }
 
 .outline {
-    background-color: var(--light);
+    background-color: white;
     border-color: var(--primary);
     color: var(--primary);
 }
 
 .outline:hover {
     background-color: var(--primary);
-    color: var(--light);
+    color: white;
     border-color: var(--primary);
 }
 
 
 /* Forms and Overlays */
 .form-size {
-    width: 350px;
-    height: 460px;
+    width: 380px;
+    height: 470px;
 }
 
 .form-title {
@@ -367,7 +367,7 @@
     font-family: 'Inter', sans-serif;
     font-weight: 800;
     line-height: 80%;
-    font-size: var(--large);
+    font-size: var(--medium);
     color: var(--primary);
     margin-top: 30px;
 }
@@ -390,8 +390,8 @@
     left: 50%;
     transform: translate(-50%, -50%);
     z-index: 1;
-    box-shadow: 0px 0px 10px #6b6e70;
-    border-radius: 18px;
+    box-shadow: 0px 0px 8px #6b6e70bd;
+    border-radius: 10px;
     box-sizing: border-box;
     border: 30px solid transparent;
     background-color: white;
@@ -541,10 +541,8 @@ a:link {
     color: var(--primary);
 }
 
-.nav-icon {
+.nav-icon-container {
     color: var(--primary);
-    width: 22px;
-    height: 22px;
     border-radius: 3px;
     padding-top: 5px;
     padding-bottom: 5px;
@@ -556,7 +554,12 @@ a:link {
     user-select: none;
 }
 
-.nav-icon:hover {
+.nav-icon {
+    width: 22px;
+    height: 22px;
+}
+
+.nav-icon-container:hover {
     background-color: var(--light);
 }
 
@@ -995,4 +998,8 @@ a:link {
 
 i {
     color: var(--dark);
+}
+
+ion-icon {
+    pointer-events: none;
 }

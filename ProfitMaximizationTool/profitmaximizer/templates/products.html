@@ -175,8 +175,8 @@
                 <input type="text" class="hidden" value="{{ product.ingredients }}" id="product-{{ product.id }}-ingredients">
                 
                 <td class="record-btns data-table-cell">
-                    <ion-icon class="record-icon btn edit-product" name="pencil"></ion-icon>
-                    <ion-icon class="record-icon btn delete-product" name="trash"></ion-icon>
+                    <span class="record-icon btn edit-product"> <ion-icon name="pencil"></ion-icon> </span>
+                    <span class="record-icon btn delete-product"> <ion-icon name="trash"></ion-icon> </span>
                 </td>
             </tr>
             {% endfor %}

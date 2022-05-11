@@ -29,6 +29,12 @@ document.getElementById("opensignup-btn").addEventListener("click", function(eve
     closeErrorContainers();
 });
 
+document.getElementById("register-btn").addEventListener("click", function(event){
+    event.preventDefault();
+    opensignup();
+    closeErrorContainers();
+});
+
 // close sign up
 document.getElementById("closesignup-btn").addEventListener("click", function(event){
     event.preventDefault();
