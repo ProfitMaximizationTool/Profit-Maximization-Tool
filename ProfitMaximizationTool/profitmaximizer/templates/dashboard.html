@@ -127,7 +127,7 @@
         <div class="one-third block default-font">
             <a class="dashboard-link btn" href="/dashboard/production/">
                 <div class="block-inner">
-                    <div class="default-font small-font left-text dark-font bold">Production for today, {{ today|safe }}</div>
+                    <div class="default-font small-font left-text dark-font bold">Production for today: {% now "N j, Y" %}</div>
                     <br>
                     <div class="default-font xsmall-font left-text dark-font">{{ production_status|safe }}</div>
                     <br>
