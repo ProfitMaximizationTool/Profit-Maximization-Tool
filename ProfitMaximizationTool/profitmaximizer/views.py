@@ -267,10 +267,12 @@ def profile_view(request):
 	if request.method == "POST" and "save-btn" in request.POST:
 		new_full_name = request.POST["new-full-name"]
 		new_business_name = request.POST["new-business-name"]
-		photo = request.FILES["business-owner-photo"]
+		photo = request.FILES.get("business-owner-photo", None)
+
 		business_owner.full_name = new_full_name
 		business_owner.business_name = new_business_name
-		business_owner.photo = photo
+		if photo is not None:
+			business_owner.photo = photo
 		business_owner.save()
 		prompt = "saved-profile-changes"
 
