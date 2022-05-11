@@ -117,8 +117,9 @@ if (page == "dashboard"){
 
 if (page == "profile"){
 	var photoContainer = document.getElementById("business-owner-photo");
+	var uploadPhoto = document.getElementById("upload-photo-btn")
 	var changePhoto = document.getElementById("change-photo-btn");
-	changePhoto.addEventListener("click", function(event){
+	uploadPhoto.addEventListener("click", function(event){
 		event.preventDefault();
 		photoContainer.click();
 	})

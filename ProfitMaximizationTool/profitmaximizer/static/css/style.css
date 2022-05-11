@@ -337,7 +337,7 @@
 /* Please generalize .import (by changing name). I used this class in other overlays as well*/
 
 .import-size {
-    width: 50%;
+    width: 60%;
     height: 50%;
 }
 
@@ -785,6 +785,9 @@ a:link {
 }
 
 
+.space {
+    width: 300px;
+}
 
 /* Import data overlay and tables */
 
@@ -970,7 +973,7 @@ a:link {
     box-shadow: 0px 0px 10px #6b6e706e;
     border-radius: 5px;
     box-sizing: border-box;
-    border: 18px solid transparent;
+    border: 20px solid transparent;
     background-color: white;
     margin: 10px;
     padding: 0px;
@@ -992,20 +995,20 @@ a:link {
 
 .one-third {
     width: calc((100% / 3) - 20px);
-    height: 500px;
-    max-height: 500px;
+    height: 400px;
+    max-height: 400px;
 }
 
 .two-thirds {
     width: calc((200% / 3) - 20px);
-    height: 500px;
-    max-height: 500px;
+    height: 400px;
+    max-height: 400px;
 }
 
 .numbers {
-    font-size: 35px;
+    font-size: 30px;
     font-family: 'Poppins', sans-serif;
-    font-weight: 500;
+    font-weight: 600;
     color: var(--primary);
 }
 

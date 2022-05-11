@@ -13,42 +13,48 @@
             <div class="success prompt input-width text" id="saved-profile-prompt">
                 Saved!
             </div>
-            <div class="one-third">
-                <form autocomplete="off" method="POST" enctype="multipart/form-data">
-                    {% csrf_token %}
-                    <div class="left-text dark-font large-font bold text">
-                        Account Information
+            <form autocomplete="off" method="POST" enctype="multipart/form-data">
+                {% csrf_token %}
+                <div class="page-title-container">
+                    <div class="margin-auto full-width">
+                        <div>
+                            <div class="left-text dark-font large-font bold text">
+                                Account Information
+                            </div>
+                            <br>
+                            <div class="small-font left-text dark-font text">
+                                Full Name
+                                <div class="string-input-size input-box">
+                                    <ion-icon class="form-icon" name="person"></ion-icon>
+                                    <input class="user-info" type="text" value="{{ full_name|safe}}" name="new-full-name">
+                                </div>
+                            </div>
+                            <div class="small-font left-text dark-font text">
+                                Business Name
+                                <div class="string-input-size input-box">
+                                    <ion-icon class="form-icon" name="business"></ion-icon>
+                                    <input class="user-info" type="text" value="{{ business_name|safe}}" name="new-business-name">
+                                </div>
+                            </div>
+                            <br>
+                            <input type="submit" class="fill small-btn btn" value="Save changes" name="save-btn" >
+                        </div>
                     </div>
-                    <br>
-                    <div class="right">
+                    <div class="space">
+
+                    </div>
+                    <div class="centered-text">
                         <input type="file" class="hidden" id="business-owner-photo" name="business-owner-photo" accept="image/png, image/jpeg">
                         {% if business_owner_photo %}
                             <img class="change-photo-btn" id="change-photo-btn" src="{{ business_owner_photo.url|safe }}">
                         {% else %}
                             <img class="change-photo-btn" id="change-photo-btn" src="{% static 'img/logo-01.png' %}">
                         {% endif %}
+                        <br>
+                        <button class="fill small-btn btn" id="upload-photo-btn"> Upload Photo </button>
                     </div>
-                    <div class="small-font left-text dark-font text">
-                        Full Name
-
-                        <div class="string-input-size input-box">
-                            <ion-icon class="form-icon" name="person"></ion-icon>
-                            <input class="user-info" type="text" value="{{ full_name|safe}}" name="new-full-name">
-                        </div>
-                    </div>
-                    <div class="small-font left-text dark-font text">
-                        Business Name
-                        <div class="string-input-size input-box">
-                            <ion-icon class="form-icon" name="business"></ion-icon>
-                            <input class="user-info" type="text" value="{{ business_name|safe}}" name="new-business-name">
-                        </div>
-                    </div>
-                    
-
-                    <br>
-                    <input type="submit" class="fill small-btn btn" value="Save changes" name="save-btn" >
-                </form>
-            </div>
+                </div>
+            </form>
         </div>
     </div>
 {% endblock %}
