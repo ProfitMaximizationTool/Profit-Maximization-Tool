@@ -12,7 +12,7 @@ from profitmaximizer.models import BusinessOwner, IngredientRecord, ProductRecor
 from django.core.exceptions import ObjectDoesNotExist
 from django.views.decorators.csrf import csrf_protect
 from profitmaximizer.utils import *
-from datetime import datetime
+from datetime import datetime, date
 from scipy.optimize import linprog
 
 import numpy
@@ -614,6 +614,11 @@ def delete_production_record(request, business_owner):
 
 	delete_id = request.POST['delete-production-record-id']
 	delete_record = ProductionRecord.objects.get(id=delete_id)
+	today = date.today()
+	if today == delete_record.date:
+		products_data = ProductRecord.objects.filter(owner=business_owner).order_by("id")
+		inventory_data = IngredientRecord.objects.filter(owner=business_owner).order_by("id")
+		update_available_units_before_delete(business_owner,delete_record.production_report,products_data,inventory_data)
 	delete_record.delete()
 	prompt = "successful-production-delete-prompt"
 	return prompt

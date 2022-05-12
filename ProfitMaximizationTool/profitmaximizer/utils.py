@@ -82,3 +82,22 @@ def update_available_units(business_owner,production_report,products_data,ingred
                     print(e)
         except Exception as e:
             print(e)
+
+def update_available_units_before_delete(business_owner,production_report,products_data,ingredients_data):
+    print(f'production_report = {production_report}')
+    for prod in production_report:
+        prod_record = None
+        try:
+            prod_record = products_data.get(product_name=prod)
+            for ingr in prod_record.ingredients:
+                ingr_record = None
+                try:
+                    ingr_record = ingredients_data.get(ingredient_name=ingr)
+                    decr_value = production_report[prod]*prod_record.ingredients[ingr]
+                    ingr_record.units = ingr_record.units + decr_value
+                    ingr_record.daily_units = ingr_record.daily_units + decr_value
+                    ingr_record.save()
+                except Exception as e:
+                    print(e)
+        except Exception as e:
+            print(e)
