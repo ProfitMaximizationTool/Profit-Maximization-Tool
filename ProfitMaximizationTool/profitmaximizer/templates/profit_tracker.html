@@ -23,7 +23,7 @@
                         {
                         label: "Profit per day",
                         fill: false,
-                        lineTension: 0.1,
+                        lineTension: 0.2,
                         backgroundColor: "rgba(255, 255, 255, 1)",
                         borderColor: "#ff5c8d",
                         data: [{%for sales in sales_data%}'{{sales.profit}}',{%endfor%}],
@@ -31,7 +31,7 @@
                         {
                         label: "Revenue per day",
                         fill: false,
-                        lineTension: 0.1,
+                        lineTension: 0.2,
                         backgroundColor: "rgba(255, 255, 255, 1)",
                         borderColor: "#524a4e",
                         data: [{%for sales in sales_data%}'{{sales.revenue}}',{%endfor%}]

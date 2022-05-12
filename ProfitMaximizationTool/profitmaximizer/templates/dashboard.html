@@ -35,117 +35,121 @@
         Production file upload unsuccessful, file extenstion must be .csv.
     </div>
     <br>
+
     <div class="dashboard-container">
-        
-        <div class="one-fourth block default-font">
-            <a class="dashboard-link btn" href="/dashboard/products/">
-                <div class="block-inner">
-                    <div class="xsmall-font"> Number of Products </div>
-                    <div class="numbers"> {{ num_products|safe }} </div>
-                </div>
-            </a>
-        </div>
-        
-        <div class="one-fourth block default-font small-font">
-            <a class="dashboard-link btn" href="/dashboard/inventory/">
-                <div class="block-inner">
-                    <div class="xsmall-font"> Number of Inventory Items </div>
-                    <div class="numbers"> {{ num_ingredients|safe }} </div>
-                </div>
-            </a>
-        </div>
-
-        <div class="one-fourth block default-font small-font">
-            <a class="dashboard-link btn" href="/dashboard/sales/">
-                <div class="block-inner">
-                    <div class="xsmall-font"> Average Profit </div>
-                    <div class="numbers"> PhP {{ avg_profit|safe }} </div>
-                </div>
-            </a>
-        </div>
-
-        <div class="one-fourth block default-font small-font">
-            <a class="dashboard-link btn" href="/dashboard/production/">
-                <div class="block-inner">
-                    <div class="xsmall-font"> Average Expenses  </div>
-                    <div class="numbers"> PhP {{ avg_expenses|safe }} </div>
-                </div>
-            </a>
-        </div>
-
-        <div class="two-thirds block default-font small-font">
-            <a class="dashboard-link btn" href="/dashboard/profit-tracker/">
-                <div class="block-inner">
-                    <div class="xsmall-font"> Profit Chart </div>
-                    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.7.1/chart.min.js"></script>
-                    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
-                
-                    <script>
-                        $(document).ready(function(){
-                            var ctx = document.getElementById('profitTracker').getContext('2d');
-                            Chart.defaults.font.size = 10;
-                            Chart.defaults.font.family = "'Inter', sans-serif";
-                            var profitTracker = new Chart(ctx, {
-                                type: 'line',
-                                data: {
-                                    labels: [{%for sales in sales_data%}'{{sales.date}}',{%endfor%}], 
-                                    datasets: [
-                                        {
-                                        label: "Profit per day",
-                                        fill: false,
-                                        lineTension: 0.1,
-                                        backgroundColor: "rgba(255, 255, 255, 1)",
-                                        borderColor: "#ff5c8d",
-                                        data: [{%for sales in sales_data%}'{{sales.profit}}',{%endfor%}],
-                                        },
-                                        {
-                                        label: "Revenue per day",
-                                        fill: false,
-                                        lineTension: 0.1,
-                                        backgroundColor: "rgba(255, 255, 255, 1)",
-                                        borderColor: "#524a4e",
-                                        data: [{%for sales in sales_data%}'{{sales.revenue}}',{%endfor%}]
-                                        },
-                                    ]
-                                },
-                                options: {
-                                    legend: {
-                                        display: false,
-                                    },
-                                    scales: {},
-                                    maintainAspectRatio: false,
-                                    }
-                        });
-                            });
-                    </script>
-                    <canvas id="profitTracker" ></canvas> 
-                </div>
-            </a>
-        </div>
-        
-        <div class="one-third block default-font">
-            <a class="dashboard-link btn" href="/dashboard/production/">
-                <div class="block-inner">
-                    <div class="default-font small-font left-text dark-font bold">Production for today: {% now "N j, Y" %}</div>
-                    <br>
-                    <div class="default-font xsmall-font left-text dark-font">{{ production_status|safe }}</div>
-                    <br>
-                    <div class="table-container">
-                        <table class="data-table" id="optimizer-result-table">
-                            <tr class="optimal-table-row">
-                                <th class="record-name optimal-table-header"> Product </th> 
-                                <th class="record-price optimal-table-header"> Quantity </th> 
-                            </tr>
-                            {% for product, qty in production_report.items %}
-                            <tr class="optimal-table-row">
-                                <td class="optimal-table-cell">{{ product }} </td>
-                                <td class="optimal-table-cell">{{ qty }} </td>
-                            </tr>
-                            {% endfor %}
-                        </table>
+        <div class="dashboard-row-container">
+            <div class="one-fourth block default-font">
+                <a class="dashboard-link btn" href="/dashboard/products/">
+                    <div class="block-inner">
+                        <div class="xsmall-font bold"> Number of Products </div>
+                        <div class="numbers"> {{ num_products|safe }} </div>
                     </div>
-                </div>
-            </a>
+                </a>
+            </div>
+            
+            <div class="one-fourth block default-font small-font">
+                <a class="dashboard-link btn" href="/dashboard/inventory/">
+                    <div class="block-inner">
+                        <div class="xsmall-font bold"> Number of Inventory Items </div>
+                        <div class="numbers"> {{ num_ingredients|safe }} </div>
+                    </div>
+                </a>
+            </div>
+
+            <div class="one-fourth block default-font small-font">
+                <a class="dashboard-link btn" href="/dashboard/sales/">
+                    <div class="block-inner">
+                        <div class="xsmall-font bold"> Average Profit </div>
+                        <div class="numbers"> PhP {{ avg_profit|safe }} </div>
+                    </div>
+                </a>
+            </div>
+
+            <div class="one-fourth block default-font small-font">
+                <a class="dashboard-link btn" href="/dashboard/production/">
+                    <div class="block-inner">
+                        <div class="xsmall-font bold"> Average Expenses  </div>
+                        <div class="numbers"> PhP {{ avg_expenses|safe }} </div>
+                    </div>
+                </a>
+            </div>
+        </div>
+        
+        <div class="dashboard-row-container">
+            <div class="two-thirds block default-font small-font">
+                <a class="dashboard-link btn" href="/dashboard/profit-tracker/">
+                    <div class="block-inner">
+                        <div class="small-font bold"> Profit Chart </div>
+                        <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.7.1/chart.min.js"></script>
+                        <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+                    
+                        <script>
+                            $(document).ready(function(){
+                                var ctx = document.getElementById('profitTracker').getContext('2d');
+                                Chart.defaults.font.size = 10;
+                                Chart.defaults.font.family = "'Inter', sans-serif";
+                                var profitTracker = new Chart(ctx, {
+                                    type: 'line',
+                                    data: {
+                                        labels: [{%for sales in sales_data%}'{{sales.date}}',{%endfor%}], 
+                                        datasets: [
+                                            {
+                                            label: "Profit per day",
+                                            fill: false,
+                                            lineTension: 0.2,
+                                            backgroundColor: "rgba(255, 255, 255, 1)",
+                                            borderColor: "#ff5c8d",
+                                            data: [{%for sales in sales_data%}'{{sales.profit}}',{%endfor%}],
+                                            },
+                                            {
+                                            label: "Revenue per day",
+                                            fill: false,
+                                            lineTension: 0.2,
+                                            backgroundColor: "rgba(255, 255, 255, 1)",
+                                            borderColor: "#524a4e",
+                                            data: [{%for sales in sales_data%}'{{sales.revenue}}',{%endfor%}]
+                                            },
+                                        ]
+                                    },
+                                    options: {
+                                        legend: {
+                                            display: false
+                                        },
+                                        scales: {},
+                                        maintainAspectRatio: false,
+                                        }
+                            });
+                                });
+                        </script>
+                        <canvas id="profitTracker" ></canvas> 
+                    </div>
+                </a>
+            </div>
+            
+            <div class="one-third block default-font">
+                <a class="dashboard-link btn" href="/dashboard/production/">
+                    <div class="block-inner">
+                        <div class="default-font small-font left-text dark-font bold">Production for today: {% now "N j, Y" %}</div>
+                        <br>
+                        <div class="default-font xsmall-font left-text dark-font">{{ production_status|safe }}</div>
+                        <br>
+                        <div class="table-container">
+                            <table class="data-table" id="optimizer-result-table">
+                                <tr class="optimal-table-row">
+                                    <th class="record-name optimal-table-header"> Product </th> 
+                                    <th class="record-price optimal-table-header"> Quantity </th> 
+                                </tr>
+                                {% for product, qty in production_report.items %}
+                                <tr class="optimal-table-row">
+                                    <td class="optimal-table-cell">{{ product }} </td>
+                                    <td class="optimal-table-cell">{{ qty }} </td>
+                                </tr>
+                                {% endfor %}
+                            </table>
+                        </div>
+                    </div>
+                </a>
+            </div>
         </div>
     </div>
 {% endblock %}
