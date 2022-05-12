@@ -128,27 +128,40 @@
 {% endblock %}
 
 {% block page-content %}
+
+    <!-- Page title and search bar -->
     <div class="page-title-container">
         <div class="page-title"> Products </div>
         <input type="button" class="fill small-btn btn" value="+ Add new record" id="product-overlay-btn">
     </div>
-    <div class="success prompt full-width center text" id="successful-product-add-prompt">
-        ProductRecord added!
-    </div>
-    <div class="success prompt full-width text" id="successful-product-edit-prompt">
-        ProductRecord edited!
-    </div>
-    <div class="success prompt full-width text" id="successful-product-delete-prompt">
-        ProductRecord deleted!
-    </div>
-    <div class="error prompt full-width text" id="invalid-product-ingredients-input">
-        Invalid ingredients input. Input should be in JSON format.
-    </div>
-    <br>
+    
     <div class="string-input-size search input-box">
         <ion-icon class="form-icon" name="search"></ion-icon>
         <input type="text" class="string-input move" id="search-table" placeholder="Search product name">
     </div>
+    
+    <!-- Prompts -->
+    <div class="success prompt" id="successful-product-add-prompt">
+        <p class="prompt-title"> Success! </p>
+        <p class="prompt-text"> Product record has been successfully added. </p>
+    </div>
+
+    <div class="success prompt" id="successful-product-edit-prompt">
+        <p class="prompt-title"> Success! </p>
+        <p class="prompt-text"> Product record has been successfully edited. </p>
+    </div>
+
+    <div class="success prompt" id="successful-product-delete-prompt">
+        <p class="prompt-title"> Success! </p>
+        <p class="prompt-text"> Product record has been successfully deleted. </p>
+    </div>
+
+    <div class="error prompt" id="invalid-product-ingredients-input">
+        <p class="prompt-title"> Error! </p>
+        <p class="prompt-text"> Invalid product record input. Record not added. </p>
+    </div>
+
+    <!-- Table -->
     <div class="table-container">
         <table class="data-table">
             <tr class="data-table-row">

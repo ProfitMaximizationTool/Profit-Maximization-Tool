@@ -112,30 +112,41 @@
 {% endblock %}
 
 {% block page-content %}
+    
+    <!-- Page title and search bar -->
     <div class="page-title-container">
         <div class="page-title"> Production </div>
         <input type="button" class="fill small-btn rightmost btn" value="+ Add new record" id="production-overlay-btn">
     </div>
-    <div class="success prompt full-width center text" id="successful-production-add-prompt">
-        ProductionRecord added!
-    </div>
-    <div class="success prompt full-width text" id="successful-production-edit-prompt">
-        ProductionRecord edited!
-    </div>
-    <div class="success prompt full-width text" id="successful-production-delete-prompt">
-        ProductionRecord deleted!
-    </div>
-    <div class="error prompt full-width text" id="invalid-production-edit-input">
-        Invalid production input. Changes not saved.
-    </div>
-    <div class="error prompt full-width text" id="invalid-production-add-input">
-        Invalid production input. Changes not saved.
-    </div>
-    <br>
+    
     <div class="string-input-size search input-box">
         <ion-icon class="form-icon" name="search"></ion-icon>
         <input type="text" class="string-input move" id="search-table" placeholder="Search production date">
     </div>
+
+    <!-- Prompts -->
+    <div class="success prompt" id="successful-production-add-prompt">
+        <p class="prompt-title"> Success! </p>
+        <p class="prompt-text"> Production record has been successfully added. </p>
+    </div>
+    <div class="success prompt" id="successful-production-edit-prompt">
+        <p class="prompt-title"> Success! </p>
+        <p class="prompt-text"> Production record has been successfully edited. </p>
+    </div>
+    <div class="success prompt" id="successful-production-delete-prompt">
+        <p class="prompt-title"> Success! </p>
+        <p class="prompt-text"> Production record has been successfully deleted. </p>
+    </div>
+    <div class="error prompt" id="invalid-production-edit-input">
+        <p class="prompt-title"> Error! </p>
+        <p class="prompt-text"> Invalid production record input. Record not added. </p>
+    </div>
+    <div class="error prompt" id="invalid-production-add-input">
+        <p class="prompt-title"> Error! </p>
+        <p class="prompt-text"> Invalid production record input. Changes not saved. </p>
+    </div>
+
+    <!-- Table -->
     <div class="table-container">
         <table class="data-table">
             <tr class="data-table-row">

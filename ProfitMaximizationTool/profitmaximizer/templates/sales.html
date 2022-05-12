@@ -113,30 +113,41 @@
 {% endblock %}
 
 {% block page-content %}
+
+    <!-- Page title and search bar -->
     <div class="page-title-container">
         <div class="page-title"> Sales </div>
         <input type="button" class="fill small-btn rightmost btn" value="+ Add new record" id="sales-overlay-btn">
     </div>
-    <div class="success prompt full-width center text" id="successful-sales-add-prompt">
-        SalesRecord added!
-    </div>
-    <div class="success prompt full-width text" id="successful-sales-edit-prompt">
-        SalesRecord edited!
-    </div>
-    <div class="success prompt full-width text" id="successful-sales-delete-prompt">
-        SalesRecord deleted!
-    </div>
-    <div class="error prompt full-width text" id="invalid-sales-add-input">
-        Invalid sales input. Changes not saved.
-    </div>
-    <div class="error prompt full-width text" id="invalid-sales-edit-input">
-        Invalid sales edit. Changes not saved.
-    </div>
-    <br>
+    
     <div class="string-input-size search input-box">
         <ion-icon class="form-icon" name="search"></ion-icon>
         <input type="text" class="string-input move" id="search-table" placeholder="Search sales date">
     </div>
+
+    <!-- Prompts -->
+    <div class="success prompt" id="successful-sales-add-prompt">
+        <p class="prompt-title"> Success! </p>
+        <p class="prompt-text"> Sales record has been successfully added. </p>
+    </div>
+    <div class="success prompt" id="successful-sales-edit-prompt">
+        <p class="prompt-title"> Success! </p>
+        <p class="prompt-text"> Sales record has been successfully edited. </p>
+    </div>
+    <div class="success prompt" id="successful-sales-delete-prompt">
+        <p class="prompt-title"> Success! </p>
+        <p class="prompt-text"> Sales record has been successfully deleted. </p>
+    </div>
+    <div class="error prompt" id="invalid-sales-add-input">
+        <p class="prompt-title"> Error! </p>
+        <p class="prompt-text"> Invalid sales record input. Record not added. </p>
+    </div>
+    <div class="error prompt" id="invalid-sales-edit-input">
+        <p class="prompt-title"> Error! </p>
+        <p class="prompt-text"> Invalid sales record input. Changes not saved. </p>
+    </div>
+
+    <!-- Table -->
     <div class="table-container">
         <table class="data-table">
             <tr class="data-table-row">

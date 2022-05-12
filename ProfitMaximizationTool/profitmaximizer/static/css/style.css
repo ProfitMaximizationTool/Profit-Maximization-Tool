@@ -4,10 +4,8 @@
     --primary: #ff5c8d;
     --light: #fdeff4;
     --dark: #524a4e;
-    --success: #c7f6b6;
-    --success-dark: #007e33;
-    --danger: #ffcccb;
-    --danger-dark: #cc0000;
+    --success: #44d788;
+    --danger: #fa461c;
 
 
     /* font sizes */
@@ -412,6 +410,24 @@
     background-color: var(--light);
 }
 
+.small-x {
+    color: white;
+    float: right;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 800;
+    font-size: 10px;
+    border: none;
+    border-radius: 100px;
+    background-color: transparent;
+    height: 20px;
+    width: 20px;
+    text-align: center;
+}
+
+.small-x:hover {
+    background-color: rgba(255, 255, 255, 0.288);
+}
+
 .close:hover {
     cursor: pointer;
 }
@@ -755,29 +771,39 @@ a:link {
 /* prompts */
 .prompt {
     display: none;
-    text-align: center;
     border-radius: 4px;
-    color: var(--dark);
-    padding-top: 4px;
-    padding-bottom: 4px;
-    border-color: var(--primary);
-    font-size: var(--xsmall);
-    font-family: var(--default-font);
+    color: white;
+    height: auto;
+    font-family: 'Poppins', sans-serif;
+    width: 100%;
 }
 
 .success {
     background-color: var(--success);
-    border-color: var(--success-dark);
+    border-color: white;
+    border: 12px solid transparent;
+    box-sizing: border-box;
 }
 
 .error {
     background-color: var(--danger);
-    border-color: var(--danger-dark);
+    border-color: white;
+    border: 10px solid transparent;
+    box-sizing: border-box;
 }
 
+.prompt-title {
+    font-weight: 500;
+    font-size: var(--small);
+    margin-block-start: 0;
+    margin-block-end: 0;
+}
 
-.space {
-    width: 300px;
+.prompt-text {
+    font-weight: 400;
+    font-size: var(--xsmall);
+    margin-block-start: 0;
+    margin-block-end: 0;
 }
 
 /* Import data overlay and tables */
