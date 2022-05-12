@@ -37,6 +37,7 @@
 }
 
 .bg-img {
+    background-image: url(../img/bg-01.png);
     height: 100%;
     width: 100%;
     background-position: center;
@@ -776,6 +777,8 @@ a:link {
     height: auto;
     font-family: 'Poppins', sans-serif;
     width: 100%;
+    margin-top: 10px;
+    margin-bottom: 10px;
 }
 
 .success {
