@@ -10,8 +10,9 @@
 
     <div>
         <div>
-            <div class="success prompt input-width text" id="saved-profile-prompt">
-                Saved!
+            <div class="success prompt" id="saved-profile-prompt">
+                <p class="prompt-title"> Success! </p>
+                <p class="prompt-text"> Changes have been saved. </p>
             </div>
             <form autocomplete="off" method="POST" enctype="multipart/form-data">
                 {% csrf_token %}
