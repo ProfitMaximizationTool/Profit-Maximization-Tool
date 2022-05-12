@@ -571,7 +571,8 @@ def add_production_record(request, business_owner):
 		temporary.save()
 		products_data = ProductRecord.objects.filter(owner=business_owner).order_by("id")
 		inventory_data = IngredientRecord.objects.filter(owner=business_owner).order_by("id")
-		update_available_units(business_owner,new_production_products,products_data,inventory_data)
+		if date.today() == temporary.date:
+			update_available_units(business_owner,new_production_products,products_data,inventory_data,"add")
 		prompt = "successful-production-add-prompt"
 	except Exception as e:
 		print(e)
@@ -597,9 +598,14 @@ def edit_production_record(request, business_owner):
 
 		record = ProductionRecord.objects.get(date=edit_date, owner=business_owner)
 		record.date = edit_date
+		old_production_report = record.production_report
 		record.production_report = edit_production_products
 		record.update_expenses()
 		record.save()
+		if date.today() == record.date:
+			products_data = ProductRecord.objects.filter(owner=business_owner).order_by("id")
+			inventory_data = IngredientRecord.objects.filter(owner=business_owner).order_by("id")
+			update_available_units_edit(business_owner,old_production_report,edit_production_products,products_data,inventory_data)
 		prompt = "successful-production-edit-prompt"
 	except Exception as e:
 		print(e)
@@ -618,7 +624,7 @@ def delete_production_record(request, business_owner):
 	if today == delete_record.date:
 		products_data = ProductRecord.objects.filter(owner=business_owner).order_by("id")
 		inventory_data = IngredientRecord.objects.filter(owner=business_owner).order_by("id")
-		update_available_units_before_delete(business_owner,delete_record.production_report,products_data,inventory_data)
+		update_available_units(business_owner,delete_record.production_report,products_data,inventory_data,"delete")
 	delete_record.delete()
 	prompt = "successful-production-delete-prompt"
 	return prompt
@@ -693,7 +699,7 @@ def profit_optimizer_view(request):
 			temporary = ProductionRecord(date=new_production_date, production_report= new_production_products, owner=business_owner, is_optimal=True)
 			temporary.update_expenses()
 			temporary.save()
-			update_available_units(business_owner,new_production_products,products_data,inventory_data)
+			update_available_units(business_owner,new_production_products,products_data,inventory_data,"add")
 			try:
 				matching_sales_record = SalesRecord.objects.get(date=temporary.date)
 				matching_sales_record.update_profit()

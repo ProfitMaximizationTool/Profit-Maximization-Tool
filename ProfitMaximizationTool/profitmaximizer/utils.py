@@ -64,8 +64,7 @@ def convert_to_profit(n,avg_sales_product,products_data):
         profit -= sX[i]*float(products_data[i].price)*(n.x[i]- 1)
     return round(profit)
 
-def update_available_units(business_owner,production_report,products_data,ingredients_data):
-    print(f'production_report = {production_report}')
+def update_available_units(business_owner,production_report,products_data,ingredients_data,choice = "add"):
     for prod in production_report:
         prod_record = None
         try:
@@ -74,30 +73,16 @@ def update_available_units(business_owner,production_report,products_data,ingred
                 ingr_record = None
                 try:
                     ingr_record = ingredients_data.get(ingredient_name=ingr)
-                    decr_value = production_report[prod]*prod_record.ingredients[ingr]
-                    ingr_record.units = ingr_record.units - decr_value
-                    ingr_record.daily_units = ingr_record.daily_units - decr_value
+                    update_value = production_report[prod]*prod_record.ingredients[ingr]
+                    update_value = (-1)*update_value if choice == "add" else update_value
+                    ingr_record.units = ingr_record.units + update_value
+                    ingr_record.daily_units = ingr_record.daily_units + update_value
                     ingr_record.save()
                 except Exception as e:
                     print(e)
         except Exception as e:
             print(e)
 
-def update_available_units_before_delete(business_owner,production_report,products_data,ingredients_data):
-    print(f'production_report = {production_report}')
-    for prod in production_report:
-        prod_record = None
-        try:
-            prod_record = products_data.get(product_name=prod)
-            for ingr in prod_record.ingredients:
-                ingr_record = None
-                try:
-                    ingr_record = ingredients_data.get(ingredient_name=ingr)
-                    decr_value = production_report[prod]*prod_record.ingredients[ingr]
-                    ingr_record.units = ingr_record.units + decr_value
-                    ingr_record.daily_units = ingr_record.daily_units + decr_value
-                    ingr_record.save()
-                except Exception as e:
-                    print(e)
-        except Exception as e:
-            print(e)
+def update_available_units_edit(business_owner,old_production_report,new_production_report,products_data,ingredients_data):
+    update_available_units(business_owner,old_production_report,products_data,ingredients_data,"delete")
+    update_available_units(business_owner,new_production_report,products_data,ingredients_data,"add")
