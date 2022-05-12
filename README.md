@@ -33,6 +33,14 @@ This is a course requirements for CS191/192 Software Engineering Courses of the 
 
 - Added chart in dashboard and profit tracker tab
 
+- Inventory total and daily units is updated based on current day's production record
+
+- New background
+
+- Redesigned success and error prompts
+
+- More UI changes
+
 ## Sprint 4
 
 **start date:** April 18, 2022
