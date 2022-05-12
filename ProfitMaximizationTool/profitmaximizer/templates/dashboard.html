@@ -6,33 +6,43 @@
     <div class="page-title">
         Dashboard
     </div>
+
     <div class="left-text dark-font medium-font text">
         Hi, {{ full_name|safe }}.
     </div>
-    <div class="success prompt full-width center text" id="successful-ingredient-import-prompt">
-        Inventory file Uploaded!
+
+    <div class="success prompt" id="successful-ingredient-import-prompt">
+        <p class="prompt-title"> Success! </p>
+        <p class="prompt-text"> Inventory file has been successfully uploaded. </p>
     </div>
-    <div class="success prompt full-width center text" id="successful-product-import-prompt">
-        Products file uploaded!
+    <div class="success prompt" id="successful-product-import-prompt">
+        <p class="prompt-title"> Success! </p>
+        <p class="prompt-text"> Products file has been successfully uploaded. </p>
     </div>
-    <div class="success prompt full-width center text" id="successful-sales-import-prompt">
-        Sales file Uploaded!
+    <div class="success prompt" id="successful-sales-import-prompt">
+        <p class="prompt-title"> Success! </p>
+        <p class="prompt-text"> Sales file has been successfully uploaded. </p>
     </div>
-    <div class="success prompt full-width center text" id="successful-production-import-prompt">
-        Production file uploaded!
+    <div class="success prompt" id="successful-production-import-prompt">
+        <p class="prompt-title"> Success! </p>
+        <p class="prompt-text"> Production file has been successfully uploaded. </p>
     </div>
 
-    <div class="error prompt full-width" id="unsuccessful-ingredient-import-prompt">
-        Inventory file upload unsuccessful, file extenstion must be .csv.
+    <div class="error prompt" id="unsuccessful-ingredient-import-prompt">
+        <p class="prompt-title"> Error! </p>
+        <p class="prompt-text"> Inventory file upload unsuccessful. File must be .csv. </p>
     </div>
-    <div class="error prompt full-width" id="unsuccessful-product-import-prompt">
-        Products file upload unsuccessful, file extenstion must be .csv.
+    <div class="error prompt" id="unsuccessful-product-import-prompt">
+        <p class="prompt-title"> Error! </p>
+        <p class="prompt-text"> Products file upload unsuccessful. File must be .csv. </p>
     </div>
-    <div class="error prompt full-width" id="unsuccessful-sales-import-prompt">
-        Sales file upload unsuccessful, file extenstion must be .csv.
+    <div class="error prompt" id="unsuccessful-sales-import-prompt">
+        <p class="prompt-title"> Error! </p>
+        <p class="prompt-text"> Sales file upload unsuccessful. File must be .csv. </p>
     </div>
-    <div class="error prompt full-width" id="unsuccessful-production-import-prompt">
-        Production file upload unsuccessful, file extenstion must be .csv.
+    <div class="error prompt" id="unsuccessful-production-import-prompt">
+        <p class="prompt-title"> Error! </p>
+        <p class="prompt-text"> Production file upload unsuccessful. File must be .csv. </p>
     </div>
     <br>
 
