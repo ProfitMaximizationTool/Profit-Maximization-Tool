@@ -9,6 +9,10 @@ This is a course requirements for CS191/192 Software Engineering Courses of the 
 - Diokno, Alyssa Beatrice
 - Loristo, John Ivan
 
+## UAT Release
+- Tested by **Group 4 (GoVLê)** on **June 8, 2022**
+- New set of sample files
+
 ## Sprint 5
 
 **start date:** May 2, 2022
